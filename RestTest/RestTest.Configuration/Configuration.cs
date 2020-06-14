@@ -34,12 +34,23 @@ namespace RestTest.Configuration
 
         private void ReadJSON()
         {
-            var fileContent = AdjustConfigurationFile(File.ReadAllText(_filename));
-            var jsonObjects = JsonConvert.DeserializeObject<List<UniqueConfigurationJsonNotation>>(fileContent);
-            foreach (var jsonObject in jsonObjects)
+            var fileContent = AdjustConfigurationFile(File.ReadAllText(_filename).Trim());
+            var testTypes = JsonConvert.DeserializeObject<List<object>>(fileContent);
+            foreach(var testType in testTypes)
             {
-                var configEntity = JSONToEntityConverter.ConvertUniqueConfiguration(jsonObject);
-                _uniques.Add(configEntity);
+                var test = JsonConvert.DeserializeObject<UniqueConfigurationJsonNotation>(testType.ToString());
+                if (test.type == "unique_test")
+                {
+                    var jsonObject = JsonConvert.DeserializeObject<UniqueConfigurationJsonNotation>(testType.ToString());
+                    var configEntity = JSONToEntityConverter.ConvertUniqueConfiguration(jsonObject);
+                    _uniques.Add(configEntity);                    
+                }
+                else
+                {
+                    var jsonObject = JsonConvert.DeserializeObject<SequenceConfigurationJsonNotation>(testType.ToString());
+                    var configEntity = JSONToEntityConverter.ConvertSequenceConfiguration(jsonObject);
+                    _sequence.Add(configEntity);
+                }
             }
         }
     }

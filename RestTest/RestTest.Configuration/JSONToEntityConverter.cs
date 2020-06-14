@@ -8,6 +8,25 @@ namespace RestTest.Configuration
 {
     internal class JSONToEntityConverter
     {
+        public static SequenceConfiguration ConvertSequenceConfiguration(SequenceConfigurationJsonNotation sequenceConfigurationJSONNotation)
+        {
+            return new SequenceConfiguration(
+                sequenceConfigurationJSONNotation.name,
+                sequenceConfigurationJSONNotation.type,
+                ConvertToUniqueTestSequence(sequenceConfigurationJSONNotation.sequence)
+            );
+        }
+
+        private static List<UniqueConfiguration> ConvertToUniqueTestSequence(List<UniqueConfigurationJsonNotation> sequence)
+        {
+            var result = new List<UniqueConfiguration>();
+            foreach (var item in sequence)
+            {
+                result.Add(ConvertUniqueConfiguration(item));
+            }
+            return result;
+        }
+
         public static UniqueConfiguration ConvertUniqueConfiguration(UniqueConfigurationJsonNotation uniqueConfigurationJSONNotation)
         {
             Enum.TryParse<Method>(uniqueConfigurationJSONNotation.method, ignoreCase: true, out var method);

@@ -1,5 +1,5 @@
 {
-  "name": "multiple calls set test",
+  "name": "sequence_test_name",
   "type": "sequence_test",
   "sequence": [
     {
