@@ -16,7 +16,24 @@ namespace RestTest.Configuration
                 uniqueConfigurationJSONNotation.name,
                 uniqueConfigurationJSONNotation.url,
                 method,
-                JSONToDictionary(uniqueConfigurationJSONNotation.header as JObject)
+                JSONToDictionary(uniqueConfigurationJSONNotation.header as JObject),
+                JSONToValidation(uniqueConfigurationJSONNotation.validation)
+            );
+        }
+
+        private static ValidationConfig JSONToValidation(ValidationConfigJsonNotation validation)
+        {
+            if (validation is null) return new ValidationConfig();
+
+            return new ValidationConfig
+            (
+                JSONToDictionary(validation.body as JObject),
+                JSONToDictionary(validation.header as JObject),
+                JSONToDictionary(validation.query_string as JObject),
+                JSONToDictionary(validation.cookie as JObject),
+                validation.status,
+                validation.max_time,
+                validation.min_time
             );
         }
 

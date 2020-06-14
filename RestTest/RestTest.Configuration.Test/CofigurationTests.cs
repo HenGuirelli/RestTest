@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RestTest.Configuration.Test
@@ -15,6 +16,12 @@ namespace RestTest.Configuration.Test
             Assert.AreEqual(1, conf.Uniques.Count());
             var test = conf.Uniques.Single();
             Assert.AreEqual(test.Name, "unique_test_name");
+
+            Assert.AreEqual(2, test.Validation.Body.Count());
+            Assert.AreEqual("client_status", test.Validation.Body.First().Key);
+            Assert.AreEqual("authenticated", test.Validation.Body.First().Value);
+            Assert.AreEqual("id", test.Validation.Body.Last().Key);
+            Assert.AreEqual("${NUMBER}", test.Validation.Body.Last().Value);
         }
 
         [TestMethod]

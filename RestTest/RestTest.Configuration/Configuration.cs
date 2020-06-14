@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using RestTest.Configuration.JsonNotation;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -24,7 +23,7 @@ namespace RestTest.Configuration
             if (!File.Exists(_filename)) throw new FileNotFoundException("configuration file not found");
         }
 
-        internal void ReadJSON()
+        private void ReadJSON()
         {
             var fileContent = File.ReadAllText(_filename);
             if (fileContent.StartsWith("["))
