@@ -5,7 +5,7 @@ using System.Linq;
 namespace RestTest.Configuration.Test
 {
     [TestClass]
-    public class CofigurationTests
+    public class ConfigurationUniqueTest
     {
         [TestMethod]
         public void OnUniqueConfiguration()
