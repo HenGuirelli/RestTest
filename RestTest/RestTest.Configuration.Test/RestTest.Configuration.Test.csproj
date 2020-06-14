@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="full_config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="many_unique_test.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
