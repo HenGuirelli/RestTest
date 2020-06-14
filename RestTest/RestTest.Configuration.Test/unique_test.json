@@ -1,0 +1,21 @@
+{
+  "type": "unique_test",
+  "name": "unique_test_name",
+  "url": "http://127.0.0.1:8081/api/resource1",
+  "method": "POST",
+  "header": { "Content-Type": "application/json" },
+
+  "validation": {
+    "body": {
+      "client_status": "authenticated",
+      "id": "${NUMBER}"
+    },
+    "header": {},
+    "query_string": { "code": "123" },
+    "cookie": { "a": "b" },
+    "status": 200,
+
+    "max_time": 3000,
+    "min_time": 0
+  }
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "type": "unique_test",
+    "name": "first request",
+    "url": "http://127.0.0.1:8081/api/resource1",
+    "method": "GET",
+    "header": { "Content-Type": "application/json" },
+
+    "validation": {
+      "body": {
+        "client_status": "authenticated",
+        "id": "${NUMBER}"
+      },
+      "header": {},
+      "query_string": { "code": "123" },
+      "cookie": { "a": "b" },
+      "status": 200,
+
+      "max_time": 3000,
+      "min_time": 0
+    }
+  },
+  {
+    "name": "multiple calls set test",
+    "type": "sequence_test",
+    "sequence": [
+      {
+        "name": "call1",
+        "url": "http://localhost/api/resource",
+        "method": "POST",
+        "body": {
+          "name": "Robson",
+          "age": 35
+        },
+        "header": { "Content-Type": "application/json" }
+      },
+      {
+        "url": "http://localhost/api/resource",
+        "method": "GET",
+        "query_string": { "user": "${call1.response.body.id}" }, // id of first call response
+
+        "validation": {
+          "status": 200
+        }
+      },
+      {
+        "url": "http://localhost/api/resource/${call1.response.body.id}",
+        "method": "DELETE"
+      }
+    ]
+  }
+]
