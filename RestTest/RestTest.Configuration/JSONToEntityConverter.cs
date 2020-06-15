@@ -36,6 +36,8 @@ namespace RestTest.Configuration
                 uniqueConfigurationJSONNotation.url,
                 method,
                 JSONToDictionary(uniqueConfigurationJSONNotation.header as JObject),
+                JSONToDictionary(uniqueConfigurationJSONNotation.body as JObject),
+                uniqueConfigurationJSONNotation.body.ToString().Trim(),
                 JSONToValidation(uniqueConfigurationJSONNotation.validation)
             );
         }

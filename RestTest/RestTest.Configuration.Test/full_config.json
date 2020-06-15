@@ -3,9 +3,8 @@
     "type": "unique_test",
     "name": "first request",
     "url": "http://127.0.0.1:8081/api/resource1",
-    "method": "GET",
+    "method": "PUT",
     "header": { "Content-Type": "application/json" },
-
     "validation": {
       "body": {
         "client_status": "authenticated",

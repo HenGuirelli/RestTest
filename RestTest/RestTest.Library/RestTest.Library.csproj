@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Factory\" />
+    <ProjectReference Include="..\RestTest.Configuration\RestTest.Configuration.csproj" />
   </ItemGroup>
 
 </Project>
