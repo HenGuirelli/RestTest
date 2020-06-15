@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using RestTest.RestRequest;
 
 namespace RestTest.Library
 {
@@ -22,22 +19,22 @@ namespace RestTest.Library
         {
             Parallel.ForEach(_config.Uniques, item =>
             {
-                var request = Requests.Create(item);
+                var request = Requests.Create(item.ToRequestConfig());
                 _requestCallbackMap[item.Name]?.OnStart();
                 var result = request.Send();
-                _requestCallbackMap[item.Name]?.OnFinished(result);
+                _requestCallbackMap[item.Name]?.OnFinished(new TestResult(result));
             });
 
-            foreach(var item in _config.Sequences)
+            Parallel.ForEach(_config.Sequences, item =>
             {
-                foreach(var sequeceItem in item.Sequence)
+                foreach (var sequeceItem in item.Sequence)
                 {
-                    var request = Requests.Create(sequeceItem);
+                    var request = Requests.Create(sequeceItem.ToRequestConfig());
                     _requestCallbackMap[item.Name]?.OnStart();
                     var result = request.Send();
-                    _requestCallbackMap[item.Name]?.OnFinished(result);
+                    _requestCallbackMap[item.Name]?.OnFinished(new TestResult(result));
                 }
-            }
+            });
         }
     }
 }

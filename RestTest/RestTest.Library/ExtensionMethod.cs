@@ -1,4 +1,5 @@
 ﻿using RestTest.Configuration;
+using RestTest.RestRequest;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,6 +15,11 @@ namespace RestTest.Library
         public static bool Contains(this IEnumerable<SequenceConfiguration> input, string name)
         {
             return input.Any(item => item.Name == name);
+        }
+
+        public static RequestConfig ToRequestConfig(this UniqueConfiguration input)
+        {
+            return new RequestConfig(input.Name, input.Url, input.Method.ToString(), input.Header, input.BodyStr);
         }
     }
 }

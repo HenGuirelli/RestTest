@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RestTest.Configuration\RestTest.Configuration.csproj" />
+    <ProjectReference Include="..\RestTest.RestRequest\RestTest.RestRequest.csproj" />
   </ItemGroup>
 
 </Project>

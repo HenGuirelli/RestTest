@@ -1,20 +1,18 @@
-﻿using RestTest.Configuration;
-using System;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 
-namespace RestTest.Library
+namespace RestTest.RestRequest
 {
-    internal class Requests
+    public class Requests
     {
-        private WebRequest _request;
+        private readonly WebRequest _request;
 
         public Requests(WebRequest request)
         {
             _request = request;
         }
 
-        internal static Requests Create(UniqueConfiguration uniqueConfiguration)
+        public static Requests Create(RequestConfig uniqueConfiguration)
         {
             var request = WebRequest.Create(uniqueConfiguration.Url);
             request.Method = uniqueConfiguration.Method.ToString();
@@ -34,9 +32,10 @@ namespace RestTest.Library
             return new Requests(request);
         }
 
-        internal Response Send()
+        public Response Send()
         {
             var response = _request.GetResponse();
+            return null;
         }
     }
 }
