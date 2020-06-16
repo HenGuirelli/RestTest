@@ -25,10 +25,13 @@ namespace RestTest.RestRequest
                 request.Headers.Add(item.Key, item.Value);
             }
 
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            if (!string.IsNullOrWhiteSpace(requestConfig.Body))
             {
-                string json = requestConfig.Body;
-                streamWriter.Write(json);
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    string json = requestConfig.Body;
+                    streamWriter.Write(json);
+                }
             }
 
             return new Requests(request);
@@ -46,7 +49,7 @@ namespace RestTest.RestRequest
             }
             catch(Exception ex)
             {
-                return null;
+                return new Response(404, ex.Message); ;
             }
         }
     }

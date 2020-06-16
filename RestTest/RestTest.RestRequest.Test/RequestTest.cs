@@ -14,7 +14,6 @@ namespace RestTest.RestRequest.Test
     public class RequestTest
     {
         private const int Port = 8089;
-        private const string PlainTextResponse = "example plaint text response from API";
 
         private static void CreateHttpServerInternal()
         {
@@ -29,7 +28,8 @@ namespace RestTest.RestRequest.Test
                 HttpListenerContext context = server.GetContext();
                 HttpListenerResponse response = context.Response;
 
-                byte[] buffer = Encoding.UTF8.GetBytes(PlainTextResponse);
+                var body = new StreamReader(context.Request.InputStream).ReadToEnd();
+                byte[] buffer = Encoding.UTF8.GetBytes(body);
 
                 response.ContentLength64 = buffer.Length;
                 Stream st = response.OutputStream;
@@ -49,17 +49,28 @@ namespace RestTest.RestRequest.Test
         }
 
         [TestMethod]
-        public void OnCreate()
+        public void OnSendMessage404()
+        {
+            var wrongPort = 8083;
+            var request = Requests.Create(new RequestConfig($"http://localhost:{wrongPort}/resource", "GET"));
+            var response = request.Send();
+
+            Assert.AreEqual(404, response.Status);
+        }
+
+        [TestMethod]
+        public void OnSendMessageSucess()
         {
             var header = new Dictionary<string, string>()
             {
                 { "Content-Type", "application/json" }
             };
-            var request = Requests.Create(new RequestConfig($"http://localhost:{Port}/resource", "POST", header, "{name: \"Robert\"}"));
-            var resp = request.Send();
+            var body = "{name: \"Robert\"}";
+            var request = Requests.Create(new RequestConfig($"http://localhost:{Port}/resource", "POST", header, body));
+            var response = request.Send();
 
-            Assert.AreEqual(200, resp.Status);
-            Assert.AreEqual(PlainTextResponse, resp.Body);
+            Assert.AreEqual(200, response.Status);
+            Assert.AreEqual(body, response.Body);
         }
     }
 }

@@ -20,5 +20,8 @@ namespace RestTest.RestRequest
             Header = header;
             Body = body;
         }
+
+        public RequestConfig(string url, string method) 
+            : this(url, method, new Dictionary<string, string>(), string.Empty) { }
     }
 }
