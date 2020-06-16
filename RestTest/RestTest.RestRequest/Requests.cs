@@ -1,31 +1,33 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
+using System.Text;
 
 namespace RestTest.RestRequest
 {
     public class Requests
     {
-        private readonly WebRequest _request;
+        private readonly HttpWebRequest _request;
 
-        public Requests(WebRequest request)
+        public Requests(HttpWebRequest request)
         {
             _request = request;
         }
 
-        public static Requests Create(RequestConfig uniqueConfiguration)
+        public static Requests Create(RequestConfig requestConfig)
         {
-            var request = WebRequest.Create(uniqueConfiguration.Url);
-            request.Method = uniqueConfiguration.Method.ToString();
+            var request = (HttpWebRequest)WebRequest.Create(requestConfig.Url);
+            request.Method = requestConfig.Method.ToString();
 
             request.Headers = request.Headers ?? new WebHeaderCollection();
-            foreach (var item in uniqueConfiguration.Header)
+            foreach (var item in requestConfig.Header)
             {
                 request.Headers.Add(item.Key, item.Value);
             }
 
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
-                string json = uniqueConfiguration.BodyStr;
+                string json = requestConfig.Body;
                 streamWriter.Write(json);
             }
 
@@ -34,8 +36,18 @@ namespace RestTest.RestRequest
 
         public Response Send()
         {
-            var response = _request.GetResponse();
-            return null;
+            try
+            {
+                var response = (HttpWebResponse)_request.GetResponse();
+                using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                {
+                    return new Response((int)response.StatusCode, reader.ReadToEnd());
+                }
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
     }
 }
