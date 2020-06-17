@@ -1,5 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RestTest.Configuration.Test
@@ -47,6 +49,41 @@ namespace RestTest.Configuration.Test
             }
 
             Assert.Fail("Not throw Exception, expected throw");
+        }
+
+        [TestMethod]
+        public void OnComplexBody()
+        {
+            var conf = new Configuration("./unique_test_complex_body.json");
+
+            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject("{" +
+              "\"attrInt\": 1," +
+              "\"attrStr\": \"value\"," +
+              "\"atttrList\": [\"item 1\", \"item 2\", \"item 3\"]," +
+              "\"attrObj\": {" +
+                "\"innerAttr1\": 1," +
+                "\"innerAttr2\": 2," +
+                "\"innerAttr3WithOtherObject\": {" +
+                            "\"innerAttr1List\": [1, 2, 3, 4]" +
+                "}" +
+              "}" +
+             "}");
+            
+            var other = Newtonsoft.Json.JsonConvert.DeserializeObject("{" +
+              "\"attrInt\": 1," +
+              "\"attrStr\": \"value\"," +
+              "\"atttrList\": [\"item 1\", \"item 2\", \"item 3\"]," +
+              "\"attrObj\": {" +
+                "\"innerAttr1\": 1," +
+                "\"innerAttr2\": 2," +
+                "\"innerAttr3WithOtherObject\": {" +
+                            "\"innerAttr1List\": [1, 2, 3, 4]" +
+                "}" +
+              "}" +
+             "}");
+
+            var unique = conf.Uniques.Single();
+            Assert.AreEqual(obj as JObject, other as JObject);
         }
     }
 }

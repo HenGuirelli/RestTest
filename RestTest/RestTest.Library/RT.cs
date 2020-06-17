@@ -7,7 +7,6 @@ namespace RestTest.Library
     {
         private readonly RestTest.Configuration.Configuration _config;
         private readonly RequestCallbackMap _requestCallbackMap;
-        private readonly Requests _requests;
 
         public RT(string configPath, RequestCallbackMap requestCallbackMap)
         {
@@ -21,8 +20,9 @@ namespace RestTest.Library
             {
                 var request = Requests.Create(item.ToRequestConfig());
                 _requestCallbackMap[item.Name]?.OnStart();
-                var result = request.Send();
-                _requestCallbackMap[item.Name]?.OnFinished(new TestResult(result));
+                var response = request.Send();
+                var testResult = new TestResult(item.Validation, response);
+                _requestCallbackMap[item.Name]?.OnFinished(testResult);
             });
 
             Parallel.ForEach(_config.Sequences, item =>
@@ -31,8 +31,9 @@ namespace RestTest.Library
                 {
                     var request = Requests.Create(sequeceItem.ToRequestConfig());
                     _requestCallbackMap[item.Name]?.OnStart();
-                    var result = request.Send();
-                    _requestCallbackMap[item.Name]?.OnFinished(new TestResult(result));
+                    var response = request.Send();
+                    var testResult = new TestResult(sequeceItem.Validation, response);
+                    _requestCallbackMap[item.Name]?.OnFinished(testResult);
                 }
             });
         }

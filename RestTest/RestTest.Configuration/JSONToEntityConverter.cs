@@ -35,8 +35,8 @@ namespace RestTest.Configuration
                 uniqueConfigurationJSONNotation.name,
                 uniqueConfigurationJSONNotation.url,
                 method,
-                JSONToDictionary(uniqueConfigurationJSONNotation.header as JObject),
-                JSONToDictionary(uniqueConfigurationJSONNotation.body as JObject),
+                JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.header as JObject),
+                JSONToDictionary<string, object>(uniqueConfigurationJSONNotation.body as JObject),
                 uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty,
                 JSONToValidation(uniqueConfigurationJSONNotation.validation)
             );
@@ -48,21 +48,21 @@ namespace RestTest.Configuration
 
             return new ValidationConfig
             (
-                JSONToDictionary(validation.body as JObject),
-                JSONToDictionary(validation.header as JObject),
-                JSONToDictionary(validation.query_string as JObject),
-                JSONToDictionary(validation.cookie as JObject),
+                JSONToDictionary<string, object>(validation.body as JObject),
+                JSONToDictionary<string, string>(validation.header as JObject),
+                JSONToDictionary<string, string>(validation.query_string as JObject),
+                JSONToDictionary<string, string>(validation.cookie as JObject),
                 validation.status,
                 validation.max_time,
                 validation.min_time
             );
         }
 
-        private static Dictionary<string, string> JSONToDictionary(JObject obj)
+        private static Dictionary<TKey, TValue> JSONToDictionary<TKey, TValue>(JObject obj)
         {
-            if (obj is null) return new Dictionary<string, string>();
+            if (obj is null) return new Dictionary<TKey, TValue>();
 
-            return obj.ToObject<Dictionary<string, string>>();
+            return obj.ToObject<Dictionary<TKey, TValue>>();
         }
     }
 }

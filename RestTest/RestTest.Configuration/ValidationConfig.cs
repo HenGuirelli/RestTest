@@ -4,10 +4,10 @@ namespace RestTest.Library.Config
 {
     public class ValidationConfig
     {
-        public Dictionary<string, string> Body { get; private set; } = new Dictionary<string, string>();
-        public Dictionary<string, string> Header { get; set; } = new Dictionary<string, string>();
-        public Dictionary<string, string> QueryString { get; private set; } = new Dictionary<string, string>();
-        public Dictionary<string, string> Cookies { get; private set; } = new Dictionary<string, string>();
+        public Dictionary<string, object> Body { get; private set; }
+        public Dictionary<string, string> Header { get; set; }
+        public Dictionary<string, string> QueryString { get; private set; }
+        public Dictionary<string, string> Cookies { get; private set; }
         public int Status { get; private set; }
 
         public int MaxTime { get; private set; }
@@ -16,7 +16,7 @@ namespace RestTest.Library.Config
         public ValidationConfig() { }
 
         public ValidationConfig(
-            Dictionary<string, string> body,
+            Dictionary<string, object> body,
             Dictionary<string, string> header,
             Dictionary<string, string> queryString,
             Dictionary<string, string> cookies,
@@ -24,10 +24,10 @@ namespace RestTest.Library.Config
             int maxTime,
             int minTime)
         {
-            Body = body;
-            Header = header;
-            QueryString = queryString;
-            Cookies = cookies;
+            Body = body ?? new Dictionary<string, object>();
+            Header = header ?? new Dictionary<string, string>();
+            QueryString = queryString ?? new Dictionary<string, string>();
+            Cookies = cookies ?? new Dictionary<string, string>();
             Status = status;
             MaxTime = maxTime;
             MinTime = minTime;

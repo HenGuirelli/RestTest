@@ -9,13 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Configuration", "R
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{642F57CB-37D6-45A1-B4E8-EC7C2A492864}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTest.Configuration.Test", "RestTest.Configuration.Test\RestTest.Configuration.Test.csproj", "{3083F43A-71CD-45E8-A22A-893D52254A75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Configuration.Test", "RestTest.Configuration.Test\RestTest.Configuration.Test.csproj", "{3083F43A-71CD-45E8-A22A-893D52254A75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTest.Library.Test", "RestTest.Library.Test\RestTest.Library.Test.csproj", "{B94DC502-F72C-44EC-8BD8-46F7B5E3CA70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Library.Test", "RestTest.Library.Test\RestTest.Library.Test.csproj", "{B94DC502-F72C-44EC-8BD8-46F7B5E3CA70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTest.RestRequest", "RestTest.RestRequest\RestTest.RestRequest.csproj", "{FA224902-F242-407B-8CCF-606E98E44BDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.RestRequest", "RestTest.RestRequest\RestTest.RestRequest.csproj", "{FA224902-F242-407B-8CCF-606E98E44BDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTest.RestRequest.Test", "RestTest.RestRequest.Test\RestTest.RestRequest.Test.csproj", "{058F2A7B-FF39-4E86-9F80-B4D0D3F0CC1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.RestRequest.Test", "RestTest.RestRequest.Test\RestTest.RestRequest.Test.csproj", "{058F2A7B-FF39-4E86-9F80-B4D0D3F0CC1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTest.JsonHelper", "RestTest.JsonHelper\RestTest.JsonHelper.csproj", "{BDE63074-B0BC-44FC-B2BA-C1A6D66E6D4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTest.JsonHelperTest", "RestTest.JsonHelperTest\RestTest.JsonHelperTest.csproj", "{F30745D4-CDB9-46AD-93B1-226AE24E6879}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,14 @@ Global
 		{058F2A7B-FF39-4E86-9F80-B4D0D3F0CC1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{058F2A7B-FF39-4E86-9F80-B4D0D3F0CC1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{058F2A7B-FF39-4E86-9F80-B4D0D3F0CC1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE63074-B0BC-44FC-B2BA-C1A6D66E6D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE63074-B0BC-44FC-B2BA-C1A6D66E6D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE63074-B0BC-44FC-B2BA-C1A6D66E6D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE63074-B0BC-44FC-B2BA-C1A6D66E6D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F30745D4-CDB9-46AD-93B1-226AE24E6879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F30745D4-CDB9-46AD-93B1-226AE24E6879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F30745D4-CDB9-46AD-93B1-226AE24E6879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F30745D4-CDB9-46AD-93B1-226AE24E6879}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +67,7 @@ Global
 		{3083F43A-71CD-45E8-A22A-893D52254A75} = {642F57CB-37D6-45A1-B4E8-EC7C2A492864}
 		{B94DC502-F72C-44EC-8BD8-46F7B5E3CA70} = {642F57CB-37D6-45A1-B4E8-EC7C2A492864}
 		{058F2A7B-FF39-4E86-9F80-B4D0D3F0CC1C} = {642F57CB-37D6-45A1-B4E8-EC7C2A492864}
+		{F30745D4-CDB9-46AD-93B1-226AE24E6879} = {642F57CB-37D6-45A1-B4E8-EC7C2A492864}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {48F2F56A-C605-4F32-A090-C670D0259B1F}

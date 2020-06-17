@@ -10,7 +10,7 @@ namespace RestTest.Configuration
         public string Url { get; private set; }
         public Method Method { get; private set; }
         public IDictionary<string, string> Header { get; private set; }
-        public IDictionary<string, string> Body { get; private set; }
+        public IDictionary<string, object> Body { get; private set; }
         public string BodyStr { get; private set; }
 
         public ValidationConfig Validation { get; private set; } = new ValidationConfig();
@@ -21,7 +21,7 @@ namespace RestTest.Configuration
             string url, 
             Method method, 
             IDictionary<string, string> header,
-            IDictionary<string, string> body,
+            IDictionary<string, object> body,
             string bodyStr,
             ValidationConfig validation)
         {
