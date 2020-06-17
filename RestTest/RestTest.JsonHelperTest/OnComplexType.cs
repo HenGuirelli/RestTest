@@ -13,8 +13,8 @@ namespace RestTest.JsonHelperTest
         [TestMethod]
         public void OnValueIsObject()
         {
-            var simpleJsonString = "{ \"key\": { \"innerKeyInt\": 1, \"innerKeyString\": \"plain text\" }  }";
-            var json = new Json(simpleJsonString);
+            var jsonString = "{ \"key\": { \"innerKeyInt\": 1, \"innerKeyString\": \"plain text\" }  }";
+            var json = new Json(jsonString);
 
             var innerObject = json["key"];
 
@@ -23,10 +23,25 @@ namespace RestTest.JsonHelperTest
         }
 
         [TestMethod]
+        public void OnValueIsObject2()
+        {
+            var jsonString = "{ \"key\": { \"innerKeyInt\": 1, \"innerKeyString\": \"plain text\", \"innerKeyObject\": { \"key\": 3 } }  }";
+            var json = new Json(jsonString);
+
+            var innerObject = json["key"];
+
+            Assert.AreEqual(1, int.Parse(innerObject["innerKeyInt"].ToString()));
+            Assert.AreEqual("plain text", innerObject["innerKeyString"].ToString());
+
+            var innerObject2 = innerObject["innerKeyObject"];
+            Assert.AreEqual(3, int.Parse(innerObject2["key"].ToString()));
+        }
+
+        [TestMethod]
         public void OnValueIsListOfInt()
         {
-            var simpleJsonString = "{ \"key\": [ 1, 2, 3 ]  }";
-            var json = new Json(simpleJsonString);
+            var jsonString = "{ \"key\": [ 1, 2, 3 ]  }";
+            var json = new Json(jsonString);
 
             var innerObject = json["key"];
 
