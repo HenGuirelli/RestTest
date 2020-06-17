@@ -29,5 +29,15 @@ namespace RestTest.JsonHelperTest
             var json = new Json(simpleJsonString);
             Assert.AreEqual(1.5, float.Parse(json["key"].ToString()));
         }
+
+        [TestMethod]
+        public void OnEmptyJson()
+        {
+            var json = new Json("{}");
+            Assert.IsTrue(json.Compare("{}"));
+
+            var jsonEmpty = new Json(string.Empty);
+            Assert.IsTrue(jsonEmpty.Compare("{}"));
+        }
     }
 }

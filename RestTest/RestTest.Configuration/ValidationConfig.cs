@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using RestTest.JsonHelper;
+using System.Collections.Generic;
 
 namespace RestTest.Library.Config
 {
     public class ValidationConfig
     {
-        public Dictionary<string, object> Body { get; private set; }
+        public Json Body { get; private set; }
         public Dictionary<string, string> Header { get; set; }
         public Dictionary<string, string> QueryString { get; private set; }
         public Dictionary<string, string> Cookies { get; private set; }
@@ -16,7 +17,7 @@ namespace RestTest.Library.Config
         public ValidationConfig() { }
 
         public ValidationConfig(
-            Dictionary<string, object> body,
+            Json body,
             Dictionary<string, string> header,
             Dictionary<string, string> queryString,
             Dictionary<string, string> cookies,
@@ -24,7 +25,7 @@ namespace RestTest.Library.Config
             int maxTime,
             int minTime)
         {
-            Body = body ?? new Dictionary<string, object>();
+            Body = body ?? new Json("{}");
             Header = header ?? new Dictionary<string, string>();
             QueryString = queryString ?? new Dictionary<string, string>();
             Cookies = cookies ?? new Dictionary<string, string>();

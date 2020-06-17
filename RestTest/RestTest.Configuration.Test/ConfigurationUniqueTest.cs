@@ -18,11 +18,11 @@ namespace RestTest.Configuration.Test
             var test = conf.Uniques.Single();
             Assert.AreEqual(test.Name, "unique_test_name");
 
-            Assert.AreEqual(2, test.Validation.Body.Count());
-            Assert.AreEqual("client_status", test.Validation.Body.First().Key);
-            Assert.AreEqual("authenticated", test.Validation.Body.First().Value);
-            Assert.AreEqual("id", test.Validation.Body.Last().Key);
-            Assert.AreEqual("${NUMBER}", test.Validation.Body.Last().Value);
+            Assert.AreEqual(2, test.Validation.Body.Keys.Count());
+            Assert.AreEqual("client_status", test.Validation.Body.Keys.First());
+            Assert.AreEqual("authenticated", test.Validation.Body.Values.First().ToString());
+            Assert.AreEqual("id", test.Validation.Body.Keys.Last());
+            Assert.AreEqual("${NUMBER}", test.Validation.Body.Values.Last().ToString());
         }
 
         [TestMethod]
@@ -55,35 +55,7 @@ namespace RestTest.Configuration.Test
         public void OnComplexBody()
         {
             var conf = new Configuration("./unique_test_complex_body.json");
-
-            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject("{" +
-              "\"attrInt\": 1," +
-              "\"attrStr\": \"value\"," +
-              "\"atttrList\": [\"item 1\", \"item 2\", \"item 3\"]," +
-              "\"attrObj\": {" +
-                "\"innerAttr1\": 1," +
-                "\"innerAttr2\": 2," +
-                "\"innerAttr3WithOtherObject\": {" +
-                            "\"innerAttr1List\": [1, 2, 3, 4]" +
-                "}" +
-              "}" +
-             "}");
-            
-            var other = Newtonsoft.Json.JsonConvert.DeserializeObject("{" +
-              "\"attrInt\": 1," +
-              "\"attrStr\": \"value\"," +
-              "\"atttrList\": [\"item 1\", \"item 2\", \"item 3\"]," +
-              "\"attrObj\": {" +
-                "\"innerAttr1\": 1," +
-                "\"innerAttr2\": 2," +
-                "\"innerAttr3WithOtherObject\": {" +
-                            "\"innerAttr1List\": [1, 2, 3, 4]" +
-                "}" +
-              "}" +
-             "}");
-
             var unique = conf.Uniques.Single();
-            Assert.AreEqual(obj as JObject, other as JObject);
         }
     }
 }

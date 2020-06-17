@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using RestTest.Configuration.JsonNotation;
+using RestTest.JsonHelper;
 using RestTest.Library.Config;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace RestTest.Configuration
                 uniqueConfigurationJSONNotation.url,
                 method,
                 JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.header as JObject),
-                JSONToDictionary<string, object>(uniqueConfigurationJSONNotation.body as JObject),
+                new Json(uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty),
                 uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty,
                 JSONToValidation(uniqueConfigurationJSONNotation.validation)
             );
@@ -48,7 +49,7 @@ namespace RestTest.Configuration
 
             return new ValidationConfig
             (
-                JSONToDictionary<string, object>(validation.body as JObject),
+                new Json(validation.body?.ToString() ?? string.Empty),
                 JSONToDictionary<string, string>(validation.header as JObject),
                 JSONToDictionary<string, string>(validation.query_string as JObject),
                 JSONToDictionary<string, string>(validation.cookie as JObject),
