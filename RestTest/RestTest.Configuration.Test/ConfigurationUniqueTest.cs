@@ -56,6 +56,10 @@ namespace RestTest.Configuration.Test
         {
             var conf = new Configuration("./unique_test_complex_body.json");
             var unique = conf.Uniques.Single();
+
+            Assert.AreEqual(1, int.Parse(unique.Body["attrObj"]["innerAttr1"].ToString()));
+            Assert.AreEqual(2, int.Parse(unique.Body["attrObj"]["innerAttr2"].ToString()));
+            Assert.AreEqual(4, unique.Body["attrObj"]["innerAttr3WithOtherObject"]["innerAttr1List"].ToList<int>().Last());
         }
     }
 }

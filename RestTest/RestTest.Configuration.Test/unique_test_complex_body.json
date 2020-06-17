@@ -2,8 +2,20 @@
   "type": "unique_test",
   "name": "",
   "url": "http://127.0.0.1:8081/api/resource1",
-  "method": "GET",
+  "method": "POST",
   "header": { "Content-Type": "application/json" },
+  "body": {
+    "attrInt": 1,
+    "attrStr": "value",
+    "atttrList": [ "item 1", "item 2", "item 3" ],
+    "attrObj": {
+      "innerAttr1": 1,
+      "innerAttr2": 2,
+      "innerAttr3WithOtherObject": {
+        "innerAttr1List": [ 1, 2, 3, 4 ]
+      }
+    }
+  },
 
   "validation": {
     "body": {
@@ -14,8 +26,8 @@
         "innerAttr1": 1,
         "innerAttr2": 2,
         "innerAttr3WithOtherObject": {
-          "innerAttr1List": [1, 2, 3, 4]
-        } 
+          "innerAttr1List": [ 1, 2, 3, 4 ]
+        }
       }
     }
   }
