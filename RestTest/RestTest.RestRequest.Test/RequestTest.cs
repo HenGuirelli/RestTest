@@ -49,6 +49,26 @@ namespace RestTest.RestRequest.Test
         }
 
         [TestMethod]
+        public void OnCreate_ErrorOnSendBodyInGET()
+        {
+            try
+            {
+                var header = new Dictionary<string, string>()
+                {
+                    { "Content-Type", "application/json" }
+                };
+                var body = "{name: \"Robert\"}";
+                var request = Requests.Create(new RequestConfig($"http://localhost:{Port}/resource", "GET", header, body));
+            }
+            catch
+            {
+                return;
+            }
+
+            Assert.Fail();
+        }
+
+        [TestMethod]
         public void OnSendMessage404()
         {
             var wrongPort = 8083;
