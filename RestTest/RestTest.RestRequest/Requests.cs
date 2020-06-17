@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestTest.JsonHelper;
+using System;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -44,12 +45,12 @@ namespace RestTest.RestRequest
                 var response = (HttpWebResponse)_request.GetResponse();
                 using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
-                    return new Response((int)response.StatusCode, reader.ReadToEnd());
+                    return new Response((int)response.StatusCode, new Json(reader.ReadToEnd()));
                 }
             }
             catch(Exception ex)
             {
-                return new Response(404, ex.Message); ;
+                return new Response(404, Json.Empty, ex.Message); ;
             }
         }
     }

@@ -10,6 +10,8 @@ namespace RestTest.JsonHelper
         private readonly JObject _json;
         public JsonValue this[string index] => JsonValue.Create(_json[index].ToString());
 
+        public static Json Empty => new Json("{}");
+
         public Json(string json)
         {
             json = string.IsNullOrWhiteSpace(json) ? "{}" : json;
@@ -18,6 +20,16 @@ namespace RestTest.JsonHelper
 
         public IEnumerable<string> Keys => _json.Properties().Select(x => x.Name.ToString());
         public IEnumerable<object> Values => _json.Properties().Select(x => x.Value);
+
+        public override string ToString()
+        {
+            return _json.ToString();
+        }
+
+        public bool Compare(Json other)
+        {
+            return Compare(other.ToString());
+        }
 
         public bool Compare(string other)
         {
