@@ -7,12 +7,14 @@ namespace RestTest.Library
 {
     public class TestResult
     {
+        public string TestName { get; private set; }
         public Status Status { get; private set; }
         public string Error { get; private set; }
         private readonly List<string> _errorList = new List<string>();
 
-        public TestResult(ValidationConfig validation, Response result)
+        public TestResult(string testName, ValidationConfig validation, Response result)
         {
+            TestName = testName;
             Validate(result.Status == validation.Status, $"Status => expected {validation.Status} received {result.Status}");
             Validate(result.Body.Compare(validation.Body), $"Body => expected {validation.Body} received {result.Body}");
 

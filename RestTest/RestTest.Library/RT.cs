@@ -1,28 +1,39 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using RestTest.RestRequest;
 
 namespace RestTest.Library
 {
+    public delegate void TestFinishedHandle(TestResult result);
+    public delegate void TestStartHandle(string testName);
+    public delegate void TestAllTestFinishedHandle();
+
     public class RT
     {
         private readonly RestTest.Configuration.Configuration _config;
-        private readonly RequestCallbackMap _requestCallbackMap;
+        public TestFinishedHandle OnTestFinished;
+        public TestStartHandle OnTestStart;
+        public TestAllTestFinishedHandle OnAllTestsFinished;
 
-        public RT(string configPath, RequestCallbackMap requestCallbackMap)
+        public RT(string configPath)
         {
             _config = new RestTest.Configuration.Configuration(configPath);
-            _requestCallbackMap = requestCallbackMap;
         }
 
         public void Start()
         {
+            Task.Run(StartInternal);
+        }
+
+        private void StartInternal()
+        {
             Parallel.ForEach(_config.Uniques, item =>
             {
                 var request = Requests.Create(item.ToRequestConfig());
-                _requestCallbackMap[item.Name]?.OnStart();
+                OnTestStart?.Invoke(item.Name);
                 var response = request.Send();
-                var testResult = new TestResult(item.Validation, response);
-                _requestCallbackMap[item.Name]?.OnFinished(testResult);
+                var testResult = new TestResult(item.Name, item.Validation, response);
+                OnTestFinished?.Invoke(testResult);
             });
 
             Parallel.ForEach(_config.Sequences, item =>
@@ -30,12 +41,13 @@ namespace RestTest.Library
                 foreach (var sequeceItem in item.Sequence)
                 {
                     var request = Requests.Create(sequeceItem.ToRequestConfig());
-                    _requestCallbackMap[item.Name]?.OnStart();
+                    OnTestStart?.Invoke(item.Name);
                     var response = request.Send();
-                    var testResult = new TestResult(sequeceItem.Validation, response);
-                    _requestCallbackMap[item.Name]?.OnFinished(testResult);
+                    var testResult = new TestResult(item.Name, sequeceItem.Validation, response);
+                    OnTestFinished?.Invoke(testResult);
                 }
             });
+            OnAllTestsFinished?.Invoke();
         }
     }
 }

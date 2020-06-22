@@ -1,11 +1,24 @@
-{
-  "type": "unique_test",
-  "name": "request 1",
-  "url": "http://127.0.0.1:8091/api/resource1",
-  "method": "POST",
-  "header": { "Content-Type": "application/json" },
+[
+  {
+    "type": "unique_test",
+    "name": "request 1",
+    "url": "http://127.0.0.1:8091/api/resource1",
+    "method": "GET",
+    "header": { "Content-Type": "application/json" },
 
-  "validation": {
-    "status": 200
+    "validation": {
+      "status": 200
+    }
+  },
+  {
+    "type": "unique_test",
+    "name": "request 2",
+    "url": "http://127.0.0.1:8092/api/resource1", // wrong port
+    "method": "GET",
+    "header": { "Content-Type": "application/json" },
+
+    "validation": {
+      "status": 200
+    }
   }
-}
+]
