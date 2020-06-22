@@ -8,7 +8,7 @@
   "validation": {
     "body": {
       "client_status": "authenticated",
-      "id": 30
+      "id": "${NUMBER}"
     },
     "header": {},
     "query_string": { "code": "123" },
