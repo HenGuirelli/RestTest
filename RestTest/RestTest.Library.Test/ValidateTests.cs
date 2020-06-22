@@ -43,11 +43,17 @@ namespace RestTest.Library.Test
 
             restTest.Start();
             SpinWait.SpinUntil(() => testFinished);
-            Assert.AreEqual(Status.Ok, classTest.Results["request 1"].Status);
-            Assert.AreEqual(string.Empty, classTest.Results["request 1"].Error);
+            Assert.AreEqual(Status.Ok, classTest.Results["validation status 200"].Status);
+            Assert.AreEqual(string.Empty, classTest.Results["validation status 200"].Error);
 
-            Assert.AreEqual(Status.Fail, classTest.Results["request 2"].Status);
-            Assert.AreEqual("Status => expected 200 received 404", classTest.Results["request 2"].Error);
+            Assert.AreEqual(Status.Fail, classTest.Results["validation status wrong port"].Status);
+            Assert.AreEqual("Status => expected 200 received 404", classTest.Results["validation status wrong port"].Error);
+
+            Assert.AreEqual(Status.Ok, classTest.Results["without status validation. Status 200"].Status);
+            Assert.AreEqual(string.Empty, classTest.Results["without status validation. Status 200"].Error);
+
+            Assert.AreEqual(Status.Ok, classTest.Results["without status validation. Status 404"].Status);
+            Assert.AreEqual(string.Empty, classTest.Results["without status validation. Status 404"].Error);
         }
 
         [TestMethod]
@@ -67,7 +73,7 @@ namespace RestTest.Library.Test
             Assert.AreEqual(string.Empty, classTest.Results["request 3"].Error);
 
             Assert.AreEqual(Status.Fail, classTest.Results["request 4"].Status);
-            Assert.AreEqual($"Body => expected responseStr: {{wrong response, responseInt: 19}} received {_server.ResponseBody}", classTest.Results["request 4"].Error);
+            Assert.AreEqual($"Body => expected {{\"responseStr\": \"wrong response\", \"responseInt\": 19}} received {_server.ResponseBody}", classTest.Results["request 4"].Error);
         }
     }
 }

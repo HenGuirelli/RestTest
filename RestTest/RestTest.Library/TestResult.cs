@@ -15,7 +15,8 @@ namespace RestTest.Library
         public TestResult(string testName, ValidationConfig validation, Response result)
         {
             TestName = testName;
-            Validate(result.Status == validation.Status, $"Status => expected {validation.Status} received {result.Status}");
+            if (validation.Status.HasValue)
+                Validate(result.Status == validation.Status, $"Status => expected {validation.Status} received {result.Status}");
             Validate(result.Body.Compare(validation.Body), $"Body => expected {validation.Body} received {result.Body}");
 
             Status = _errorList.Any() ? Status.Fail : Status.Ok;

@@ -9,7 +9,7 @@ namespace RestTest.Library.Config
         public Dictionary<string, string> Header { get; set; }
         public Dictionary<string, string> QueryString { get; private set; }
         public Dictionary<string, string> Cookies { get; private set; }
-        public int Status { get; private set; }
+        public int? Status { get; private set; }
 
         public int MaxTime { get; private set; }
         public int MinTime { get; set; }
@@ -29,7 +29,7 @@ namespace RestTest.Library.Config
             Header = header ?? new Dictionary<string, string>();
             QueryString = queryString ?? new Dictionary<string, string>();
             Cookies = cookies ?? new Dictionary<string, string>();
-            Status = status;
+            Status = status == 0 ? (int?)null : status;
             MaxTime = maxTime;
             MinTime = minTime;
         }
