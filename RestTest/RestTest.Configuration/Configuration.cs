@@ -15,6 +15,8 @@ namespace RestTest.Configuration
         private readonly List<SequenceConfiguration> _sequence = new List<SequenceConfiguration>();
         public IEnumerable<SequenceConfiguration> Sequences => _sequence.AsReadOnly();
 
+        private readonly HashSet<string> _requestNames = new HashSet<string>();
+
         public Configuration(string filename)
         {
             _filename = filename;
@@ -39,11 +41,13 @@ namespace RestTest.Configuration
             foreach(var testType in testTypes)
             {
                 var test = JsonConvert.DeserializeObject<UniqueConfigurationJsonNotation>(testType.ToString());
+                VerifyUniqueTestName(test);
+
                 if (test.type == "unique_test")
                 {
                     var jsonObject = JsonConvert.DeserializeObject<UniqueConfigurationJsonNotation>(testType.ToString());
                     var configEntity = JSONToEntityConverter.ConvertUniqueConfiguration(jsonObject);
-                    _uniques.Add(configEntity);                    
+                    _uniques.Add(configEntity);
                 }
                 else
                 {
@@ -52,6 +56,15 @@ namespace RestTest.Configuration
                     _sequence.Add(configEntity);
                 }
             }
+        }
+
+        private void VerifyUniqueTestName(UniqueConfigurationJsonNotation test)
+        {
+            if (_requestNames.Contains(test.name))
+            {
+                throw new Exception($"config duplicated names '{test.name}'");
+            }
+            _requestNames.Add(test.name);
         }
     }
 }

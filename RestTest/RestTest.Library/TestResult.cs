@@ -9,7 +9,7 @@ namespace RestTest.Library
     {
         public string TestName { get; private set; }
         public Status Status { get; private set; }
-        public string Error { get; private set; }
+        public string Error => string.Join("\n\n", _errorList);
         private readonly List<string> _errorList = new List<string>();
 
         public TestResult(string testName, ValidationConfig validation, Response result)

@@ -20,5 +20,34 @@
     "validation": {
       "status": 200
     }
+  },
+  {
+    "type": "unique_test",
+    "name": "request 3",
+    "url": "http://127.0.0.1:8091/api/resource1",
+    "method": "GET",
+    "header": { "Content-Type": "application/json" },
+
+    "validation": {
+      "status": 200,
+      "Body": {
+        "responseStr": "any",
+        "responseInt": 19
+      }
+    }
+  },
+  {
+    "type": "unique_test",
+    "name": "request 4",
+    "url": "http://127.0.0.1:8091/api/resource1",
+    "method": "GET",
+    "header": { "Content-Type": "application/json" },
+
+    "validation": {
+      "Body": {
+        "responseStr": "wrong response",
+        "responseInt": 19
+      }
+    }
   }
 ]

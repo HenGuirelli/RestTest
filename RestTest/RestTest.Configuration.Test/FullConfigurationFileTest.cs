@@ -20,5 +20,20 @@ namespace RestTest.Configuration.Test
 
             Assert.AreEqual(1, conf.Uniques.Count());
         }
+
+        [TestMethod]
+        public void OnDuplicatedKeys()
+        {
+            try
+            {
+                var conf = new Configuration("./duplicated_keys_config.json");
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("config duplicated names 'dupname'", ex.Message);
+                return;
+            }
+            Assert.Fail();
+        }
     }
 }

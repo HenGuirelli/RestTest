@@ -1,0 +1,22 @@
+[
+  {
+    "type": "unique_test",
+    "name": "dupname",
+    "url": "http://127.0.0.1:8081/api/resource1",
+    "method": "POST",
+    "header": { "Content-Type": "application/json" },
+
+    "validation": {
+    }
+  },
+  {
+    "type": "unique_test",
+    "name": "dupname",
+    "url": "http://127.0.0.1:8081/api/resource1",
+    "method": "POST",
+    "header": { "Content-Type": "application/json" },
+
+    "validation": {
+    }
+  }
+]
