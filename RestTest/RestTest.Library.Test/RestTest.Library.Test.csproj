@@ -14,7 +14,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RestTest.HttpServer.Test\RestTest.HttpServer.Test.csproj" />
     <ProjectReference Include="..\RestTest.Library\RestTest.Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="test.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
