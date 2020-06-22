@@ -1,7 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestTest.HttpServer.Test;
 using RestTest.RestRequest;
-using System;
 using System.Collections.Concurrent;
 using System.Threading;
 
@@ -10,7 +9,9 @@ namespace RestTest.Library.Test
     internal class ClassTest
     {
         public Requests Request { get; set; }
-        public ConcurrentDictionary<string, TestResult> Results = new ConcurrentDictionary<string, TestResult>();
+        public ConcurrentDictionary<string, TestResult> Results { get; private set; } 
+            = new ConcurrentDictionary<string, TestResult>();
+
         public void OnFinished(TestResult testResult)
         {
             Results[testResult.TestName] = testResult;
@@ -31,7 +32,7 @@ namespace RestTest.Library.Test
         }
 
         [TestMethod]
-        public void OnUseRestTest_ValidateResponse()
+        public void OnUseRestTest_ValidateStatus()
         {
             var classTest = new ClassTest();
 
