@@ -18,7 +18,7 @@
         public object body { get; set; }
         public object header { get; set; }
         public object query_string { get; set; }
-        public object cookie { get; set; }
+        public object cookies { get; set; }
         public int status { get; set; }
         public int max_time { get; set; }
         public int min_time { get; set; }

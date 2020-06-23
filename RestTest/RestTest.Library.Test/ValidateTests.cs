@@ -76,11 +76,36 @@ namespace RestTest.Library.Test
             Assert.AreEqual(Status.Fail, classTest.Results["wrong validation body"].Status);
             Assert.AreEqual(RemoveNewLine($"Body => expected {{\"responseStr\": \"wrong response\", \"responseInt\": 19}} received {_server.ResponseBody}").Replace(" ", ""),
                 RemoveNewLine(classTest.Results["wrong validation body"].Error).Replace(" ", ""));
+
+            Assert.AreEqual(Status.Ok, classTest.Results["no body validation"].Status);
+            Assert.AreEqual(string.Empty, classTest.Results["no body validation"].Error);
         }
 
         private static string RemoveNewLine(string s)
         {
             return Regex.Replace(s, @"\t|\n|\r", "");
+        }
+
+        [TestMethod]
+        public void OnUseRestTest_ValidateCookies()
+        {
+            var classTest = new ClassTest();
+
+            var restTest = new RT("./test.json");
+            restTest.OnTestFinished += classTest.OnFinished;
+            restTest.OnAllTestsFinished += () => testFinished = true;
+
+            _server.ResponseBody = "{\"responseStr\": \"any\", \"responseInt\": 19 }";
+            _server.ResponseCookies.Add("Country", "EUA");
+
+            restTest.Start();
+            SpinWait.SpinUntil(() => testFinished);
+
+            Assert.AreEqual(Status.Ok, classTest.Results["cookie test"].Status);
+            Assert.AreEqual(string.Empty, classTest.Results["cookie test"].Error);
+
+            Assert.AreEqual(Status.Fail, classTest.Results["cookie test error"].Status);
+            Assert.AreEqual("Cookie error => expected 'wrong cookie' received 'EUA' in key 'Country'", classTest.Results["cookie test error"].Error);
         }
     }
 }

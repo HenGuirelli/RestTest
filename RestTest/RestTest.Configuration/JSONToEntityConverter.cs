@@ -52,7 +52,7 @@ namespace RestTest.Configuration
                 new Json(validation.body?.ToString() ?? string.Empty),
                 JSONToDictionary<string, string>(validation.header as JObject),
                 JSONToDictionary<string, string>(validation.query_string as JObject),
-                JSONToDictionary<string, string>(validation.cookie as JObject),
+                JSONToDictionary<string, string>(validation.cookies as JObject),
                 validation.status,
                 validation.max_time,
                 validation.min_time

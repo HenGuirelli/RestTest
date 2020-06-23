@@ -25,7 +25,7 @@ namespace RestTest.Library.Config
             int maxTime,
             int minTime)
         {
-            Body = body ?? new Json("{}");
+            Body = body ?? new Json(string.Empty);
             Header = header ?? new Dictionary<string, string>();
             QueryString = queryString ?? new Dictionary<string, string>();
             Cookies = cookies ?? new Dictionary<string, string>();

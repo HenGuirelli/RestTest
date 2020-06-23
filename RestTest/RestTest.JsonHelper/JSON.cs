@@ -9,11 +9,13 @@ namespace RestTest.JsonHelper
     {
         private readonly JObject _json;
         public JsonValue this[string index] => JsonValue.Create(_json[index].ToString());
+        public bool HasValue { get; private set; }
 
         public static Json Empty => new Json("{}");
 
         public Json(string json)
         {
+            HasValue = !string.IsNullOrWhiteSpace(json);
             json = string.IsNullOrWhiteSpace(json) ? "{}" : json;
             _json = JsonConvert.DeserializeObject(json) as JObject;
         }
