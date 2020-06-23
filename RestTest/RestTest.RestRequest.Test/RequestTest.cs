@@ -28,7 +28,8 @@ namespace RestTest.RestRequest.Test
                     { "Content-Type", "application/json" }
                 };
                 var body = "{name: \"Robert\"}";
-                var request = Requests.Create(new RequestConfig($"http://localhost:{Port}/resource", "GET", header, body));
+                var cookies = new Dictionary<string, string>();
+                var request = Requests.Create(new RequestConfig($"http://localhost:{Port}/resource", "GET", header, cookies, body));
             }
             catch
             {
@@ -57,7 +58,8 @@ namespace RestTest.RestRequest.Test
             };
             var body = "{name: \"Robert\"}";
             _server.ResponseBody = body;
-            var request = Requests.Create(new RequestConfig($"http://localhost:{Port}/resource", "POST", header, body));
+            var cookies = new Dictionary<string, string>();
+            var request = Requests.Create(new RequestConfig($"http://localhost:{Port}/resource", "POST", header, cookies, body));
             var response = request.Send();
 
             Assert.AreEqual(200, response.Status);
