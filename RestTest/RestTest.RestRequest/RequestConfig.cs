@@ -7,21 +7,24 @@ namespace RestTest.RestRequest
         public string Url { get; private set; }
         public string Method { get; private set; }
         public IDictionary<string, string> Header { get; private set; }
+        public IDictionary<string, string> Cookies { get; private set; }
         public string Body { get; private set; }
 
         public RequestConfig(
             string url,
             string method,
             IDictionary<string, string> header,
+            IDictionary<string, string> cookies,
             string body)
         {
             Url = url;
             Method = method;
             Header = header;
+            Cookies = cookies;
             Body = body;
         }
 
         public RequestConfig(string url, string method) 
-            : this(url, method, new Dictionary<string, string>(), string.Empty) { }
+            : this(url, method, new Dictionary<string, string>(), new Dictionary<string, string>(), string.Empty) { }
     }
 }

@@ -48,7 +48,7 @@ namespace RestTest.Library.Test
             Assert.AreEqual(string.Empty, classTest.Results["validation status 200"].Error);
 
             Assert.AreEqual(Status.Fail, classTest.Results["validation status wrong port"].Status);
-            Assert.AreEqual("Status => expected 200 received 404", classTest.Results["validation status wrong port"].Error);
+            Assert.AreEqual("Status => expected 200\nreceived 404", classTest.Results["validation status wrong port"].Error);
 
             Assert.AreEqual(Status.Ok, classTest.Results["without status validation. Status 200"].Status);
             Assert.AreEqual(string.Empty, classTest.Results["without status validation. Status 200"].Error);
@@ -105,7 +105,10 @@ namespace RestTest.Library.Test
             Assert.AreEqual(string.Empty, classTest.Results["cookie test"].Error);
 
             Assert.AreEqual(Status.Fail, classTest.Results["cookie test error"].Status);
-            Assert.AreEqual("Cookie error => expected 'wrong cookie' received 'EUA' in key 'Country'", classTest.Results["cookie test error"].Error);
+            Assert.AreEqual("Cookie => expected { country: wrong cookie, cookie1: value1 }\nreceived { Country: EUA, cookie1: value1 }", classTest.Results["cookie test error"].Error);
+
+            Assert.AreEqual(Status.Ok, classTest.Results["no cookie validation"].Status);
+            Assert.AreEqual(string.Empty, classTest.Results["no cookie validation"].Error);
         }
     }
 }

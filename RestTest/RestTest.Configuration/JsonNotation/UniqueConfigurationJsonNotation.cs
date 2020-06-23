@@ -7,6 +7,7 @@
         public string url { get; set; }
         public string method { get; set; }
         public object header { get; set; }
+        public object cookies { get; set; }
         public object body { get; set; }
         public object query_string { get; set; }
 

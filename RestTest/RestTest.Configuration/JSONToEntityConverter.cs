@@ -37,6 +37,7 @@ namespace RestTest.Configuration
                 uniqueConfigurationJSONNotation.url,
                 method,
                 JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.header as JObject),
+                JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.cookies as JObject),
                 new Json(uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty),
                 uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty,
                 JSONToValidation(uniqueConfigurationJSONNotation.validation)
@@ -52,7 +53,7 @@ namespace RestTest.Configuration
                 new Json(validation.body?.ToString() ?? string.Empty),
                 JSONToDictionary<string, string>(validation.header as JObject),
                 JSONToDictionary<string, string>(validation.query_string as JObject),
-                JSONToDictionary<string, string>(validation.cookies as JObject),
+                new CookiesConfig(JSONToDictionary<string, string>(validation.cookies as JObject)),
                 validation.status,
                 validation.max_time,
                 validation.min_time

@@ -88,7 +88,32 @@
     "header": { "Content-Type": "application/json" },
 
     "validation": {
-      "cookies": { "country": "EUA" }
+      "cookies": { "Country": "EUA" }
+    }
+  },
+  {
+    "type": "unique_test",
+    "name": "cookie test error",
+    "url": "http://127.0.0.1:8091/api/resource1",
+    "method": "GET",
+    "header": { "Content-Type": "application/json" },
+    "cookies": { "cookie1": "value1" },
+
+    "validation": {
+      "cookies": {
+        "country": "wrong cookie",
+        "cookie1": "value1"
+      }
+    }
+  },
+  {
+    "type": "unique_test",
+    "name": "no cookie validation",
+    "url": "http://127.0.0.1:8091/api/resource1",
+    "method": "GET",
+    "header": { "Content-Type": "application/json" },
+
+    "validation": {
     }
   }
 ]

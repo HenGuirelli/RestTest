@@ -11,6 +11,7 @@ namespace RestTest.Configuration
         public string Url { get; private set; }
         public Method Method { get; private set; }
         public IDictionary<string, string> Header { get; private set; }
+        public IDictionary<string, string> Cookies { get; private set; }
         public Json Body { get; private set; }
         public string BodyStr { get; private set; }
 
@@ -22,6 +23,7 @@ namespace RestTest.Configuration
             string url, 
             Method method, 
             IDictionary<string, string> header,
+            IDictionary<string, string> cookies,
             Json body,
             string bodyStr,
             ValidationConfig validation)
@@ -31,6 +33,7 @@ namespace RestTest.Configuration
             Url = url;
             Method = method;
             Header = header;
+            Cookies = cookies;
             Body = body;
             BodyStr = bodyStr;
             Validation = validation;

@@ -5,11 +5,11 @@ namespace RestTest.HttpServer.Test
 {
     internal static class ExtensionMethods
     {
-        public static void AddRange(this CookieCollection cookies, IDictionary<string, string> dicitonary)
+        public static void AddCookiesRange(this HttpListenerResponse cookies, IDictionary<string, string> dicitonary)
         {
             foreach(var item in dicitonary)
             {
-                cookies.Add(new Cookie(item.Key, item.Value));
+                cookies.SetCookie(new Cookie(item.Key, item.Value));
             }
         }
     }

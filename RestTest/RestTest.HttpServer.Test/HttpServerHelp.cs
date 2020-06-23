@@ -26,7 +26,6 @@ namespace RestTest.HttpServer.Test
                 HttpListenerContext context = server.GetContext();
                 HttpListenerResponse response = context.Response;
 
-                //var body = new StreamReader(context.Request.InputStream).ReadToEnd();
                 byte[] buffer = Encoding.UTF8.GetBytes(ResponseBody);
                 if (ResponseQueryString.Any())
                 {
@@ -35,7 +34,7 @@ namespace RestTest.HttpServer.Test
 
                 if (ResponseCookies.Any())
                 {
-                    response.Cookies.AddRange(ResponseCookies);
+                    response.AddCookiesRange(ResponseCookies);
                 }
 
                 response.ContentLength64 = buffer.Length;
