@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestTest.HttpServer.Test;
 using RestTest.RestRequest;
 using System.Collections.Concurrent;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace RestTest.Library.Test
@@ -69,11 +70,17 @@ namespace RestTest.Library.Test
 
             restTest.Start();
             SpinWait.SpinUntil(() => testFinished);
-            Assert.AreEqual(Status.Ok, classTest.Results["request 3"].Status);
-            Assert.AreEqual(string.Empty, classTest.Results["request 3"].Error);
+            Assert.AreEqual(Status.Ok, classTest.Results["validation body"].Status);
+            Assert.AreEqual(string.Empty, classTest.Results["validation body"].Error);
 
-            Assert.AreEqual(Status.Fail, classTest.Results["request 4"].Status);
-            Assert.AreEqual($"Body => expected {{\"responseStr\": \"wrong response\", \"responseInt\": 19}} received {_server.ResponseBody}", classTest.Results["request 4"].Error);
+            Assert.AreEqual(Status.Fail, classTest.Results["wrong validation body"].Status);
+            Assert.AreEqual(RemoveNewLine($"Body => expected {{\"responseStr\": \"wrong response\", \"responseInt\": 19}} received {_server.ResponseBody}").Replace(" ", ""),
+                RemoveNewLine(classTest.Results["wrong validation body"].Error).Replace(" ", ""));
+        }
+
+        private static string RemoveNewLine(string s)
+        {
+            return Regex.Replace(s, @"\t|\n|\r", "");
         }
     }
 }

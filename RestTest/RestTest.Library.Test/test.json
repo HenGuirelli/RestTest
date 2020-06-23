@@ -23,35 +23,6 @@
   },
   {
     "type": "unique_test",
-    "name": "request 3",
-    "url": "http://127.0.0.1:8091/api/resource1",
-    "method": "GET",
-    "header": { "Content-Type": "application/json" },
-
-    "validation": {
-      "status": 200,
-      "Body": {
-        "responseStr": "any",
-        "responseInt": 19
-      }
-    }
-  },
-  {
-    "type": "unique_test",
-    "name": "request 4",
-    "url": "http://127.0.0.1:8091/api/resource1",
-    "method": "GET",
-    "header": { "Content-Type": "application/json" },
-
-    "validation": {
-      "Body": {
-        "responseStr": "wrong response",
-        "responseInt": 19
-      }
-    }
-  },
-  {
-    "type": "unique_test",
     "name": "without status validation. Status 200",
     "url": "http://127.0.0.1:8091/api/resource1",
     "method": "GET",
@@ -68,6 +39,35 @@
     "header": { "Content-Type": "application/json" },
 
     "validation": {
+    }
+  },
+  {
+    "type": "unique_test",
+    "name": "validation body",
+    "url": "http://127.0.0.1:8091/api/resource1",
+    "method": "GET",
+    "header": { "Content-Type": "application/json" },
+
+    "validation": {
+      "status": 200,
+      "Body": {
+        "responseStr": "any",
+        "responseInt": 19
+      }
+    }
+  },
+  {
+    "type": "unique_test",
+    "name": "wrong validation body",
+    "url": "http://127.0.0.1:8091/api/resource1",
+    "method": "GET",
+    "header": { "Content-Type": "application/json" },
+
+    "validation": {
+      "Body": {
+        "responseStr": "wrong response",
+        "responseInt": 19
+      }
     }
   }
 ]
