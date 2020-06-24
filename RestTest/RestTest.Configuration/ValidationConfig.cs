@@ -7,7 +7,7 @@ namespace RestTest.Library.Config
     public class ValidationConfig
     {
         public Json Body { get; private set; }
-        public Dictionary<string, string> Header { get; set; }
+        public HeaderConfig Header { get; set; }
         public Dictionary<string, string> QueryString { get; private set; }
         public CookiesConfig Cookies { get; private set; }
         public int? Status { get; private set; }
@@ -19,7 +19,7 @@ namespace RestTest.Library.Config
 
         public ValidationConfig(
             Json body,
-            Dictionary<string, string> header,
+            HeaderConfig header,
             Dictionary<string, string> queryString,
             CookiesConfig cookies,
             int status,
@@ -27,7 +27,7 @@ namespace RestTest.Library.Config
             int minTime)
         {
             Body = body ?? new Json(string.Empty);
-            Header = header ?? new Dictionary<string, string>();
+            Header = header ?? new HeaderConfig();
             QueryString = queryString ?? new Dictionary<string, string>();
             Cookies = cookies ?? new CookiesConfig();
             Status = status == 0 ? (int?)null : status;

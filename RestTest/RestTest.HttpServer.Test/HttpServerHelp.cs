@@ -12,6 +12,7 @@ namespace RestTest.HttpServer.Test
         public string ResponseBody { get; set; } = string.Empty;
         public Dictionary<string, string> ResponseQueryString { get; private set; } = new Dictionary<string, string>();
         public Dictionary<string, string> ResponseCookies { get; private set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> ResponseHeader { get; private set; } = new Dictionary<string, string>();
 
         private void CreateHttpServerInternal(int port)
         {
@@ -35,6 +36,11 @@ namespace RestTest.HttpServer.Test
                 if (ResponseCookies.Any())
                 {
                     response.AddCookiesRange(ResponseCookies);
+                }
+
+                if (ResponseHeader.Any())
+                {
+                    response.AddHeaderRange(ResponseHeader);
                 }
 
                 response.ContentLength64 = buffer.Length;

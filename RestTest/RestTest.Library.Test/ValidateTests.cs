@@ -95,7 +95,6 @@ namespace RestTest.Library.Test
             restTest.OnTestFinished += classTest.OnFinished;
             restTest.OnAllTestsFinished += () => testFinished = true;
 
-            _server.ResponseBody = "{\"responseStr\": \"any\", \"responseInt\": 19 }";
             _server.ResponseCookies.Add("Country", "EUA");
 
             restTest.Start();

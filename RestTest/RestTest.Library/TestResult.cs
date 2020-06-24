@@ -26,6 +26,11 @@ namespace RestTest.Library
                 Validate(result.Cookies.Equals(validation.Cookies), $"Cookie => expected {validation.Cookies}\nreceived {result.Cookies}");
             }
 
+            if (validation.Header.HasValue)
+            {
+                Validate(result.Header.Equals(validation.Header), $"Header => expected {validation.Header}\nreceived {result.Header}");
+            }
+
             Status = _errorList.Any() ? Status.Fail : Status.Ok;
         }
 

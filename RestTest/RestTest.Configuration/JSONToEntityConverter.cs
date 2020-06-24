@@ -51,7 +51,7 @@ namespace RestTest.Configuration
             return new ValidationConfig
             (
                 new Json(validation.body?.ToString() ?? string.Empty),
-                JSONToDictionary<string, string>(validation.header as JObject),
+                new HeaderConfig(JSONToDictionary<string, string>(validation.header as JObject)),
                 JSONToDictionary<string, string>(validation.query_string as JObject),
                 new CookiesConfig(JSONToDictionary<string, string>(validation.cookies as JObject)),
                 validation.status,

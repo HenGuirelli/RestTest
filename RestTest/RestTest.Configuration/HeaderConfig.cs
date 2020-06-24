@@ -3,27 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
-namespace RestTest.Configuration
+namespace RestTest.Library.Config
 {
-    public class CookiesConfig : Dictionary<string, string>, IEquatable<CookiesConfig>
+    public class HeaderConfig : Dictionary<string, string>, IEquatable<HeaderConfig>
     {
-        public static CookiesConfig Empty => new CookiesConfig();
+        public static HeaderConfig Empty => new HeaderConfig();
         public bool HasValue { get; private set; }
 
-        public CookiesConfig()
+        public HeaderConfig()
         {
         }
 
-        public CookiesConfig(IDictionary<string, string> dictionary) : base(dictionary)
+        public HeaderConfig(IDictionary<string, string> dictionary) : base(dictionary)
         {
             HasValue = dictionary.Any();
         }
 
-        public CookiesConfig(CookieCollection cookies)
+        public HeaderConfig(WebHeaderCollection header)
         {
-            foreach(Cookie cook in cookies)
+            foreach (var headerkey in header.AllKeys)
             {
-                Add(cook.Name, cook.Value);
+                Add(headerkey, header[headerkey]);
             }
         }
 
@@ -33,14 +33,14 @@ namespace RestTest.Configuration
             base.Add(key, value);
         }
 
-        public bool Equals(CookiesConfig other)
+        public bool Equals(HeaderConfig other)
         {
             if (other is null) return false;
             if (other.Count != this.Count) return false;
 
-            foreach(var item in other)
+            foreach (var item in other)
             {
-                if(!TryGetValue(item.Key, out var _))
+                if (!TryGetValue(item.Key, out var _))
                 {
                     return false;
                 }

@@ -115,5 +115,15 @@
 
     "validation": {
     }
+  },
+  {
+    "type": "unique_test",
+    "name": "header validation",
+    "url": "http://127.0.0.1:8091/api/resource1",
+    "method": "GET",
+    "header": { "Content-Type": "application/json" },
+
+    "validation": {
+    }
   }
 ]
