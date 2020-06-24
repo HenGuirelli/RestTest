@@ -124,7 +124,12 @@
     "header": { "Content-Type": "application/json" },
 
     "validation": {
-      "header": { "Content-Type": "application/json" }
+      "header": {
+        "Content-Type": "application/json",
+        "Server": "Microsoft-HTTPAPI/2.0",
+        "Date": "${ANY}",
+        "Content-Length": 0
+      }
     }
   },
   {
@@ -135,7 +140,12 @@
     "header": { "Content-Type": "application/json" },
 
     "validation": {
-      "header": { "custom-header": "custom-value" }
+      "header": {
+        "custom-header": "custom-value",
+        "Server": "Microsoft-HTTPAPI/2.0",
+        "Date": "${ANY}",
+        "Content-Length": 0
+      }
     }
   }
 ]

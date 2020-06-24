@@ -128,7 +128,8 @@ namespace RestTest.Library.Test
             Assert.AreEqual(string.Empty, classTest.Results["header validation"].Error);
 
             Assert.AreEqual(Status.Fail, classTest.Results["header wrong validation"].Status);
-            Assert.AreEqual("Header => expected { custom-header: custom-value }\nreceived { Content-Type: application/json }", classTest.Results["header wrong validation"].Error);
+            Assert.AreEqual("Header => expected { custom-header: custom-value, Server: Microsoft-HTTPAPI/2.0, Date: ${ANY}, Content-Length: 0 }\nreceived { Server: Microsoft-HTTPAPI/2.0, Date: ${ANY}, Content-Length: 0, Content-Type: application/json }", 
+                Regex.Replace(classTest.Results["header wrong validation"].Error, "Date:.*, Content-Length", "Date: ${ANY}, Content-Length"));
         }
     }
 }

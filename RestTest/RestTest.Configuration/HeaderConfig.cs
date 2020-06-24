@@ -40,9 +40,13 @@ namespace RestTest.Configuration
 
             foreach (var item in other)
             {
-                if (!TryGetValue(item.Key, out var _))
+                if (TryGetValue(item.Key, out var value))
                 {
-                    return false;
+                    if (value == "${ANY}" || item.Value == "${ANY}") continue;
+                }
+                else
+                {
+                    return false;                    
                 }
             }
 
