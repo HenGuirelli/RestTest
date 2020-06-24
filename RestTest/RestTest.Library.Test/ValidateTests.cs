@@ -23,12 +23,13 @@ namespace RestTest.Library.Test
     public class ValidateTests
     {
         private const int Port = 8091;
-        private volatile bool testFinished = false;
+        private volatile bool _testFinished;
         HttpServerHelp _server;
 
         [TestInitialize]
         public void CreateHttpServer()
         {
+            _testFinished = false;
             _server = new HttpServerHelp();
             _server.CreateHttpServer(Port);
         }
@@ -46,10 +47,10 @@ namespace RestTest.Library.Test
 
             var restTest = new RT("./test.json");
             restTest.OnTestFinished += classTest.OnFinished;
-            restTest.OnAllTestsFinished += () => testFinished = true;
+            restTest.OnAllTestsFinished += () => _testFinished = true;
 
             restTest.Start();
-            SpinWait.SpinUntil(() => testFinished);
+            SpinWait.SpinUntil(() => _testFinished);
             Assert.AreEqual(Status.Ok, classTest.Results["validation status 200"].Status);
             Assert.AreEqual(string.Empty, classTest.Results["validation status 200"].Error);
 
@@ -70,12 +71,12 @@ namespace RestTest.Library.Test
 
             var restTest = new RT("./test.json");
             restTest.OnTestFinished += classTest.OnFinished;
-            restTest.OnAllTestsFinished += () => testFinished = true;
+            restTest.OnAllTestsFinished += () => _testFinished = true;
 
             _server.ResponseBody = "{\"responseStr\": \"any\", \"responseInt\": 19 }";
 
             restTest.Start();
-            SpinWait.SpinUntil(() => testFinished);
+            SpinWait.SpinUntil(() => _testFinished);
             Assert.AreEqual(Status.Ok, classTest.Results["validation body"].Status);
             Assert.AreEqual(string.Empty, classTest.Results["validation body"].Error);
 
@@ -99,12 +100,12 @@ namespace RestTest.Library.Test
 
             var restTest = new RT("./test.json");
             restTest.OnTestFinished += classTest.OnFinished;
-            restTest.OnAllTestsFinished += () => testFinished = true;
+            restTest.OnAllTestsFinished += () => _testFinished = true;
 
             _server.ResponseCookies.Add("Country", "EUA");
 
             restTest.Start();
-            SpinWait.SpinUntil(() => testFinished);
+            SpinWait.SpinUntil(() => _testFinished);
 
             Assert.AreEqual(Status.Ok, classTest.Results["cookie test"].Status);
             Assert.AreEqual(string.Empty, classTest.Results["cookie test"].Error);
@@ -123,18 +124,19 @@ namespace RestTest.Library.Test
 
             var restTest = new RT("./test.json");
             restTest.OnTestFinished += classTest.OnFinished;
-            restTest.OnAllTestsFinished += () => testFinished = true;
+            restTest.OnAllTestsFinished += () => _testFinished = true;
             
             _server.ResponseHeader.Add("Content-Type", "application/json");
 
             restTest.Start();
-            SpinWait.SpinUntil(() => testFinished);
+            SpinWait.SpinUntil(() => _testFinished);
 
             Assert.AreEqual(Status.Ok, classTest.Results["header validation"].Status);
             Assert.AreEqual(string.Empty, classTest.Results["header validation"].Error);
 
             Assert.AreEqual(Status.Fail, classTest.Results["header wrong validation"].Status);
-            Assert.AreEqual("Header => expected { custom-header: custom-value, Server: Microsoft-HTTPAPI/2.0, Date: ${ANY}, Content-Length: 0 }\nreceived { Server: Microsoft-HTTPAPI/2.0, Date: ${ANY}, Content-Length: 0, Content-Type: application/json }", 
+            Assert.AreEqual("Header => expected { custom-header: custom-value, Server: Microsoft-HTTPAPI/2.0, Date: ${ANY}, Content-Length: 0 }\nreceived { Server: Microsoft-HTTPAPI/2.0, Date: ${ANY}, Content-Length: 0, Content-Type: application/json }",
+                // Replace date from test
                 Regex.Replace(classTest.Results["header wrong validation"].Error, "Date:.*, Content-Length", "Date: ${ANY}, Content-Length"));
         }
     }
