@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
-namespace RestTest.Library.Config
+namespace RestTest.Configuration
 {
     public class HeaderConfig : Dictionary<string, string>, IEquatable<HeaderConfig>
     {

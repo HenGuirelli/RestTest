@@ -55,12 +55,16 @@ namespace RestTest.RestRequest
                 var response = (HttpWebResponse)_request.GetResponse();
                 using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
-                    return new Response((int)response.StatusCode, new Json(reader.ReadToEnd()), new CookiesConfig(response.Cookies));
+                    return new Response(
+                        (int)response.StatusCode, 
+                        new Json(reader.ReadToEnd()), 
+                        new CookiesConfig(response.Cookies),
+                        new HeaderConfig(response.Headers));
                 }
             }
             catch(Exception ex)
             {
-                return new Response(404, Json.Empty, CookiesConfig.Empty, ex.Message); ;
+                return new Response(404, Json.Empty, CookiesConfig.Empty, HeaderConfig.Empty, ex.Message); ;
             }
         }
     }

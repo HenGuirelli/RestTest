@@ -109,5 +109,26 @@ namespace RestTest.Library.Test
             Assert.AreEqual(Status.Ok, classTest.Results["no cookie validation"].Status);
             Assert.AreEqual(string.Empty, classTest.Results["no cookie validation"].Error);
         }
+
+        [TestMethod]
+        public void OnUseRestTest_ValidateHeader()
+        {
+            var classTest = new ClassTest();
+
+            var restTest = new RT("./test.json");
+            restTest.OnTestFinished += classTest.OnFinished;
+            restTest.OnAllTestsFinished += () => testFinished = true;
+            
+            _server.ResponseHeader.Add("Content-Type", "application/json");
+
+            restTest.Start();
+            SpinWait.SpinUntil(() => testFinished);
+
+            Assert.AreEqual(Status.Ok, classTest.Results["header validation"].Status);
+            Assert.AreEqual(string.Empty, classTest.Results["header validation"].Error);
+
+            Assert.AreEqual(Status.Fail, classTest.Results["header wrong validation"].Status);
+            Assert.AreEqual("Header => expected { custom-header: custom-value }\nreceived { Content-Type: application/json }", classTest.Results["header wrong validation"].Error);
+        }
     }
 }

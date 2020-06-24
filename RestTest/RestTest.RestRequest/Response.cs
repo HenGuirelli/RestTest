@@ -1,6 +1,5 @@
 ﻿using RestTest.Configuration;
 using RestTest.JsonHelper;
-using RestTest.Library.Config;
 
 namespace RestTest.RestRequest
 {
