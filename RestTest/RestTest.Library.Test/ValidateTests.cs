@@ -33,6 +33,12 @@ namespace RestTest.Library.Test
             _server.CreateHttpServer(Port);
         }
 
+        [TestCleanup]
+        public void StopHttpServer()
+        {
+            _server.StopHttpServer();
+        }
+
         [TestMethod]
         public void OnUseRestTest_ValidateStatus()
         {

@@ -9,6 +9,10 @@ namespace RestTest.HttpServer.Test
 {
     public class HttpServerHelp
     {
+        private HttpListener _server;
+        private Thread _threadServer;
+        private volatile bool _serverRunning;
+
         public string ResponseBody { get; set; } = string.Empty;
         public Dictionary<string, string> ResponseQueryString { get; private set; } = new Dictionary<string, string>();
         public Dictionary<string, string> ResponseCookies { get; private set; } = new Dictionary<string, string>();
@@ -16,15 +20,14 @@ namespace RestTest.HttpServer.Test
 
         private void CreateHttpServerInternal(int port)
         {
-            var server = new HttpListener();
-            server.Prefixes.Add($"http://127.0.0.1:{port}/");
-            server.Prefixes.Add($"http://localhost:{port}/");
+            _server = new HttpListener();
+            _server.Prefixes.Add($"http://127.0.0.1:{port}/");
+            _server.Prefixes.Add($"http://localhost:{port}/");
 
-            server.Start();
-
-            while (true)
+            _server.Start();
+            while (_serverRunning)
             {
-                HttpListenerContext context = server.GetContext();
+                HttpListenerContext context = _server.GetContext();
                 HttpListenerResponse response = context.Response;
 
                 byte[] buffer = Encoding.UTF8.GetBytes(ResponseBody);
@@ -51,11 +54,18 @@ namespace RestTest.HttpServer.Test
             }
         }
 
+        public void StopHttpServer()
+        {
+            _server.Stop();
+            _serverRunning = false;
+        }
+
         public void CreateHttpServer(int port)
         {
-            var thread = new Thread(() => CreateHttpServerInternal(port));
-            thread.Name = "Http Server";
-            thread.Start();
+            _serverRunning = true;
+            _threadServer = new Thread(() => CreateHttpServerInternal(port));
+            _threadServer.Name = "Http Server";
+            _threadServer.Start();
             Thread.Sleep(2000);
         }
     }

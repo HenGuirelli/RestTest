@@ -18,6 +18,12 @@ namespace RestTest.RestRequest.Test
             _server.CreateHttpServer(Port);
         }
 
+        [TestCleanup]
+        public void StopHttpServer()
+        {
+            _server.StopHttpServer();
+        }
+
         [TestMethod]
         public void OnCreate_ErrorOnSendBodyInGET()
         {
