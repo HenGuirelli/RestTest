@@ -1,5 +1,6 @@
 ﻿using RestTest.Configuration;
 using RestTest.JsonHelper;
+using RestTest.Library;
 
 namespace RestTest.RestRequest
 {
@@ -8,10 +9,10 @@ namespace RestTest.RestRequest
         public int Status { get; private set; }
         public Json Body { get; private set; }
         public string Error { get; private set; }
-        public CookiesConfig Cookies { get; private set; }
-        public HeaderConfig Header { get; private set; }
+        public Cookies Cookies { get; private set; }
+        public Header Header { get; private set; }
 
-        public Response(int status, Json body, CookiesConfig cookies, HeaderConfig header, string error = "")
+        public Response(int status, Json body, Cookies cookies, Header header, string error = "")
         {
             Status = status;
             Body = body;

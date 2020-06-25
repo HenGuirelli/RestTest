@@ -2,34 +2,34 @@
 using RestTest.JsonHelper;
 using System.Collections.Generic;
 
-namespace RestTest.Library.Config
+namespace RestTest.Library
 {
-    public class ValidationConfig
+    public class Validation
     {
         public Json Body { get; private set; }
-        public HeaderConfig Header { get; set; }
+        public Header Header { get; set; }
         public Dictionary<string, string> QueryString { get; private set; }
-        public CookiesConfig Cookies { get; private set; }
+        public Cookies Cookies { get; private set; }
         public int? Status { get; private set; }
 
         public int MaxTime { get; private set; }
         public int MinTime { get; set; }
 
-        public ValidationConfig() { }
+        public Validation() { }
 
-        public ValidationConfig(
+        public Validation(
             Json body,
-            HeaderConfig header,
+            Header header,
             Dictionary<string, string> queryString,
-            CookiesConfig cookies,
+            Cookies cookies,
             int status,
             int maxTime,
             int minTime)
         {
             Body = body ?? new Json(string.Empty);
-            Header = header ?? new HeaderConfig();
+            Header = header ?? new Header();
             QueryString = queryString ?? new Dictionary<string, string>();
-            Cookies = cookies ?? new CookiesConfig();
+            Cookies = cookies ?? new Cookies();
             Status = status == 0 ? (int?)null : status;
             MaxTime = maxTime;
             MinTime = minTime;

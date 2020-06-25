@@ -1,5 +1,5 @@
 ﻿using RestTest.JsonHelper;
-using RestTest.Library.Config;
+using RestTest.Library;
 using System.Collections.Generic;
 
 namespace RestTest.Configuration
@@ -15,7 +15,7 @@ namespace RestTest.Configuration
         public Json Body { get; private set; }
         public string BodyStr { get; private set; }
 
-        public ValidationConfig Validation { get; private set; } = new ValidationConfig();
+        public Validation Validation { get; private set; } = new Validation();
 
         public UniqueConfiguration(
             TestType type, 
@@ -26,7 +26,7 @@ namespace RestTest.Configuration
             IDictionary<string, string> cookies,
             Json body,
             string bodyStr,
-            ValidationConfig validation)
+            Validation validation)
         {
             Type = type;
             Name = name;

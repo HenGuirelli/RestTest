@@ -5,21 +5,21 @@ using System.Net;
 
 namespace RestTest.Configuration
 {
-    public class HeaderConfig : Dictionary<string, string>, IEquatable<HeaderConfig>
+    public class Header : Dictionary<string, string>, IEquatable<Header>
     {
-        public static HeaderConfig Empty => new HeaderConfig();
+        public static Header Empty => new Header();
         public bool HasValue { get; private set; }
 
-        public HeaderConfig()
+        public Header()
         {
         }
 
-        public HeaderConfig(IDictionary<string, string> dictionary) : base(dictionary)
+        public Header(IDictionary<string, string> dictionary) : base(dictionary)
         {
             HasValue = dictionary.Any();
         }
 
-        public HeaderConfig(WebHeaderCollection header)
+        public Header(WebHeaderCollection header)
         {
             foreach (var headerkey in header.AllKeys)
             {
@@ -33,7 +33,7 @@ namespace RestTest.Configuration
             base.Add(key, value);
         }
 
-        public bool Equals(HeaderConfig other)
+        public bool Equals(Header other)
         {
             if (other is null) return false;
             if (other.Count != this.Count) return false;

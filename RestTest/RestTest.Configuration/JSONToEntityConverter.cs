@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using RestTest.Configuration.JsonNotation;
 using RestTest.JsonHelper;
-using RestTest.Library.Config;
+using RestTest.Library;
 using System;
 using System.Collections.Generic;
 
@@ -44,16 +44,16 @@ namespace RestTest.Configuration
             );
         }
 
-        private static ValidationConfig JSONToValidation(ValidationConfigJsonNotation validation)
+        private static Validation JSONToValidation(ValidationJsonNotation validation)
         {
-            if (validation is null) return new ValidationConfig();
+            if (validation is null) return new Validation();
 
-            return new ValidationConfig
+            return new Validation
             (
                 new Json(validation.body?.ToString() ?? string.Empty),
-                new HeaderConfig(JSONToDictionary<string, string>(validation.header as JObject)),
+                new Header(JSONToDictionary<string, string>(validation.header as JObject)),
                 JSONToDictionary<string, string>(validation.query_string as JObject),
-                new CookiesConfig(JSONToDictionary<string, string>(validation.cookies as JObject)),
+                new Cookies(JSONToDictionary<string, string>(validation.cookies as JObject)),
                 validation.status,
                 validation.max_time,
                 validation.min_time

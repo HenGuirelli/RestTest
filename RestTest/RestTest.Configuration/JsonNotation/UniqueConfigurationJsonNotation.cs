@@ -11,10 +11,10 @@
         public object body { get; set; }
         public object query_string { get; set; }
 
-        public ValidationConfigJsonNotation validation { get; set; }
+        public ValidationJsonNotation validation { get; set; }
     }
 
-    internal class ValidationConfigJsonNotation
+    internal class ValidationJsonNotation
     {
         public object body { get; set; }
         public object header { get; set; }

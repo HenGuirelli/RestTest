@@ -1,5 +1,4 @@
-﻿using RestTest.Library.Config;
-using RestTest.RestRequest;
+﻿using RestTest.RestRequest;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,7 +11,7 @@ namespace RestTest.Library
         public string Error => string.Join("\n\n", _errorList);
         private readonly List<string> _errorList = new List<string>();
 
-        public TestResult(string testName, ValidationConfig validation, Response result)
+        public TestResult(string testName, Validation validation, Response result)
         {
             TestName = testName;
             if (validation.Status.HasValue)

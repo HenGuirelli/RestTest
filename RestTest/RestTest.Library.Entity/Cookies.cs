@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
-namespace RestTest.Configuration
+namespace RestTest.Library
 {
-    public class CookiesConfig : Dictionary<string, string>, IEquatable<CookiesConfig>
+    public class Cookies : Dictionary<string, string>, IEquatable<Cookies>
     {
-        public static CookiesConfig Empty => new CookiesConfig();
+        public static Cookies Empty => new Cookies();
         public bool HasValue { get; private set; }
 
-        public CookiesConfig()
+        public Cookies()
         {
         }
 
-        public CookiesConfig(IDictionary<string, string> dictionary) : base(dictionary)
+        public Cookies(IDictionary<string, string> dictionary) : base(dictionary)
         {
             HasValue = dictionary.Any();
         }
 
-        public CookiesConfig(CookieCollection cookies)
+        public Cookies(CookieCollection cookies)
         {
             foreach(Cookie cook in cookies)
             {
@@ -33,7 +33,7 @@ namespace RestTest.Configuration
             base.Add(key, value);
         }
 
-        public bool Equals(CookiesConfig other)
+        public bool Equals(Cookies other)
         {
             if (other is null) return false;
             if (other.Count != this.Count) return false;
