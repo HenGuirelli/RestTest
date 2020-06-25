@@ -3,13 +3,16 @@ using Newtonsoft.Json.Linq;
 
 namespace RestTest.JsonHelper
 {
-    internal class JsonValueObject : JsonValue
+    public class JsonValueObject : JsonValue
     {
+        public override JsonValue this[string key] => JsonValue.Create((_typedValue as JObject)[key].ToString());
+        public override bool IsObject => true;
+        protected JObject _json;
+
         public JsonValueObject(string value)
         {
-            _typedValue = JsonConvert.DeserializeObject(value) as JObject;
+            _json = JsonConvert.DeserializeObject(value) as JObject;
+            _typedValue = _json;
         }
-
-        public override JsonValue this[string key] => JsonValue.Create((_typedValue as JObject)[key].ToString());
     }
 }

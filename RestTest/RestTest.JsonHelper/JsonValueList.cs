@@ -11,5 +11,6 @@ namespace RestTest.JsonHelper
         }
 
         public override JsonValue this[string key] => throw new System.NotImplementedException();
+        public override bool IsObject => false;
     }
 }

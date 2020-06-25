@@ -8,5 +8,7 @@
         }
 
         public override JsonValue this[string key] { get => throw new System.NotImplementedException(); }
+
+        public override bool IsObject => false;
     }
 }

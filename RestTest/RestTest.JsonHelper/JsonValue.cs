@@ -7,6 +7,7 @@ namespace RestTest.JsonHelper
     {
         protected object _typedValue;
         public abstract JsonValue this[string key] { get; }
+        public abstract bool IsObject { get; }
 
         public static JsonValue Create(string item)
         {
