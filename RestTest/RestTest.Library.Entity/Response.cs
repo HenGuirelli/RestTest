@@ -2,7 +2,7 @@
 using RestTest.JsonHelper;
 using RestTest.Library;
 
-namespace RestTest.RestRequest
+namespace RestTest.Library
 {
     public class Response
     {

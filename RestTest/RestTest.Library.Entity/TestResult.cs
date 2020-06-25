@@ -1,5 +1,4 @@
-﻿using RestTest.RestRequest;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace RestTest.Library
@@ -15,10 +14,14 @@ namespace RestTest.Library
         {
             TestName = testName;
             if (validation.Status.HasValue)
+            {
                 Validate(result.Status == validation.Status, $"Status => expected {validation.Status}\nreceived {result.Status}");
+            }
 
             if (validation.Body.HasValue)
+            {
                 Validate(result.Body.Compare(validation.Body), $"Body => expected {validation.Body}\nreceived {result.Body}");
+            }
 
             if (validation.Cookies.HasValue)
             {
