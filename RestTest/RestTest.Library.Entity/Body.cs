@@ -19,7 +19,16 @@ namespace RestTest.Library.Entity
             {
                 JsonValue attrBody = other[key];
 
-                if (attrBody.ToString() == "${ANY}") continue;
+                if (attrBody.ToString() == "${ANY}" || this[key].ToString() == "${ANY}") continue;
+                
+                if (attrBody.ToString() == "${NUMBER}")
+                {
+                    if (long.TryParse(this[key].ToString(), out var _)) continue;
+                }
+                else if (this[key].ToString() == "${NUMBER}")
+                {
+                    if (long.TryParse(attrBody.ToString(), out var _)) continue;
+                }
 
                 if (attrBody.IsObject)
                 {

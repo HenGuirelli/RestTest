@@ -13,6 +13,7 @@ namespace RestTest.Library.Entity.Test
             var jsonBody2 = File.ReadAllText("./simple_body.json");
 
             Assert.IsTrue(new Body(jsonBody1).Equals(new Body(jsonBody2)));
+            Assert.IsTrue(new Body(jsonBody2).Equals(new Body(jsonBody1)));
         }  
         
         [TestMethod]
@@ -22,6 +23,7 @@ namespace RestTest.Library.Entity.Test
             var jsonBody2 = File.ReadAllText("./simple_body2.json");
 
             Assert.IsFalse(new Body(jsonBody1).Equals(new Body(jsonBody2)));
+            Assert.IsFalse(new Body(jsonBody2).Equals(new Body(jsonBody1)));
         }
 
         [TestMethod]
@@ -31,6 +33,7 @@ namespace RestTest.Library.Entity.Test
             var jsonBody2 = File.ReadAllText("./simple_body_any.json");
 
             Assert.IsTrue(new Body(jsonBody1).Equals(new Body(jsonBody2)));
+            Assert.IsTrue(new Body(jsonBody2).Equals(new Body(jsonBody1)));
         }
 
         [TestMethod]
@@ -38,8 +41,14 @@ namespace RestTest.Library.Entity.Test
         {
             var jsonBody1 = File.ReadAllText("./simple_body.json");
             var jsonBody2 = File.ReadAllText("./simple_body_number.json");
-
             Assert.IsTrue(new Body(jsonBody1).Equals(new Body(jsonBody2)));
+            Assert.IsTrue(new Body(jsonBody2).Equals(new Body(jsonBody1)));
+
+
+            var jsonBody3 = File.ReadAllText("./simple_body_item1_str.json");
+            var jsonBody4 = File.ReadAllText("./simple_body_item1_$number.json");
+            Assert.IsFalse(new Body(jsonBody3).Equals(new Body(jsonBody4)));
+            Assert.IsFalse(new Body(jsonBody4).Equals(new Body(jsonBody3)));
         }
     }
 }
