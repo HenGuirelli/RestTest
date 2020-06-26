@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="simple_body_number.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="simple_body_any.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

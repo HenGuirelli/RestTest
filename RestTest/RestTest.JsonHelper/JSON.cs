@@ -11,10 +11,10 @@ namespace RestTest.JsonHelper
 
         public static Json Empty => new Json("{}");
 
-        public Json(string json) : base(json)
+        public Json(string json) 
+            : base(string.IsNullOrWhiteSpace(json) ? "{}" : json)
         {
             HasValue = !string.IsNullOrWhiteSpace(json);
-            json = string.IsNullOrWhiteSpace(json) ? "{}" : json;
         }
 
         public IEnumerable<string> Keys => _json.Properties().Select(x => x.Name.ToString());
