@@ -21,6 +21,12 @@
     <None Update="simple_body_item1_$number.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="simple_body_item1_number.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="simple_body_item1_regex.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="simple_body_item1_str.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

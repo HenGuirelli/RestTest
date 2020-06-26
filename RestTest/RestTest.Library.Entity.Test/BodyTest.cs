@@ -50,5 +50,17 @@ namespace RestTest.Library.Entity.Test
             Assert.IsFalse(new Body(jsonBody3).Equals(new Body(jsonBody4)));
             Assert.IsFalse(new Body(jsonBody4).Equals(new Body(jsonBody3)));
         }
+
+        [TestMethod]
+        public void ReservedWord_Regex_BodyShouldtBeEquals()
+        {
+            var jsonBody1 = File.ReadAllText("./simple_body_item1_number.json");
+            var jsonBody2 = File.ReadAllText("./simple_body_item1_regex.json");
+            Assert.IsTrue(new Body(jsonBody1).Equals(new Body(jsonBody2)));
+            Assert.IsTrue(new Body(jsonBody2).Equals(new Body(jsonBody1)));
+
+            var jsonBody3 = File.ReadAllText("./simple_body_item1_str.json");
+            Assert.IsFalse(new Body(jsonBody2).Equals(new Body(jsonBody3)));
+        }
     }
 }
