@@ -1,0 +1,35 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+
+namespace RestTest.AspNet.Controllers
+{
+    [ApiController]
+    //[Route("[controller]")]
+    public class OperationsController : ControllerBase
+    {
+        private readonly ILogger<OperationsController> _logger;
+
+        public OperationsController(ILogger<OperationsController> logger)
+        {
+            _logger = logger;
+        }
+
+        [HttpPost("sum")]
+        public long SumOperation([FromBody] TwoNumbersBody twoNumber)
+        {
+            return twoNumber.num1 + twoNumber.num2;
+        }
+
+        [HttpPost("sub")]
+        public long SubOperation([FromBody] TwoNumbersBody twoNumber)
+        {
+            return twoNumber.num1 - twoNumber.num2;
+        }
+    }
+
+    public class TwoNumbersBody
+    {
+        public long num1 { get; set; }
+        public long num2 { get; set; }
+    }
+}

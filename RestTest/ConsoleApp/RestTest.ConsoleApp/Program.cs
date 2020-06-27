@@ -27,7 +27,6 @@ namespace RestTest.ConsoleApp
             RT rt = default;
             try
             {
-
                 rt = new RT(argsResult.ConfigPath);
                 rt.OnTestFinished += OnTestFinished;
             }
@@ -35,6 +34,8 @@ namespace RestTest.ConsoleApp
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
+
+                Console.ReadKey();
             }
         }
 
