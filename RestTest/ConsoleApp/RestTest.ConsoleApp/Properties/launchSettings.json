@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RestTest.ConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": ".\\config.json .\\test_result"
+    }
+  }
+}
