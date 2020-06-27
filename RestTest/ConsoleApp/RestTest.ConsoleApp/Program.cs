@@ -1,12 +1,14 @@
 ﻿using RestTest.Library;
 using System;
 using System.IO;
+using System.Threading;
 
 namespace RestTest.ConsoleApp
 {
     class Program
     {
         static string _resultPath;
+        static volatile bool _testFinished = false;
 
         static void Main(string[] args)
         {
@@ -27,10 +29,14 @@ namespace RestTest.ConsoleApp
             RT rt = default;
             try
             {
+                CleanResultFile();
                 rt = new RT(argsResult.ConfigPath);
                 rt.OnTestFinished += OnTestFinished;
 
                 rt.Start();
+                rt.OnAllTestsFinished += () => _testFinished = true;
+
+                SpinWait.SpinUntil(() => _testFinished);
             }
             catch (Exception ex)
             {
@@ -39,6 +45,11 @@ namespace RestTest.ConsoleApp
 
                 Console.ReadKey();
             }
+        }
+
+        private static void CleanResultFile()
+        {
+            File.WriteAllText(_resultPath, "");
         }
 
         private static ArgsResult ParseArgs(string[] args)
