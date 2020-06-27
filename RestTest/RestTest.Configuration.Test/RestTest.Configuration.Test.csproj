@@ -33,6 +33,9 @@
     <None Update="empty.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="no_test_type.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="unique_test.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

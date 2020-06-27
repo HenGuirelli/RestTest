@@ -15,15 +15,15 @@ namespace RestTest.AspNet.Controllers
         }
 
         [HttpPost("sum")]
-        public long SumOperation([FromBody] TwoNumbersBody twoNumber)
+        public IActionResult SumOperation([FromBody] TwoNumbersBody twoNumber)
         {
-            return twoNumber.num1 + twoNumber.num2;
+            return Ok(new { Result = twoNumber.num1 + twoNumber.num2 });
         }
 
         [HttpPost("sub")]
-        public long SubOperation([FromBody] TwoNumbersBody twoNumber)
+        public IActionResult SubOperation([FromBody] TwoNumbersBody twoNumber)
         {
-            return twoNumber.num1 - twoNumber.num2;
+            return Ok(new { Result = twoNumber.num1 - twoNumber.num2 });
         }
     }
 

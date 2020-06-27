@@ -1,3 +1,14 @@
 {
-  "url":  "http:\\localhost"
+  "url": "http://localhost:59635/sum",
+  "method": "POST",
+  "body": {
+    "num1": 10,
+    "num2": 20
+  },
+
+  "validation": {
+    "body": {
+      "result": 30
+    }
+  }
 }

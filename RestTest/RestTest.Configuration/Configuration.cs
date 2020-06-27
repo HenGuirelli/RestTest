@@ -16,6 +16,7 @@ namespace RestTest.Configuration
         public IEnumerable<SequenceConfiguration> Sequences => _sequence.AsReadOnly();
 
         private readonly HashSet<string> _requestNames = new HashSet<string>();
+        private readonly List<string> _testTypes = new List<string>(Enum.GetNames(typeof(TestType)));
 
         public Configuration(string filename)
         {
@@ -42,7 +43,8 @@ namespace RestTest.Configuration
             foreach(var testType in testTypes)
             {
                 var test = JsonConvert.DeserializeObject<UniqueConfigurationJsonNotation>(testType.ToString());
-                VerifyUniqueTestName(test);
+                VerifyTestNameDuplicated(test);
+                VerifyTestType(test);
 
                 if (test.type == "unique_test")
                 {
@@ -59,7 +61,15 @@ namespace RestTest.Configuration
             }
         }
 
-        private void VerifyUniqueTestName(UniqueConfigurationJsonNotation test)
+        private void VerifyTestType(UniqueConfigurationJsonNotation test)
+        {
+            if (!_testTypes.Contains(test.type))
+            {
+                throw new Exception($"Test '{test.name}' need a type. Example: \"type\": \"unique_test\"");
+            }
+        }
+
+        private void VerifyTestNameDuplicated(UniqueConfigurationJsonNotation test)
         {
             if (_requestNames.Contains(test.name))
             {

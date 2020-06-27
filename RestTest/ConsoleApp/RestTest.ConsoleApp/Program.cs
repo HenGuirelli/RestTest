@@ -29,6 +29,8 @@ namespace RestTest.ConsoleApp
             {
                 rt = new RT(argsResult.ConfigPath);
                 rt.OnTestFinished += OnTestFinished;
+
+                rt.Start();
             }
             catch (Exception ex)
             {

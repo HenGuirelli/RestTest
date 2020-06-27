@@ -21,7 +21,7 @@ namespace RestTest.Configuration
         private static List<UniqueConfiguration> ConvertToUniqueTestSequence(List<UniqueConfigurationJsonNotation> sequence)
         {
             var result = new List<UniqueConfiguration>();
-            foreach (var item in sequence)
+            foreach (var item in sequence ?? new List<UniqueConfigurationJsonNotation>())
             {
                 result.Add(ConvertUniqueConfiguration(item));
             }
