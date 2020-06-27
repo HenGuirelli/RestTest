@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using RestTest.Library.Entity;
 using RestTest.RestRequest;
 
 namespace RestTest.Library

@@ -1,4 +1,5 @@
 ﻿using RestTest.Library;
+using RestTest.Library.Entity;
 using System;
 using System.IO;
 using System.Threading;
