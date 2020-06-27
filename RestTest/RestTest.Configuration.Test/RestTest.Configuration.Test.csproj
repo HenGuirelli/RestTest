@@ -30,6 +30,9 @@
     <None Update="sequence_test.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="empty.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="unique_test.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
