@@ -1,5 +1,6 @@
 [
   {
+    "name": "sum",
     "url": "http://localhost:59635/sum",
     "type": "unique_test",
     "method": "POST",
@@ -22,6 +23,7 @@
     }
   },
   {
+    "name": "sub",
     "url": "http://localhost:59635/sub",
     "type": "unique_test",
     "method": "POST",

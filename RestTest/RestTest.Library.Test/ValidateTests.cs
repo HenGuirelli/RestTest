@@ -56,13 +56,10 @@ namespace RestTest.Library.Test
             Assert.AreEqual(string.Empty, classTest.Results["validation status 200"].Error);
 
             Assert.AreEqual(Status.Fail, classTest.Results["validation status wrong port"].Status);
-            Assert.AreEqual("Status => expected 200 received 404", classTest.Results["validation status wrong port"].Error);
+            Assert.IsTrue(classTest.Results["validation status wrong port"].Error.Contains("General error"));
 
             Assert.AreEqual(Status.Ok, classTest.Results["without status validation. Status 200"].Status);
             Assert.AreEqual(string.Empty, classTest.Results["without status validation. Status 200"].Error);
-
-            Assert.AreEqual(Status.Ok, classTest.Results["without status validation. Status 404"].Status);
-            Assert.AreEqual(string.Empty, classTest.Results["without status validation. Status 404"].Error);
         }
 
         [TestMethod]

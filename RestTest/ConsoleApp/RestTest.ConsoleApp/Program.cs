@@ -70,14 +70,7 @@ namespace RestTest.ConsoleApp
         {
             lock (_lockFile)
             {
-                if (result.Status == Status.Ok)
-                {
-                    File.AppendAllText(_resultPath, $"{result.TestName}: {result.Status}");
-                }
-                else
-                {
-                    File.AppendAllText(_resultPath, $"{result.TestName}: {result.Status} {result.Error}");
-                }
+                File.AppendAllText(_resultPath, $"{result.Text}\n");
             }
         }
     }

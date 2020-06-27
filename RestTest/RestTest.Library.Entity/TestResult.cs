@@ -7,7 +7,9 @@ namespace RestTest.Library.Entity
     {
         public string TestName { get; private set; }
         public Status Status { get; private set; }
-        public string Error => string.Join("\n\n", _errorList);
+        public string Error => string.Join("\n", _errorList);
+
+        public string Text => Status == Status.Ok ? $"{TestName}: {Status}" : $"{TestName}: {Status} {Error}";
 
         private const string DefaultName = "<No Name>";
 
@@ -16,6 +18,11 @@ namespace RestTest.Library.Entity
         public TestResult(string testName, Validation validation, Response result)
         {
             TestName = string.IsNullOrWhiteSpace(testName) ? DefaultName : testName;
+            
+            Validate(string.IsNullOrWhiteSpace(result.Error),
+                FormatMessage($"General error => {result.Error}"));
+            
+
             if (validation.Status.HasValue)
             {
                 Validate(result.Status == validation.Status, 

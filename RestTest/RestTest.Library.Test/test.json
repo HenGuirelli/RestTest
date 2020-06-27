@@ -33,16 +33,6 @@
   },
   {
     "type": "unique_test",
-    "name": "without status validation. Status 404",
-    "url": "http://127.0.0.1:8092/api/resource1", // wrong port
-    "method": "GET",
-    "header": { "Content-Type": "application/json" },
-
-    "validation": {
-    }
-  },
-  {
-    "type": "unique_test",
     "name": "validation body",
     "url": "http://127.0.0.1:8091/api/resource1",
     "method": "GET",

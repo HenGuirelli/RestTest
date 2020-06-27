@@ -65,7 +65,7 @@ namespace RestTest.RestRequest
             }
             catch(Exception ex)
             {
-                return new Response(404, Json.Empty, Cookies.Empty, Header.Empty, ex.Message); ;
+                return new Response(404, Json.Empty, Cookies.Empty, Header.Empty, ex.Message);
             }
         }
     }
