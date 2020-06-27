@@ -71,7 +71,7 @@ namespace RestTest.Configuration
 
         private void VerifyTestNameDuplicated(UniqueConfigurationJsonNotation test)
         {
-            if (_requestNames.Contains(test.name))
+            if (!string.IsNullOrEmpty(test.name) && _requestNames.Contains(test.name))
             {
                 throw new Exception($"config duplicated names '{test.name}'");
             }

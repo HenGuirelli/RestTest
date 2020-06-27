@@ -24,6 +24,9 @@
     <None Update="full_config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="duplicated_key_no_names.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="many_unique_test.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

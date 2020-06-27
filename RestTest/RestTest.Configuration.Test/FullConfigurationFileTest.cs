@@ -35,5 +35,36 @@ namespace RestTest.Configuration.Test
             }
             Assert.Fail();
         }
+
+
+        [TestMethod]
+        public void OnTestTypeNotDefined()
+        {
+            try
+            {
+                var conf = new Configuration("./no_test_type.json");
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Test 'test_name' need a type. Example: \"type\": \"unique_test\"", ex.Message);
+                return;
+            }
+
+            Assert.Fail();
+        }
+
+
+        [TestMethod]
+        public void OnDuplicatedKeyNoName_ShouldIgnoreTests()
+        {
+            try
+            {
+                var conf = new Configuration("./duplicated_key_no_names.json");
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail();
+            }
+        }
     }
 }

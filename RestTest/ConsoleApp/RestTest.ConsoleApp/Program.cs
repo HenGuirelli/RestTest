@@ -10,6 +10,7 @@ namespace RestTest.ConsoleApp
     {
         static string _resultPath;
         static volatile bool _testFinished = false;
+        static readonly object _lockFile = new object();
 
         static void Main(string[] args)
         {
@@ -35,7 +36,7 @@ namespace RestTest.ConsoleApp
                 rt.OnTestFinished += OnTestFinished;
 
                 rt.Start();
-                rt.OnAllTestsFinished += () => _testFinished = true;
+                rt.OnAllTestsFinished += AllTestsFinished;
 
                 SpinWait.SpinUntil(() => _testFinished);
             }
@@ -46,6 +47,13 @@ namespace RestTest.ConsoleApp
 
                 Console.ReadKey();
             }
+        }
+
+        private static void AllTestsFinished()
+        {
+            Console.WriteLine($"All tests finished. See result in: {_resultPath}");
+            Console.ReadKey();
+            _testFinished = true;
         }
 
         private static void CleanResultFile()
@@ -60,13 +68,16 @@ namespace RestTest.ConsoleApp
 
         private static void OnTestFinished(TestResult result)
         {
-            if (result.Status == Status.Ok)
+            lock (_lockFile)
             {
-                File.AppendAllText(_resultPath, $"{result.TestName}: {result.Status}");
-            }
-            else
-            {
-                File.AppendAllText(_resultPath, $"{result.TestName}: {result.Status} {result.Error}");
+                if (result.Status == Status.Ok)
+                {
+                    File.AppendAllText(_resultPath, $"{result.TestName}: {result.Status}");
+                }
+                else
+                {
+                    File.AppendAllText(_resultPath, $"{result.TestName}: {result.Status} {result.Error}");
+                }
             }
         }
     }
