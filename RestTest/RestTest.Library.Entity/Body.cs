@@ -54,7 +54,7 @@ namespace RestTest.Library.Entity
 
                 if (attrBody.IsObject)
                 {
-                    if (!this[key].Equals(attrBody)) return false;
+                    if (!new Body(this[key].ToString()).Equals(new Body(attrBody.ToString()))) return false;
                 }
                 else
                 {

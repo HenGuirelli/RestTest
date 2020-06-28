@@ -11,7 +11,7 @@ namespace RestTest.Library.Test
         [TestMethod]
         public void OnCtor_EmptyBodyJson()
         {
-            var body = new Json("");
+            var body = new Body("");
             var validation = new Validation(body, default, default, default, status: 200, default, default);
             var response = new Response(200, Body.Empty, Cookies.Empty, Header.Empty);
             var testResult = new RestTestResult("name", validation, response);
@@ -23,7 +23,7 @@ namespace RestTest.Library.Test
         public void OnCtor_SimpleBodyJson()
         {
             var bodyString = "{ name: \"Ellie\" }";
-            var body = new Json(bodyString);
+            var body = new Body(bodyString);
 
             var validation = new Validation(body, default, default, default, status: 200, default, default);
             var response = new Response(200, new Body(bodyString), Cookies.Empty, Header.Empty);
@@ -41,7 +41,7 @@ namespace RestTest.Library.Test
         public void OnCtor_ComplexBodyJson()
         {
             var bodyString = "{ person: { name: \"Ellie\", age: 14 } }";
-            var body = new Json(bodyString);
+            var body = new Body(bodyString);
 
             var validation = new Validation(body, default, default, default, status: 200, default, default);
             var response = new Response(200, new Body(bodyString), Cookies.Empty, Header.Empty);
