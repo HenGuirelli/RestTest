@@ -10,16 +10,19 @@ namespace RestTest.Library.Entity
         public static Header Empty => new Header();
         public bool HasValue { get; private set; }
 
-        public Header()
+        public Header() 
+            : base(StringComparer.OrdinalIgnoreCase)
         {
         }
 
-        public Header(IDictionary<string, string> dictionary) : base(dictionary)
+        public Header(IDictionary<string, string> dictionary) 
+            : base(new Dictionary<string, string>(dictionary, StringComparer.OrdinalIgnoreCase))
         {
             HasValue = dictionary.Any();
         }
 
         public Header(WebHeaderCollection header)
+            : base(StringComparer.OrdinalIgnoreCase)
         {
             foreach (var headerkey in header.AllKeys)
             {
@@ -43,6 +46,12 @@ namespace RestTest.Library.Entity
                 if (TryGetValue(item.Key, out var value))
                 {
                     if (value == "${ANY}" || item.Value == "${ANY}") continue;
+                    if (value == "${NUMBER}" || item.Value == "${NUMBER}")
+                    {
+                        if (value == "${NUMBER}" && int.TryParse(item.Value, out var _)) continue;
+                        if (item.Value == "${NUMBER}" && int.TryParse(value, out var _)) continue;
+                    }
+                    if (value != item.Value) return false;
                 }
                 else
                 {

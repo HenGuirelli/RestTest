@@ -23,14 +23,15 @@ namespace RestTest.AspNet.Controllers
         [HttpPost("sub")]
         public IActionResult SubOperation([FromBody] TwoNumbersBody twoNumber)
         {
-            return Ok(new { Result = twoNumber.num1 + twoNumber.num2 });
+            return Ok(new { Result = twoNumber.num1 - twoNumber.num2 });
         }
 
         [HttpGet("name")]
         public IActionResult GetName()
         {
             Request.Headers.TryGetValue("fullname", out var resp);
-            return Ok(new { fullname = resp.ToString() });
+            Response.Headers.Add("fullname", resp.ToString());
+            return Ok();
         }
     }
 
