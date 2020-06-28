@@ -78,12 +78,43 @@
       "Content-Type": "application/json; charset=utf-8",
       "Server": "Microsoft-IIS/10.0",
       "X-Powered-By": "ASP.NET",
-      "Date": "Sat, 27 Jun 2020 07:32:44 GMT",
-      "FullName": "Joel Miller"
+      "Date": "Sat, 27 Jun 2020 07:32:44 GMT"
     },
 
     "validation": {
       "status": 200
+    }
+  },
+  {
+    "name": "test send query string in url",
+    "type": "unique_test",
+    "url": "http://localhost:59635/infos?name=Joel&age=40",
+    "header": {
+      "Transfer-Encoding": "chunked",
+      "Content-Type": "application/json; charset=utf-8",
+      "Server": "Microsoft-IIS/10.0",
+      "X-Powered-By": "ASP.NET",
+      "Date": "Sat, 27 Jun 2020 07:32:44 GMT"
+    },
+
+    "validation": {
+      "status": 200
+    }
+  },
+  {
+    "name": "expected bad request",
+    "type": "unique_test",
+    "url": "http://localhost:59635/infos",
+    "header": {
+      "Transfer-Encoding": "chunked",
+      "Content-Type": "application/json; charset=utf-8",
+      "Server": "Microsoft-IIS/10.0",
+      "X-Powered-By": "ASP.NET",
+      "Date": "Sat, 27 Jun 2020 07:32:44 GMT"
+    },
+
+    "validation": {
+      "status": 400
     }
   }
 ]

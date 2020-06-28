@@ -83,6 +83,18 @@ namespace RestTest.RestRequest
                         new Header(response.Headers));
                 }
             }
+            catch (WebException ex)
+            {
+                var response =(HttpWebResponse) ex.Response;
+                using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                {
+                    return new Response(
+                        (int)response.StatusCode,
+                        new Body(reader.ReadToEnd()),
+                        new Cookies(response.Cookies),
+                        new Header(response.Headers));
+                }
+            }
             catch (Exception ex)
             {
                 return new Response(404, Body.Empty, Cookies.Empty, Header.Empty, ex.Message);
