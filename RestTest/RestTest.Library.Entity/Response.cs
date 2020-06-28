@@ -5,7 +5,7 @@ namespace RestTest.Library.Entity
     public class Response
     {
         public int Status { get; private set; }
-        public Json Body { get; private set; }
+        public Body Body { get; private set; }
         public string Error { get; private set; }
         public Cookies Cookies { get; private set; }
         public Header Header { get; private set; }

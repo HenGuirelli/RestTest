@@ -5,7 +5,7 @@ namespace RestTest.Library.Entity
 {
     public class Validation
     {
-        public Json Body { get; private set; }
+        public Body Body { get; private set; }
         public Header Header { get; set; }
         public Dictionary<string, string> QueryString { get; private set; }
         public Cookies Cookies { get; private set; }
@@ -17,7 +17,7 @@ namespace RestTest.Library.Entity
         public Validation() { }
 
         public Validation(
-            Json body,
+            Body body,
             Header header,
             Dictionary<string, string> queryString,
             Cookies cookies,
@@ -25,7 +25,7 @@ namespace RestTest.Library.Entity
             int maxTime,
             int minTime)
         {
-            Body = body ?? new Json(string.Empty);
+            Body = body ?? new Body(string.Empty);
             Header = header ?? new Header();
             QueryString = queryString ?? new Dictionary<string, string>();
             Cookies = cookies ?? new Cookies();
