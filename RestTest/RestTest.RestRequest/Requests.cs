@@ -1,11 +1,10 @@
-﻿using RestTest.Configuration;
-using RestTest.JsonHelper;
-using RestTest.Library;
+﻿using RestTest.JsonHelper;
 using System;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using RestTest.Library.Entity;
 
 namespace RestTest.RestRequest
 {
@@ -58,14 +57,14 @@ namespace RestTest.RestRequest
                 {
                     return new Response(
                         (int)response.StatusCode, 
-                        new Json(reader.ReadToEnd()), 
+                        new Body(reader.ReadToEnd()), 
                         new Cookies(response.Cookies),
                         new Header(response.Headers));
                 }
             }
             catch(Exception ex)
             {
-                return new Response(404, Json.Empty, Cookies.Empty, Header.Empty, ex.Message);
+                return new Response(404, Body.Empty, Cookies.Empty, Header.Empty, ex.Message);
             }
         }
     }

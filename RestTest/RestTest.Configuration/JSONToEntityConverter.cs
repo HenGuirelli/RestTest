@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using RestTest.Configuration.JsonNotation;
 using RestTest.JsonHelper;
-using RestTest.Library;
+using RestTest.Library.Entity;
 using System;
 using System.Collections.Generic;
 

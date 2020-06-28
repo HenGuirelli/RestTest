@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestTest.Configuration;
+using RestTest.Library.Entity;
 using RestTest.JsonHelper;
 using RestTestResult = RestTest.Library.Entity.TestResult;
 
@@ -13,7 +13,7 @@ namespace RestTest.Library.Test
         {
             var body = new Json("");
             var validation = new Validation(body, default, default, default, status: 200, default, default);
-            var response = new Response(200, Json.Empty, Cookies.Empty, Header.Empty);
+            var response = new Response(200, Body.Empty, Cookies.Empty, Header.Empty);
             var testResult = new RestTestResult("name", validation, response);
 
             Assert.AreEqual(Status.Ok, testResult.Status);
@@ -26,13 +26,13 @@ namespace RestTest.Library.Test
             var body = new Json(bodyString);
 
             var validation = new Validation(body, default, default, default, status: 200, default, default);
-            var response = new Response(200, new Json(bodyString), Cookies.Empty, Header.Empty);
+            var response = new Response(200, new Body(bodyString), Cookies.Empty, Header.Empty);
 
             var testResult = new RestTestResult("name", validation, response);
             Assert.AreEqual(Status.Ok, testResult.Status);
 
 
-            response = new Response(200, new Json("{ name: \"Marlene\" }"), Cookies.Empty, Header.Empty);
+            response = new Response(200, new Body("{ name: \"Marlene\" }"), Cookies.Empty, Header.Empty);
             testResult = new RestTestResult("name", validation, response);
             Assert.AreEqual(Status.Fail, testResult.Status);
         }  
@@ -44,13 +44,13 @@ namespace RestTest.Library.Test
             var body = new Json(bodyString);
 
             var validation = new Validation(body, default, default, default, status: 200, default, default);
-            var response = new Response(200, new Json(bodyString), Cookies.Empty, Header.Empty);
+            var response = new Response(200, new Body(bodyString), Cookies.Empty, Header.Empty);
 
             var testResult = new RestTestResult("name", validation, response);
             Assert.AreEqual(Status.Ok, testResult.Status);
 
 
-            response = new Response(200, new Json("{ person: { name: \"Joel\", age: 40 } }"), Cookies.Empty, Header.Empty);
+            response = new Response(200, new Body("{ person: { name: \"Joel\", age: 40 } }"), Cookies.Empty, Header.Empty);
             testResult = new RestTestResult("name", validation, response);
             Assert.AreEqual(Status.Fail, testResult.Status);
         }
@@ -59,7 +59,7 @@ namespace RestTest.Library.Test
         public void OnCtor_Status()
         {
             var validation = new Validation(default, default, default, default, status: 200, default, default);
-            var response = new Response(200, Json.Empty, Cookies.Empty, Header.Empty);
+            var response = new Response(200, Body.Empty, Cookies.Empty, Header.Empty);
             var testResult = new RestTestResult("name", validation, response);
             Assert.AreEqual(Status.Ok, testResult.Status);
         }

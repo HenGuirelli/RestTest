@@ -61,7 +61,7 @@ namespace RestTest.Configuration.Test
             {
                 var conf = new Configuration("./duplicated_key_no_names.json");
             }
-            catch (Exception ex)
+            catch
             {
                 Assert.Fail();
             }

@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestTest.HttpServer.Test;
 using RestTest.JsonHelper;
 using System.Collections.Generic;
+using RestTest.Library.Entity;
 
 namespace RestTest.RestRequest.Test
 {

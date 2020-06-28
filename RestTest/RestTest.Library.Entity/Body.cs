@@ -7,6 +7,8 @@ namespace RestTest.Library.Entity
 {
     public class Body : Json, IEquatable<Body>
     {
+        public new static Body Empty => new Body("{}");
+
         public Body(string json) : base(json)
         {
         }

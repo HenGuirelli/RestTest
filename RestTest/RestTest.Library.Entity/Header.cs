@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
-namespace RestTest.Configuration
+namespace RestTest.Library.Entity
 {
     public class Header : Dictionary<string, string>, IEquatable<Header>
     {

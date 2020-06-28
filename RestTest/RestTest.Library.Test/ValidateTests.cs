@@ -4,6 +4,7 @@ using RestTest.RestRequest;
 using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 using System.Threading;
+using RestTest.Library.Entity;
 using RestTestResult = RestTest.Library.Entity.TestResult;
 
 namespace RestTest.Library.Test

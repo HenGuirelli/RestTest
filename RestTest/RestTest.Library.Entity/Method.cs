@@ -1,4 +1,4 @@
-﻿namespace RestTest.Configuration
+﻿namespace RestTest.Library.Entity
 {
     public enum Method
     {

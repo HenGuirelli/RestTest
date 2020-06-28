@@ -31,7 +31,7 @@ namespace RestTest.Library.Entity
 
             if (validation.Body.HasValue)
             {
-                Validate(result.Body.Compare(validation.Body),
+                Validate(result.Body.Equals(validation.Body),
                     FormatMessage($"Body => expected {validation.Body} received {result.Body}"));
             }
 

@@ -1,4 +1,4 @@
-﻿namespace RestTest.Library
+﻿namespace RestTest.Library.Entity
 {
     public enum TestType
     {

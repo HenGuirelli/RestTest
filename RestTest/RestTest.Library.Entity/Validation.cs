@@ -1,8 +1,7 @@
-﻿using RestTest.Configuration;
-using RestTest.JsonHelper;
+﻿using RestTest.JsonHelper;
 using System.Collections.Generic;
 
-namespace RestTest.Library
+namespace RestTest.Library.Entity
 {
     public class Validation
     {
