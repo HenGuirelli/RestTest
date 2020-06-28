@@ -8,6 +8,7 @@ namespace RestTest.RestRequest
         public string Method { get; private set; }
         public IDictionary<string, string> Header { get; private set; }
         public IDictionary<string, string> Cookies { get; private set; }
+        public IDictionary<string, string> QueryString { get; private set; }
         public string Body { get; private set; }
 
         public RequestConfig(
@@ -15,16 +16,18 @@ namespace RestTest.RestRequest
             string method,
             IDictionary<string, string> header,
             IDictionary<string, string> cookies,
+            IDictionary<string, string> query_string,
             string body)
         {
             Url = url;
             Method = method;
             Header = header;
             Cookies = cookies;
+            QueryString = query_string;
             Body = body;
         }
 
         public RequestConfig(string url, string method) 
-            : this(url, method, new Dictionary<string, string>(), new Dictionary<string, string>(), string.Empty) { }
+            : this(url, method, new Dictionary<string, string>(), new Dictionary<string, string>(), new Dictionary<string, string>(), string.Empty) { }
     }
 }

@@ -1,19 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace RestTest.AspNet.Controllers
 {
     [ApiController]
-    //[Route("[controller]")]
     public class OperationsController : ControllerBase
     {
-        private readonly ILogger<OperationsController> _logger;
-
-        public OperationsController(ILogger<OperationsController> logger)
-        {
-            _logger = logger;
-        }
-
         [HttpPost("sum")]
         public IActionResult SumOperation([FromBody] TwoNumbersBody twoNumber)
         {
@@ -31,6 +22,16 @@ namespace RestTest.AspNet.Controllers
         {
             Request.Headers.TryGetValue("fullname", out var resp);
             Response.Headers.Add("fullname", resp.ToString());
+            return Ok();
+        }
+
+        [HttpGet("infos")]
+        public IActionResult ReceivedQueryString([FromQuery] string name, [FromQuery] long? age)
+        {
+            if (string.IsNullOrWhiteSpace(name) || age is null)
+            {
+                return BadRequest();
+            }
             return Ok();
         }
     }

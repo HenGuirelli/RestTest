@@ -38,6 +38,7 @@ namespace RestTest.Configuration
                 method,
                 JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.header as JObject),
                 JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.cookies as JObject),
+                JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.query_string as JObject),
                 new Json(uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty),
                 uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty,
                 JSONToValidation(uniqueConfigurationJSONNotation.validation)

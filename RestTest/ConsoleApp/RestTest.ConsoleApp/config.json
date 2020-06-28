@@ -67,5 +67,23 @@
         "fullname": "Joel Miller"
       }
     }
+  },
+  {
+    "name": "test send query string",
+    "type": "unique_test",
+    "url": "http://localhost:59635/infos",
+    "query_string":  { "name": "Joel Miller", "age":  40  },
+    "header": {
+      "Transfer-Encoding": "chunked",
+      "Content-Type": "application/json; charset=utf-8",
+      "Server": "Microsoft-IIS/10.0",
+      "X-Powered-By": "ASP.NET",
+      "Date": "Sat, 27 Jun 2020 07:32:44 GMT",
+      "FullName": "Joel Miller"
+    },
+
+    "validation": {
+      "status": 200
+    }
   }
 ]

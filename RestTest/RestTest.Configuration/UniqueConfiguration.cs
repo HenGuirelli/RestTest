@@ -12,6 +12,7 @@ namespace RestTest.Configuration
         public Method Method { get; private set; }
         public IDictionary<string, string> Header { get; private set; }
         public IDictionary<string, string> Cookies { get; private set; }
+        public IDictionary<string, string> QueryString { get; private set; }
         public Json Body { get; private set; }
         public string BodyStr { get; private set; }
 
@@ -24,6 +25,7 @@ namespace RestTest.Configuration
             Method method, 
             IDictionary<string, string> header,
             IDictionary<string, string> cookies,
+            IDictionary<string, string> queryString,
             Json body,
             string bodyStr,
             Validation validation)
@@ -34,6 +36,7 @@ namespace RestTest.Configuration
             Method = method;
             Header = header;
             Cookies = cookies;
+            QueryString = queryString;
             Body = body;
             BodyStr = bodyStr;
             Validation = validation;
