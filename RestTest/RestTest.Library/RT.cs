@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using RestTest.Library.Entity;
 using RestTest.RestRequest;
 
@@ -18,31 +19,35 @@ namespace RestTest.Library
 
         public void Start()
         {
-            Task.Run(StartInternal);
+            StartInternal();
         }
 
-        private void StartInternal()
+        private async void StartInternal()
         {
-            Parallel.ForEach(_config.Uniques, item =>
+            var tasksUniques = _config.Uniques.Select(async item =>
             {
                 var request = Requests.Create(item.ToRequestConfig());
                 OnTestStart?.Invoke(item.Name);
                 var response = request.Send();
-                var testResult = new TestResult(item.Name, item.Validation, response);
+                var testResult = new TestResult(item.Name, item.Validation, await response);
                 OnTestFinished?.Invoke(testResult);
             });
 
-            Parallel.ForEach(_config.Sequences, item =>
+            var tasksSequence = _config.Sequences.Select(async item =>
             {
                 foreach (var sequeceItem in item.Sequence)
                 {
                     var request = Requests.Create(sequeceItem.ToRequestConfig());
                     OnTestStart?.Invoke(item.Name);
                     var response = request.Send();
-                    var testResult = new TestResult(item.Name, sequeceItem.Validation, response);
+                    var testResult = new TestResult(item.Name, sequeceItem.Validation, await response);
                     OnTestFinished?.Invoke(testResult);
                 }
             });
+
+            await Task.WhenAll(tasksUniques);
+            await Task.WhenAll(tasksSequence);
+
             OnAllTestsFinished?.Invoke();
         }
     }

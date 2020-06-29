@@ -72,7 +72,10 @@
     "name": "test send query string",
     "type": "unique_test",
     "url": "http://localhost:59635/infos",
-    "query_string":  { "name": "Joel Miller", "age":  40  },
+    "query_string": {
+      "name": "Robson",
+      "age": 40
+    },
     "header": {
       "Transfer-Encoding": "chunked",
       "Content-Type": "application/json; charset=utf-8",
@@ -88,7 +91,7 @@
   {
     "name": "test send query string in url",
     "type": "unique_test",
-    "url": "http://localhost:59635/infos?name=Joel&age=40",
+    "url": "http://localhost:59635/infos?name=Robson&age=40",
     "header": {
       "Transfer-Encoding": "chunked",
       "Content-Type": "application/json; charset=utf-8",
@@ -115,6 +118,23 @@
 
     "validation": {
       "status": 400
+    }
+  },
+  {
+    "name": "cookies",
+    "type": "unique_test",
+    "url": "http://localhost:59635/cookies",
+    "header": {
+      "Transfer-Encoding": "chunked",
+      "Content-Type": "application/json; charset=utf-8",
+      "Server": "Microsoft-IIS/10.0",
+      "X-Powered-By": "ASP.NET",
+      "Date": "Sat, 27 Jun 2020 07:32:44 GMT"
+    },
+    "cookies": { "user-id": 1 },
+
+    "validation": {
+      "cookies": { "logged":  "true", "user-id": 1 }
     }
   }
 ]

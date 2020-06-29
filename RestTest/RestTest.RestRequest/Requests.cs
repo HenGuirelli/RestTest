@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using RestTest.Library.Entity;
 
 namespace RestTest.RestRequest
@@ -69,16 +70,16 @@ namespace RestTest.RestRequest
             return new Uri(requestConfig.Url);
         }
 
-        public Response Send()
+        public async Task<Response> Send()
         {
             try
             {
-                var response = (HttpWebResponse)_request.GetResponse();
+                var response = (HttpWebResponse)(await _request.GetResponseAsync());
                 using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
                     return new Response(
                         (int)response.StatusCode,
-                        new Body(reader.ReadToEnd()),
+                        new Body(await reader.ReadToEndAsync()),
                         new Cookies(response.Cookies),
                         new Header(response.Headers));
                 }
@@ -90,7 +91,7 @@ namespace RestTest.RestRequest
                 {
                     return new Response(
                         (int)response.StatusCode,
-                        new Body(reader.ReadToEnd()),
+                        new Body(await reader.ReadToEndAsync()),
                         new Cookies(response.Cookies),
                         new Header(response.Headers));
                 }

@@ -34,6 +34,17 @@ namespace RestTest.AspNet.Controllers
             }
             return Ok();
         }
+
+        [HttpGet("cookies")]
+        public IActionResult ReceivedCookie()
+        {
+            if (Request.Cookies.ContainsKey("user-id"))
+            {
+                Response.Cookies.Append("logged", "true");
+                return Ok();
+            }
+            return BadRequest();
+        }
     }
 
     public class TwoNumbersBody
