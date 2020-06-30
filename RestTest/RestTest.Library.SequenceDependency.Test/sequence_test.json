@@ -1,0 +1,29 @@
+{
+  "name": "sequence_test_name",
+  "type": "sequence_test",
+  "sequence": [
+    {
+      "name": "call1",
+      "url": "http://localhost:8091/api/resource",
+      "method": "POST",
+      "body": {
+        "name": "Robson",
+        "age": 35
+      },
+      "header": { "Content-Type": "application/json" }
+    },
+    {
+      "url": "http://localhost:8091/api/resource",
+      "method": "GET",
+      "query_string": { "user": "${call1.response.body.id}" }, // id of first call response
+
+      "validation": {
+        "status": 200
+      }
+    },
+    {
+      "url": "http://localhost:8091/api/resource/${call1.response.body.id}",
+      "method": "DELETE"
+    }
+  ]
+}

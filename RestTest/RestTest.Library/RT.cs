@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using RestTest.Library.Entity;
+using RestTest.Library.SequenceDependency;
 using RestTest.RestRequest;
 
 namespace RestTest.Library
@@ -33,20 +35,23 @@ namespace RestTest.Library
                 OnTestFinished?.Invoke(testResult);
             });
 
-            var tasksSequence = _config.Sequences.Select(async item =>
+            foreach (var item in _config.Sequences)
             {
+                var sequenceDependency = new SequenceDependencyResolver();
                 foreach (var sequeceItem in item.Sequence)
                 {
-                    var request = Requests.Create(sequeceItem.ToRequestConfig());
-                    OnTestStart?.Invoke(item.Name);
+                    var requestConfig = sequeceItem.ToRequestConfig();
+                    sequenceDependency.ReplaceDependency(requestConfig);
+                    var request = Requests.Create(requestConfig);
+                    OnTestStart?.Invoke(sequeceItem.Name);
                     var response = request.Send();
-                    var testResult = new TestResult(item.Name, sequeceItem.Validation, await response);
+                    var testResult = new TestResult(sequeceItem.Name, sequeceItem.Validation, await response);
+                    sequenceDependency.AddResult(testResult);
                     OnTestFinished?.Invoke(testResult);
                 }
-            });
+            };
 
             await Task.WhenAll(tasksUniques);
-            await Task.WhenAll(tasksSequence);
 
             OnAllTestsFinished?.Invoke();
         }

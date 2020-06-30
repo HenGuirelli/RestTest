@@ -7,6 +7,7 @@ namespace RestTest.Library.Entity
     {
         public string TestName { get; private set; }
         public Status Status { get; private set; }
+        public Response Response { get; private set; }
         public string Error => string.Join("\n", _errorList);
 
         public string Text => Status == Status.Ok ? $"{TestName}: {Status}" : $"{TestName}: {Status} {Error}";
@@ -15,36 +16,37 @@ namespace RestTest.Library.Entity
 
         private readonly List<string> _errorList = new List<string>();
 
-        public TestResult(string testName, Validation validation, Response result)
+        public TestResult(string testName, Validation validation, Response response)
         {
             TestName = string.IsNullOrWhiteSpace(testName) ? DefaultName : testName;
-            
-            Validate(string.IsNullOrWhiteSpace(result.Error),
-                FormatMessage($"General error => {result.Error}"));
-            
+            Response = response;
+
+            Validate(string.IsNullOrWhiteSpace(response.Error),
+                FormatMessage($"General error => {response.Error}"));
+
 
             if (validation.Status.HasValue)
             {
-                Validate(result.Status == validation.Status, 
-                    FormatMessage($"Status => expected {validation.Status} received {result.Status}"));
+                Validate(response.Status == validation.Status,
+                    FormatMessage($"Status => expected {validation.Status} received {response.Status}"));
             }
 
             if (validation.Body.HasValue)
             {
-                Validate(result.Body.Equals(validation.Body),
-                    FormatMessage($"Body => expected {validation.Body} received {result.Body}"));
+                Validate(response.Body.Equals(validation.Body),
+                    FormatMessage($"Body => expected {validation.Body} received {response.Body}"));
             }
 
             if (validation.Cookies.HasValue)
             {
-                Validate(result.Cookies.Equals(validation.Cookies),
-                    FormatMessage($"Cookie => expected {validation.Cookies} received {result.Cookies}"));
+                Validate(response.Cookies.Equals(validation.Cookies),
+                    FormatMessage($"Cookie => expected {validation.Cookies} received {response.Cookies}"));
             }
 
             if (validation.Header.HasValue)
             {
-                Validate(result.Header.Equals(validation.Header),
-                    FormatMessage($"Header => expected {validation.Header} received {result.Header}"));
+                Validate(response.Header.Equals(validation.Header),
+                    FormatMessage($"Header => expected {validation.Header} received {response.Header}"));
             }
 
             Status = _errorList.Any() ? Status.Fail : Status.Ok;
