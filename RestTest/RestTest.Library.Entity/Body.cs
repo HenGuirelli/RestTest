@@ -17,8 +17,7 @@ namespace RestTest.Library.Entity
         {
             if (other is null) return false;
 
-            IEnumerable<string> keys = Keys;
-            foreach (var key in keys)
+            foreach (var key in Keys)
             {
                 JsonValue attrBody = default;
                 try 

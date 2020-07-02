@@ -84,7 +84,7 @@ namespace RestTest.RestRequest
                         new Header(response.Headers));
                 }
             }
-            catch (WebException ex)
+            catch (WebException ex) when (ex.Response != null)
             {
                 var response =(HttpWebResponse) ex.Response;
                 using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))

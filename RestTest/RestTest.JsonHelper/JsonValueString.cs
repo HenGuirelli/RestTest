@@ -3,15 +3,14 @@
     internal class JsonValueString : JsonValue
     {
         private readonly string _value;
+        public override JsonValue this[string key] { get => throw new System.NotImplementedException(); }
+        public override bool IsObject => false;
 
         public JsonValueString(string value)
         {
             _typedValue = value;
             _value = value;
         }
-
-        public override JsonValue this[string key] { get => throw new System.NotImplementedException(); }
-        public override bool IsObject => false;
 
         public override bool Equals(object obj)
         {

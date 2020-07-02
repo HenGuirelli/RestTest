@@ -9,7 +9,7 @@ namespace RestTest.RestRequest
         public IDictionary<string, string> Header { get; private set; }
         public IDictionary<string, string> Cookies { get; private set; }
         public IDictionary<string, string> QueryString { get; set; }
-        public string Body { get; private set; }
+        public string Body { get; set; }
 
         public RequestConfig(
             string url,

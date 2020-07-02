@@ -6,6 +6,7 @@ namespace RestTest.JsonHelper
     public class JsonValueObject : JsonValue
     {
         public override JsonValue this[string key] => JsonValue.Create((_typedValue as JObject)[key].ToString());
+
         public override bool IsObject => true;
         protected JObject _json;
 

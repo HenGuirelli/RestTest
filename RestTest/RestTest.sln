@@ -37,9 +37,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNetForTest", "AspNetForT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.AspNet", "RestTest.AspNet\RestTest.AspNet.csproj", "{60FBAB66-E8A0-45A1-ABD0-EFE311515103}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTest.Library.SequenceDependency", "RestTest.Library.SequenceDependency\RestTest.Library.SequenceDependency.csproj", "{50B55B67-6E43-49B4-832E-CEB784AA657C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Library.SequenceDependency", "RestTest.Library.SequenceDependency\RestTest.Library.SequenceDependency.csproj", "{50B55B67-6E43-49B4-832E-CEB784AA657C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTest.Library.SequenceDependency.Test", "RestTest.Library.SequenceDependency.Test\RestTest.Library.SequenceDependency.Test.csproj", "{E528D5FC-1D45-4CBC-86C4-3B88853DB2E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Library.SequenceDependency.Test", "RestTest.Library.SequenceDependency.Test\RestTest.Library.SequenceDependency.Test.csproj", "{E528D5FC-1D45-4CBC-86C4-3B88853DB2E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTest.NewJsonHelper", "RestTest.NewJsonHelper\RestTest.NewJsonHelper.csproj", "{B983EC7F-D4FE-492D-8D32-A357A995D3CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTest.NewJsonHelper.Test", "RestTest.NewJsonHelper.Test\RestTest.NewJsonHelper.Test.csproj", "{0FFDFCC9-56D6-46B6-AC4F-3EB0F6B7527A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +111,14 @@ Global
 		{E528D5FC-1D45-4CBC-86C4-3B88853DB2E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E528D5FC-1D45-4CBC-86C4-3B88853DB2E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E528D5FC-1D45-4CBC-86C4-3B88853DB2E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B983EC7F-D4FE-492D-8D32-A357A995D3CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B983EC7F-D4FE-492D-8D32-A357A995D3CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B983EC7F-D4FE-492D-8D32-A357A995D3CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B983EC7F-D4FE-492D-8D32-A357A995D3CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FFDFCC9-56D6-46B6-AC4F-3EB0F6B7527A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FFDFCC9-56D6-46B6-AC4F-3EB0F6B7527A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FFDFCC9-56D6-46B6-AC4F-3EB0F6B7527A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FFDFCC9-56D6-46B6-AC4F-3EB0F6B7527A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +133,7 @@ Global
 		{A84C014F-25E7-477A-813E-3E45CF2BE532} = {235CB93E-EC07-4A60-9BA1-3E8A44CC6820}
 		{60FBAB66-E8A0-45A1-ABD0-EFE311515103} = {5A2DE9A1-B1B0-4635-96ED-14F67C6410AE}
 		{E528D5FC-1D45-4CBC-86C4-3B88853DB2E6} = {642F57CB-37D6-45A1-B4E8-EC7C2A492864}
+		{0FFDFCC9-56D6-46B6-AC4F-3EB0F6B7527A} = {642F57CB-37D6-45A1-B4E8-EC7C2A492864}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {48F2F56A-C605-4F32-A090-C670D0259B1F}

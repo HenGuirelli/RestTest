@@ -1,5 +1,6 @@
 ﻿using RestTest.Library.Entity;
 using RestTest.RestRequest;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
@@ -13,6 +14,27 @@ namespace RestTest.Library.SequenceDependency
         public void ReplaceDependency(RequestConfig requestConfig)
         {
             requestConfig.QueryString = ReplaceDependecyQueryString(requestConfig.QueryString);
+            requestConfig.Body = ReplaceDependecyBody(requestConfig.Body);
+        }
+
+        private string ReplaceDependecyBody(string bodyStr)
+        {
+            var body = new Body(bodyStr);
+            foreach (var item in body.Keys)
+            {
+                if (body[item].IsObject)
+                {
+                    JsonHelper.JsonValue attribute = default;
+                    while ((attribute = body[item]).IsObject)
+                    {
+
+                    }
+                }
+                else
+                {
+                }
+            }
+            throw new NotImplementedException();
         }
 
         private Dictionary<string, string> ReplaceDependecyQueryString(IDictionary<string, string> queryString)

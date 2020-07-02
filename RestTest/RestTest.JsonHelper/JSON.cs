@@ -8,7 +8,8 @@ namespace RestTest.JsonHelper
     public class Json : JsonValueObject
     {
         public bool HasValue { get; private set; }
-
+        public IEnumerable<string> Keys => _json.Properties().Select(x => x.Name.ToString());
+        public IEnumerable<object> Values => _json.Properties().Select(x => x.Value);
         public static Json Empty => new Json("{}");
 
         public Json(string json) 
@@ -16,9 +17,6 @@ namespace RestTest.JsonHelper
         {
             HasValue = !string.IsNullOrWhiteSpace(json);
         }
-
-        public IEnumerable<string> Keys => _json.Properties().Select(x => x.Name.ToString());
-        public IEnumerable<object> Values => _json.Properties().Select(x => x.Value);
 
         public override string ToString()
         {

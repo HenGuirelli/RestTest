@@ -36,7 +36,8 @@ namespace RestTest.RestRequest.Test
                 };
                 var body = "{name: \"Robert\"}";
                 var cookies = new Dictionary<string, string>();
-                var request = Requests.Create(new RequestConfig($"http://localhost:{Port}/resource", "GET", header, cookies, body));
+                var queryString = new Dictionary<string, string>();
+                var request = Requests.Create(new RequestConfig($"http://localhost:{Port}/resource", "GET", header, cookies, queryString, body));
             }
             catch
             {
@@ -51,7 +52,7 @@ namespace RestTest.RestRequest.Test
         {
             var wrongPort = 8083;
             var request = Requests.Create(new RequestConfig($"http://localhost:{wrongPort}/resource", "GET"));
-            var response = request.Send();
+            var response = request.Send().Result;
 
             Assert.AreEqual(404, response.Status);
         }
@@ -66,8 +67,9 @@ namespace RestTest.RestRequest.Test
             var body = "{name: \"Robert\"}";
             _server.ResponseBody = body;
             var cookies = new Dictionary<string, string>();
-            var request = Requests.Create(new RequestConfig($"http://localhost:{Port}/resource", "POST", header, cookies, body));
-            var response = request.Send();
+            var queryString = new Dictionary<string, string>();
+            var request = Requests.Create(new RequestConfig($"http://localhost:{Port}/resource", "POST", header, cookies, queryString, body));
+            var response = request.Send().Result;
 
             Assert.AreEqual(200, response.Status);
             Assert.IsTrue(new Json(body).Compare(response.Body));

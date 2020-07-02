@@ -134,7 +134,10 @@
     "cookies": { "user-id": 1 },
 
     "validation": {
-      "cookies": { "logged":  "true", "user-id": 1 }
+      "cookies": {
+        "logged": "true",
+        "user-id": 1
+      }
     }
   }
 ]
