@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace RestTest.NewJsonHelper
 {
@@ -16,6 +17,7 @@ namespace RestTest.NewJsonHelper
 
         public void Add(JsonAttribute json)
         {
+            if (string.IsNullOrWhiteSpace(json.Key)) throw new ArgumentException("Json attribute should be an key");
             _jsons.Add(json.Key, json);
         }
 

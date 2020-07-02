@@ -4,6 +4,11 @@
     {
         public string Value { get; set; }
 
+        public JsonString(string value)
+            : this(string.Empty, value)
+        {
+        }
+
         public JsonString(string key, string value)
         {
             Key = key;

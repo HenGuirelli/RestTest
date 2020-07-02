@@ -4,6 +4,11 @@
     {
         public long Value { get; set; }
 
+        public JsonLong(long value)
+            : this (string.Empty, value)
+        {
+        }
+
         public JsonLong(string key, long value)
         {
             Key = key;
