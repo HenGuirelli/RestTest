@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using RestTest.Library.Entity;
 using RestTest.NewJsonHelper;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -20,18 +21,24 @@ namespace RestTest.JsonReader
         {
             if (string.IsNullOrEmpty(json)) return Body.Empty;
 
-            var body = new Body();
-            var jObj = JsonConvert.DeserializeObject(json) as JObject;
-            if (jObj != null)
+            try
             {
-                foreach (KeyValuePair<string, JToken> item in jObj)
+                var body = new Body();
+                var jObj = JsonConvert.DeserializeObject(json) as JObject;
+                if (jObj != null)
                 {
-                    JsonAttribute jsonAttribute = _converter[item.Value.Type].Convert(item);
-                    body.Add(jsonAttribute);
+                    foreach (KeyValuePair<string, JToken> item in jObj)
+                    {
+                        JsonAttribute jsonAttribute = _converter[item.Value.Type].Convert(item);
+                        body.Add(jsonAttribute);
+                    }
                 }
+                return body;
             }
-
-            return body;
+            catch
+            {
+                return new Body();
+            }
         }
     }
 }
