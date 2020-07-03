@@ -37,7 +37,7 @@ namespace RestTest.Library
 
             foreach (var item in _config.Sequences)
             {
-                var sequenceDependency = new SequenceDependencyResolver();
+                var sequenceDependency = new SequenceDependencyLocator();
                 foreach (var sequeceItem in item.Sequence)
                 {
                     var requestConfig = sequeceItem.ToRequestConfig();
@@ -46,7 +46,7 @@ namespace RestTest.Library
                     OnTestStart?.Invoke(sequeceItem.Name);
                     var response = request.Send();
                     var testResult = new TestResult(sequeceItem.Name, sequeceItem.Validation, await response);
-                    sequenceDependency.AddResult(testResult);
+                    sequenceDependency.Register(testResult);
                     OnTestFinished?.Invoke(testResult);
                 }
             };

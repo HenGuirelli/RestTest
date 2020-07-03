@@ -7,6 +7,14 @@ namespace RestTest.Library.SequenceDependency
 {
     public class DependencyDetector
     {
+        private readonly Dictionary<DepedencyType, IEvaluate> _map 
+            = new Dictionary<DepedencyType, IEvaluate>();
+
+        public DependencyDetector()
+        {
+            _map.Add(DepedencyType.Body, new EvaluateBody());
+        }
+
         public bool IsDependency(string value)
         {
             return Regex.IsMatch(value, @"\$\{.*\..*\}");
@@ -26,29 +34,19 @@ namespace RestTest.Library.SequenceDependency
             }
         }
 
-        public string EvaluateDependency(string value, TestResult result)
+        public string Evaluate(string value, TestResult result)
         {
-            //if (IsBodyDependency(value))
-            //{
-            //    IEnumerable<string> bodyAttributes = GetBodyAttributes(value);
-            //    JsonValue attrResult = default;
-            //    var first = true;
-            //    foreach (var item in bodyAttributes)
-            //    {
-            //        if (first)
-            //        {
-            //            attrResult = result.Response.Body[item];
-            //            first = false;
-            //        }
-            //        else
-            //        {
-            //            attrResult = attrResult[item];
-            //        }
-            //    }
+            DepedencyType type = GetDependencyType(value);
+            return _map[type].Evaluate(value, result);
+        }
 
-            //    return attrResult.ToString();
-            //}
-            return string.Empty;
+        private DepedencyType GetDependencyType(string value)
+        {
+            if (Regex.IsMatch(value, @"\.response\.body\."))
+            {
+                return DepedencyType.Body;
+            }
+            return default;
         }
 
         private IEnumerable<string> GetBodyAttributes(string value)

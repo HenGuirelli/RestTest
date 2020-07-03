@@ -1,4 +1,5 @@
 ﻿using RestTest.Library.Entity;
+using RestTest.NewJsonHelper;
 using RestTest.RestRequest;
 using System;
 using System.Collections.Concurrent;
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 
 namespace RestTest.Library.SequenceDependency
 {
-    public class SequenceDependencyResolver
+    public class SequenceDependencyLocator
     {
         private readonly Dictionary<string, TestResult> _dict = new Dictionary<string, TestResult>();
         private readonly DependencyDetector _dependencyDetector = new DependencyDetector();
@@ -14,27 +15,31 @@ namespace RestTest.Library.SequenceDependency
         public void ReplaceDependency(RequestConfig requestConfig)
         {
             requestConfig.QueryString = ReplaceDependecyQueryString(requestConfig.QueryString);
-            requestConfig.Body = ReplaceDependecyBody(requestConfig.Body);
+            var reader = new JsonReader.JsonReader();
+            var body = reader.Read(requestConfig.Body);
+            ReplaceDependecyBody(body);
         }
 
-        private string ReplaceDependecyBody(string bodyStr)
+        private void ReplaceDependecyBody(JsonObject body)
         {
-            //var body = new Body(bodyStr);
-            //foreach (var item in body.Keys)
-            //{
-            //    if (body[item].IsObject)
-            //    {
-            //        JsonHelper.JsonValue attribute = default;
-            //        while ((attribute = body[item]).IsObject)
-            //        {
-
-            //        }
-            //    }
-            //    else
-            //    {
-            //    }
-            //}
-            throw new NotImplementedException();
+            foreach (var item in body.Keys)
+            {
+                var bodyItem = body[item];
+                if (bodyItem is JsonObject) ReplaceDependecyBody(bodyItem as JsonObject);
+                if (bodyItem is JsonString)
+                {
+                    var value = bodyItem.GetValue().ToString();
+                    if (_dependencyDetector.IsDependency(value))
+                    {
+                        string name = _dependencyDetector.GetDependencyName(value);
+                        if (_dict.TryGetValue(name, out var result))
+                        {
+                            var valueToReplace = _dependencyDetector.Evaluate(value, result);
+                            (bodyItem as JsonString).Value = valueToReplace;
+                        }
+                    }
+                }
+            }
         }
 
         private Dictionary<string, string> ReplaceDependecyQueryString(IDictionary<string, string> queryString)
@@ -45,9 +50,9 @@ namespace RestTest.Library.SequenceDependency
                 if (_dependencyDetector.IsDependency(item.Value))
                 {
                     string name = _dependencyDetector.GetDependencyName(item.Value);
-                    if(_dict.TryGetValue(name, out var result))
+                    if (_dict.TryGetValue(name, out var result))
                     {
-                        var valueToReplace = _dependencyDetector.EvaluateDependency(item.Value, result);
+                        var valueToReplace = _dependencyDetector.Evaluate(item.Value, result);
                         r[item.Key] = valueToReplace;
                     }
                 }
@@ -59,7 +64,7 @@ namespace RestTest.Library.SequenceDependency
             return r;
         }
 
-        public void AddResult(TestResult testResult)
+        public void Register(TestResult testResult)
         {
             _dict[testResult.TestName] = testResult;
         }

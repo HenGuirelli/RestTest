@@ -66,13 +66,15 @@ namespace RestTest.Library.SequenceDependency.Test
 
             var testResult = new Entity.TestResult("call1",
                 new Validation(),
-                new Response(200, jsonReader.Read("{ id: 1314, name: \"Robson\", childrens: { name: \"Cleyton\", age: 14 } }"), new Cookies(), new Header()));
+                new Response(200, jsonReader.Read("{ id: 1314, name: \"Robson\", childrens: { name: \"Cleyton\", age: 14 } }"), 
+                new Cookies(), 
+                new Header()));
 
-            Assert.AreEqual("1314", dep.EvaluateDependency("${call1.response.body.id}", testResult));
-            Assert.AreEqual("Robson", dep.EvaluateDependency("${call1.response.body.name}", testResult));
+            Assert.AreEqual("1314", dep.Evaluate("${call1.response.body.id}", testResult));
+            Assert.AreEqual("Robson", dep.Evaluate("${call1.response.body.name}", testResult));
 
-            Assert.AreEqual("Cleyton", dep.EvaluateDependency("${call1.response.body.childrens.name}", testResult));
-            Assert.AreEqual("14", dep.EvaluateDependency("${call1.response.body.childrens.age}", testResult));
+            Assert.AreEqual("Cleyton", dep.Evaluate("${call1.response.body.childrens.name}", testResult));
+            Assert.AreEqual("14", dep.Evaluate("${call1.response.body.childrens.age}", testResult));
         }
     }
 }
