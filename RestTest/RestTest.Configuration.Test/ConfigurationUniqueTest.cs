@@ -20,9 +20,9 @@ namespace RestTest.Configuration.Test
 
             Assert.AreEqual(2, test.Validation.Body.Keys.Count());
             Assert.AreEqual("client_status", test.Validation.Body.Keys.First());
-            Assert.AreEqual("authenticated", (test.Validation.Body.GetValue() as List<JsonAttribute>).First().ToString());
+            Assert.AreEqual("authenticated", test.Validation.Body["client_status"].GetValue().ToString());
             Assert.AreEqual("id", test.Validation.Body.Keys.Last());
-            Assert.AreEqual("${NUMBER}", (test.Validation.Body.GetValue() as List<JsonAttribute>).Last().ToString());
+            Assert.AreEqual("${NUMBER}", test.Validation.Body["id"].GetValue().ToString());
         }
 
         [TestMethod]
@@ -57,9 +57,10 @@ namespace RestTest.Configuration.Test
             var conf = new Configuration("./unique_test_complex_body.json");
             var unique = conf.Uniques.Single();
 
-            Assert.AreEqual(1, int.Parse(unique.Body["attrObj"]["innerAttr1"].ToString()));
-            Assert.AreEqual(2, int.Parse(unique.Body["attrObj"]["innerAttr2"].ToString()));
-            Assert.AreEqual(4, (unique.Body["attrObj"]["innerAttr3WithOtherObject"]["innerAttr1List"].GetValue() as List<JsonAttribute>).Last());
+            Assert.AreEqual(1, int.Parse(unique.Body["attrObj"]["innerAttr1"].GetValue().ToString()));
+            Assert.AreEqual(2, int.Parse(unique.Body["attrObj"]["innerAttr2"].GetValue().ToString()));
+            var list = unique.Body["attrObj"]["innerAttr3WithOtherObject"]["innerAttr1List"].GetValue() as List<Json>;
+            Assert.AreEqual(4, int.Parse(list.Last().GetValue().ToString()));
         }
     }
 }

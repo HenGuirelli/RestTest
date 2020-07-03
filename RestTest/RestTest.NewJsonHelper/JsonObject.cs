@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace RestTest.NewJsonHelper
 {
-    public class JsonObject : JsonAttribute
+    public class JsonObject : JsonAttribute, IEquatable<JsonObject>
     {
         private readonly Dictionary<string, JsonAttribute> _jsons = new Dictionary<string, JsonAttribute>();
 
@@ -40,6 +42,39 @@ namespace RestTest.NewJsonHelper
         public override object GetValue()
         {
             return this;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as JsonObject);
+        }
+
+        public bool Equals(JsonObject other)
+        {
+            if (other is null) return false;
+            if (Keys.Count() != other.Keys.Count()) return false;
+
+            foreach (var key in Keys)
+            {
+                if (!this[key].Equals(other[key])) return false;
+            }
+
+            return true;
+        }
+
+        public override string ToString()
+        {
+            var strBuilder = new StringBuilder();
+            strBuilder.Append("{");
+            var countKeys = Keys.Count();
+            var keyArray = Keys.ToArray();
+            for (var  i = 0; i < countKeys; i++)
+            {
+                var key = keyArray[i];
+                strBuilder.Append(i == countKeys - 1 ?  this[key].ToString() : this[key].ToString() + ",");
+            }
+            strBuilder.Append("}");
+            return strBuilder.ToString();
         }
     }
 }

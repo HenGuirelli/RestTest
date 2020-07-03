@@ -18,6 +18,8 @@ namespace RestTest.JsonReader
 
         public Body Read(string json)
         {
+            if (string.IsNullOrEmpty(json)) return Body.Empty;
+
             var body = new Body();
             var jObj = JsonConvert.DeserializeObject(json) as JObject;
             if (jObj != null)

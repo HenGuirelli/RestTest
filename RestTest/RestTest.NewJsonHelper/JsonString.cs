@@ -1,8 +1,13 @@
-﻿namespace RestTest.NewJsonHelper
+﻿using System;
+using System.Text.RegularExpressions;
+
+namespace RestTest.NewJsonHelper
 {
-    public class JsonString : JsonAttribute
+    public class JsonString : JsonAttribute, IEquatable<JsonString>, IEquatable<JsonLong>
     {
         public string Value { get; set; }
+        public bool _isRegex;
+        public string _regexPattern;
 
         public JsonString(string value)
             : this(string.Empty, value)
@@ -13,6 +18,10 @@
         {
             Key = key;
             Value = value;
+
+            Match regexResultAttrBody = Regex.Match(value, @"\${Regex: (.*)}");
+            _isRegex = regexResultAttrBody.Success;
+            _regexPattern = _isRegex ? regexResultAttrBody.Groups[1].Value : string.Empty;
         }
 
         public override object GetValue()
@@ -22,7 +31,30 @@
 
         public override string ToString()
         {
-            return Value.ToString();
+            return string.IsNullOrWhiteSpace(Key) ? Value.ToString() : $"\"{Key}\": \"{Value}\"";
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as JsonString) || Equals(obj as JsonLong);
+        }
+
+        public bool Equals(JsonString other)
+        {
+            if (other is null) return false;
+            if (Value == "${ANY}" || other.Value == "${ANY}") return true;
+
+            if (_isRegex && Regex.Match(other.Value, _regexPattern).Length > 0 ||
+                other._isRegex && Regex.Match(Value, other._regexPattern).Length > 0) return true;
+
+            return Value == other.Value;
+        }
+
+        public bool Equals(JsonLong other)
+        {
+            if (other is null) return false;
+            if (_isRegex && Regex.Match(other.Value.ToString(), _regexPattern).Length > 0) return true;
+            return Value == "${NUMBER}";
         }
     }
 }

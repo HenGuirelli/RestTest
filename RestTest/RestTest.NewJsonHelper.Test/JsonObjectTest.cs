@@ -15,8 +15,8 @@ namespace RestTest.NewJsonHelper.Test
             jsonObject.Add(new JsonString("name", "Cleyton"));
 
             Assert.AreEqual(2, jsonObject.Keys.Count());
-            Assert.AreEqual(30, int.Parse(jsonObject["age"].ToString()));
-            Assert.AreEqual("Cleyton", jsonObject["name"].ToString());
+            Assert.AreEqual(30, int.Parse(jsonObject["age"].GetValue().ToString()));
+            Assert.AreEqual("Cleyton", jsonObject["name"].GetValue().ToString());
         }
 
         [TestMethod]
