@@ -1,5 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RestTest.NewJsonHelper;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RestTest.Configuration.Test
@@ -18,9 +20,9 @@ namespace RestTest.Configuration.Test
 
             Assert.AreEqual(2, test.Validation.Body.Keys.Count());
             Assert.AreEqual("client_status", test.Validation.Body.Keys.First());
-            Assert.AreEqual("authenticated", test.Validation.Body.Values.First().ToString());
+            Assert.AreEqual("authenticated", (test.Validation.Body.GetValue() as List<JsonAttribute>).First().ToString());
             Assert.AreEqual("id", test.Validation.Body.Keys.Last());
-            Assert.AreEqual("${NUMBER}", test.Validation.Body.Values.Last().ToString());
+            Assert.AreEqual("${NUMBER}", (test.Validation.Body.GetValue() as List<JsonAttribute>).Last().ToString());
         }
 
         [TestMethod]
@@ -57,7 +59,7 @@ namespace RestTest.Configuration.Test
 
             Assert.AreEqual(1, int.Parse(unique.Body["attrObj"]["innerAttr1"].ToString()));
             Assert.AreEqual(2, int.Parse(unique.Body["attrObj"]["innerAttr2"].ToString()));
-            Assert.AreEqual(4, unique.Body["attrObj"]["innerAttr3WithOtherObject"]["innerAttr1List"].ToList<int>().Last());
+            Assert.AreEqual(4, (unique.Body["attrObj"]["innerAttr3WithOtherObject"]["innerAttr1List"].GetValue() as List<JsonAttribute>).Last());
         }
     }
 }

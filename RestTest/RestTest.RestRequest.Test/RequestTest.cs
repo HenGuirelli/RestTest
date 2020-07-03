@@ -1,8 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestTest.HttpServer.Test;
-using RestTest.JsonHelper;
 using System.Collections.Generic;
 using RestTest.Library.Entity;
+using RestTest.NewJsonHelper.Test;
 
 namespace RestTest.RestRequest.Test
 {
@@ -72,7 +72,9 @@ namespace RestTest.RestRequest.Test
             var response = request.Send().Result;
 
             Assert.AreEqual(200, response.Status);
-            Assert.IsTrue(new Json(body).Compare(response.Body));
+            var reader = new JsonReader.JsonReader();
+            reader.Read(body);
+            Assert.IsTrue(reader.Read(body).Equals(response.Body));
         }
     }
 }

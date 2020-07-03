@@ -1,5 +1,4 @@
-﻿using RestTest.JsonHelper;
-using RestTest.Library.Entity;
+﻿using RestTest.Library.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -29,26 +28,26 @@ namespace RestTest.Library.SequenceDependency
 
         public string EvaluateDependency(string value, TestResult result)
         {
-            if (IsBodyDependency(value))
-            {
-                IEnumerable<string> bodyAttributes = GetBodyAttributes(value);
-                JsonValue attrResult = default;
-                var first = true;
-                foreach (var item in bodyAttributes)
-                {
-                    if (first)
-                    {
-                        attrResult = result.Response.Body[item];
-                        first = false;
-                    }
-                    else
-                    {
-                        attrResult = attrResult[item];
-                    }
-                }
+            //if (IsBodyDependency(value))
+            //{
+            //    IEnumerable<string> bodyAttributes = GetBodyAttributes(value);
+            //    JsonValue attrResult = default;
+            //    var first = true;
+            //    foreach (var item in bodyAttributes)
+            //    {
+            //        if (first)
+            //        {
+            //            attrResult = result.Response.Body[item];
+            //            first = false;
+            //        }
+            //        else
+            //        {
+            //            attrResult = attrResult[item];
+            //        }
+            //    }
 
-                return attrResult.ToString();
-            }
+            //    return attrResult.ToString();
+            //}
             return string.Empty;
         }
 

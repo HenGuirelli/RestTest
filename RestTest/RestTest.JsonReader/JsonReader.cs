@@ -11,20 +11,22 @@ namespace RestTest.JsonReader
     {
         private readonly JsonConverterManager _converter = new JsonConverterManager();
 
-        public Body CreateByFile(string path)
+        public Body ReadByFile(string path)
         {
-            return Create(File.ReadAllText(path));
+            return Read(File.ReadAllText(path));
         }
 
-        public Body Create(string json)
+        public Body Read(string json)
         {
             var body = new Body();
             var jObj = JsonConvert.DeserializeObject(json) as JObject;
-
-            foreach (KeyValuePair<string, JToken> item in jObj)
+            if (jObj != null)
             {
-                JsonAttribute jsonAttribute = _converter[item.Value.Type].Convert(item);
-                body.Add(jsonAttribute);
+                foreach (KeyValuePair<string, JToken> item in jObj)
+                {
+                    JsonAttribute jsonAttribute = _converter[item.Value.Type].Convert(item);
+                    body.Add(jsonAttribute);
+                }
             }
 
             return body;

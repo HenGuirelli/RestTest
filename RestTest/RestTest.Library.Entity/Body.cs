@@ -1,20 +1,12 @@
 ﻿using RestTest.NewJsonHelper;
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace RestTest.Library.Entity
 {
     public class Body : JsonObject
     {
-        public new static Body Empty => new Body("{}");
+        public new static Body Empty => new Body();
 
         public bool HasValue;
-
-        public Body() { }
-        public Body(string json)
-        {
-        }
 
         public bool Equals(Body other)
         {

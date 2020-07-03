@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestTest.Library.Entity;
-using RestTest.JsonHelper;
 using RestTestResult = RestTest.Library.Entity.TestResult;
+using RestTest.NewJsonHelper;
 
 namespace RestTest.Library.Test
 {
@@ -11,7 +11,7 @@ namespace RestTest.Library.Test
         [TestMethod]
         public void OnCtor_EmptyBodyJson()
         {
-            var body = new Body("");
+            var body = new Body();
             var validation = new Validation(body, default, default, default, status: 200, default, default);
             var response = new Response(200, Body.Empty, Cookies.Empty, Header.Empty);
             var testResult = new RestTestResult("name", validation, response);
@@ -22,17 +22,18 @@ namespace RestTest.Library.Test
         [TestMethod]
         public void OnCtor_SimpleBodyJson()
         {
+            var jsonReader = new JsonReader.JsonReader();
             var bodyString = "{ name: \"Ellie\" }";
-            var body = new Body(bodyString);
+            var body = jsonReader.Read(bodyString);
 
             var validation = new Validation(body, default, default, default, status: 200, default, default);
-            var response = new Response(200, new Body(bodyString), Cookies.Empty, Header.Empty);
+            var response = new Response(200, jsonReader.Read(bodyString), Cookies.Empty, Header.Empty);
 
             var testResult = new RestTestResult("name", validation, response);
             Assert.AreEqual(Status.Ok, testResult.Status);
 
 
-            response = new Response(200, new Body("{ name: \"Marlene\" }"), Cookies.Empty, Header.Empty);
+            response = new Response(200, jsonReader.Read("{ name: \"Marlene\" }"), Cookies.Empty, Header.Empty);
             testResult = new RestTestResult("name", validation, response);
             Assert.AreEqual(Status.Fail, testResult.Status);
         }  
@@ -40,17 +41,18 @@ namespace RestTest.Library.Test
         [TestMethod]
         public void OnCtor_ComplexBodyJson()
         {
+            var jsonReader = new JsonReader.JsonReader();
             var bodyString = "{ person: { name: \"Ellie\", age: 14 } }";
-            var body = new Body(bodyString);
+            var body = jsonReader.Read(bodyString);
 
             var validation = new Validation(body, default, default, default, status: 200, default, default);
-            var response = new Response(200, new Body(bodyString), Cookies.Empty, Header.Empty);
+            var response = new Response(200, jsonReader.Read(bodyString), Cookies.Empty, Header.Empty);
 
             var testResult = new RestTestResult("name", validation, response);
             Assert.AreEqual(Status.Ok, testResult.Status);
 
 
-            response = new Response(200, new Body("{ person: { name: \"Joel\", age: 40 } }"), Cookies.Empty, Header.Empty);
+            response = new Response(200, jsonReader.Read("{ person: { name: \"Joel\", age: 40 } }"), Cookies.Empty, Header.Empty);
             testResult = new RestTestResult("name", validation, response);
             Assert.AreEqual(Status.Fail, testResult.Status);
         }

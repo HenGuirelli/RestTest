@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RestTest.JsonReader\RestTest.JsonReader.csproj" />
     <ProjectReference Include="..\RestTest.Library.Entity\RestTest.Library.Entity.csproj" />
   </ItemGroup>
 

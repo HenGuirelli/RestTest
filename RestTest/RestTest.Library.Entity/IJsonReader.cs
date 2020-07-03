@@ -2,7 +2,7 @@
 {
     public interface IJsonReader
     {
-        Body Create(string json);
-        Body CreateByFile(string path);
+        Body Read(string json);
+        Body ReadByFile(string path);
     }
 }

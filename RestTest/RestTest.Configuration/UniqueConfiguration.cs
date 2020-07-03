@@ -1,6 +1,6 @@
-﻿using RestTest.JsonHelper;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using RestTest.Library.Entity;
+using RestTest.NewJsonHelper;
 
 namespace RestTest.Configuration
 {
@@ -13,7 +13,7 @@ namespace RestTest.Configuration
         public IDictionary<string, string> Header { get; private set; }
         public IDictionary<string, string> Cookies { get; private set; }
         public IDictionary<string, string> QueryString { get; private set; }
-        public Json Body { get; private set; }
+        public Body Body { get; private set; }
         public string BodyStr { get; private set; }
 
         public Validation Validation { get; private set; } = new Validation();
@@ -26,7 +26,7 @@ namespace RestTest.Configuration
             IDictionary<string, string> header,
             IDictionary<string, string> cookies,
             IDictionary<string, string> queryString,
-            Json body,
+            Body body,
             string bodyStr,
             Validation validation)
         {

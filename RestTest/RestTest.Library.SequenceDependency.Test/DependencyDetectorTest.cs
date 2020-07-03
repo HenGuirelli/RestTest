@@ -62,10 +62,11 @@ namespace RestTest.Library.SequenceDependency.Test
         public void OnEvaluateDependency()
         {
             var dep = new DependencyDetector();
+            var jsonReader = new JsonReader.JsonReader();
 
             var testResult = new Entity.TestResult("call1",
                 new Validation(),
-                new Response(200, new Body("{ id: 1314, name: \"Robson\", childrens: { name: \"Cleyton\", age: 14 } }"), new Cookies(), new Header()));
+                new Response(200, jsonReader.Read("{ id: 1314, name: \"Robson\", childrens: { name: \"Cleyton\", age: 14 } }"), new Cookies(), new Header()));
 
             Assert.AreEqual("1314", dep.EvaluateDependency("${call1.response.body.id}", testResult));
             Assert.AreEqual("Robson", dep.EvaluateDependency("${call1.response.body.name}", testResult));

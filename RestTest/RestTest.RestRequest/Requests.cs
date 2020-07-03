@@ -72,6 +72,7 @@ namespace RestTest.RestRequest
 
         public async Task<Response> Send()
         {
+            var jsonReader = new JsonReader.JsonReader();
             try
             {
                 var response = (HttpWebResponse)(await _request.GetResponseAsync());
@@ -79,19 +80,19 @@ namespace RestTest.RestRequest
                 {
                     return new Response(
                         (int)response.StatusCode,
-                        new Body(await reader.ReadToEndAsync()),
+                        jsonReader.Read(await reader.ReadToEndAsync()),
                         new Cookies(response.Cookies),
                         new Header(response.Headers));
                 }
             }
             catch (WebException ex) when (ex.Response != null)
             {
-                var response =(HttpWebResponse) ex.Response;
+                var response = (HttpWebResponse)ex.Response;
                 using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
                     return new Response(
                         (int)response.StatusCode,
-                        new Body(await reader.ReadToEndAsync()),
+                        jsonReader.Read(await reader.ReadToEndAsync()),
                         new Cookies(response.Cookies),
                         new Header(response.Headers));
                 }

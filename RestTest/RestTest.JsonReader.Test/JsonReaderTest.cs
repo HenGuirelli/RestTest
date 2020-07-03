@@ -11,7 +11,7 @@ namespace RestTest.JsonReader.Test
         public void ReadJsonInt()
         {
             var reader = new JsonReader();
-            var body = reader.CreateByFile(@".\simple_json_int.json");
+            var body = reader.ReadByFile(@".\simple_json_int.json");
 
             Assert.AreEqual(1, int.Parse(body["int"].ToString()));
             Assert.AreEqual(2, int.Parse(body["int2"].ToString()));
@@ -21,7 +21,7 @@ namespace RestTest.JsonReader.Test
         public void ReadJsonString()
         {
             var reader = new JsonReader();
-            var body = reader.CreateByFile(@".\simple_json_str.json");
+            var body = reader.ReadByFile(@".\simple_json_str.json");
 
             Assert.AreEqual("value", body["key"].ToString());
         }
@@ -30,7 +30,7 @@ namespace RestTest.JsonReader.Test
         public void ReadJsonList()
         {
             var reader = new JsonReader();
-            var body = reader.CreateByFile(@".\simple_json_list.json");
+            var body = reader.ReadByFile(@".\simple_json_list.json");
 
             Assert.AreEqual(4, (body["key"].GetValue() as List<Json>).Count);
         }
@@ -39,7 +39,7 @@ namespace RestTest.JsonReader.Test
         public void ReadJsonObject()
         {
             var reader = new JsonReader();
-            var body = reader.CreateByFile(@".\simple_json_obj.json");
+            var body = reader.ReadByFile(@".\simple_json_obj.json");
 
             Assert.AreEqual("Robson", body["person"]["name"].ToString());
             Assert.AreEqual(30, int.Parse(body["person"]["age"].ToString()));

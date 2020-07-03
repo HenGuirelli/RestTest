@@ -19,21 +19,21 @@ namespace RestTest.Library.SequenceDependency
 
         private string ReplaceDependecyBody(string bodyStr)
         {
-            var body = new Body(bodyStr);
-            foreach (var item in body.Keys)
-            {
-                if (body[item].IsObject)
-                {
-                    JsonHelper.JsonValue attribute = default;
-                    while ((attribute = body[item]).IsObject)
-                    {
+            //var body = new Body(bodyStr);
+            //foreach (var item in body.Keys)
+            //{
+            //    if (body[item].IsObject)
+            //    {
+            //        JsonHelper.JsonValue attribute = default;
+            //        while ((attribute = body[item]).IsObject)
+            //        {
 
-                    }
-                }
-                else
-                {
-                }
-            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //    }
+            //}
             throw new NotImplementedException();
         }
 
