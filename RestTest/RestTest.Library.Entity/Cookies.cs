@@ -40,10 +40,11 @@ namespace RestTest.Library.Entity
 
             foreach(var item in other)
             {
-                if(!TryGetValue(item.Key, out var _))
+                if(!TryGetValue(item.Key, out var otherValue))
                 {
                     return false;
                 }
+                if (item.Value != otherValue) return false;
             }
 
             return true;
