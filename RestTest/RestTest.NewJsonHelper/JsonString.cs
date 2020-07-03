@@ -54,7 +54,7 @@ namespace RestTest.NewJsonHelper
         {
             if (other is null) return false;
             if (_isRegex && Regex.Match(other.Value.ToString(), _regexPattern).Length > 0) return true;
-            return Value == "${NUMBER}";
+            return Value == "${NUMBER}" || Value == "${ANY}";
         }
     }
 }
