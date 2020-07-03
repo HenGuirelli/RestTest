@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using RestTest.Library.Entity;
 using RestTest.Library.SequenceDependency;
@@ -35,7 +34,7 @@ namespace RestTest.Library
                 OnTestFinished?.Invoke(testResult);
             });
 
-            foreach (var item in _config.Sequences)
+            var tasksSequence = _config.Sequences.Select(async item =>
             {
                 var sequenceDependency = new SequenceDependencyLocator();
                 foreach (var sequeceItem in item.Sequence)
@@ -49,9 +48,10 @@ namespace RestTest.Library
                     sequenceDependency.Register(testResult);
                     OnTestFinished?.Invoke(testResult);
                 }
-            };
+            });
 
             await Task.WhenAll(tasksUniques);
+            await Task.WhenAll(tasksSequence);
 
             OnAllTestsFinished?.Invoke();
         }
