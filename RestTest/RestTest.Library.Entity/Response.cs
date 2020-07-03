@@ -1,5 +1,4 @@
-﻿using RestTest.JsonHelper;
-
+﻿
 namespace RestTest.Library.Entity
 {
     public class Response

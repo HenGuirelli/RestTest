@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RestTest.JsonHelper\RestTest.JsonHelper.csproj" />
+    <ProjectReference Include="..\RestTest.NewJsonHelper\RestTest.NewJsonHelper.csproj" />
   </ItemGroup>
 
 </Project>

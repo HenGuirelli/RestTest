@@ -3,12 +3,18 @@ using System.Collections.Generic;
 
 namespace RestTest.NewJsonHelper
 {
-    public class JsonObject : Json
+    public class JsonObject : JsonAttribute
     {
         private readonly Dictionary<string, JsonAttribute> _jsons = new Dictionary<string, JsonAttribute>();
 
         public IEnumerable<string> Keys => _jsons.Keys;
-        public JsonAttribute this[string key] => GetAttribute(key);
+        public override JsonAttribute this[string key] => GetAttribute(key);
+
+        public JsonObject() { }
+        public JsonObject(string key)
+        {
+            Key = key;
+        }
 
         private JsonAttribute GetAttribute(string key)
         {

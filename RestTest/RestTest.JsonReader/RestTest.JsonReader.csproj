@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RestTest.Library.Entity\RestTest.Library.Entity.csproj" />
+    <ProjectReference Include="..\RestTest.NewJsonHelper\RestTest.NewJsonHelper.csproj" />
   </ItemGroup>
 
 </Project>

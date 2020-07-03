@@ -8,6 +8,12 @@ namespace RestTest.NewJsonHelper
 
         public Json this[int index] => _list[index];
 
+        public JsonList() { }
+        public JsonList(string key)
+        {
+            Key = key;
+        }
+
         public void Add(params Json[] json)
         {
             _list.AddRange(json);
