@@ -18,7 +18,7 @@
 
     "validation": {
       "body": {
-        "result": "3"
+        "result": 30
       }
     }
   },
@@ -41,7 +41,7 @@
 
     "validation": {
       "body": {
-        "result": "${ANY}"
+        "result": -10
       }
     }
   },
@@ -139,5 +139,57 @@
         "user-id": 1
       }
     }
+  },
+  {
+    "name": "should_500",
+    "type": "unique_test",
+    "url": "http://localhost:59635/api/UserCrud/123",
+    "method": "GET",
+    "header": {
+      "Transfer-Encoding": "chunked",
+      "Content-Type": "application/json; charset=utf-8",
+      "Server": "Microsoft-IIS/10.0",
+      "X-Powered-By": "ASP.NET",
+      "Date": "Sat, 27 Jun 2020 07:32:44 GMT"
+    },
+
+    "validation": {
+      "status": 500
+    }
+  },
+  {
+    "name": "CrudTestComplete",
+    "type": "sequence_test",
+    "sequence": [
+      {
+        "name": "insert_user",
+        "method": "POST",
+        "url": "http://localhost:59635/api/UserCrud/",
+        "body": {
+          "name": "Robson",
+          "age": 30
+        },
+        "validation": {
+          "status": 200
+        }
+      },
+      {
+        "name": "verify_user_exists",
+        "method": "GET",
+        "url": "http://localhost:59635/api/UserCrud/${insert_user.response.body.id}",
+        "validation": {
+          "status": 200,
+          "body": {
+            "name": "Robson",
+            "age": 30
+          }
+        }
+      },
+      {
+        "name": "verify_user_exists",
+        "method": "DELETE",
+        "url": "http://localhost:59635/api/UserCrud/${insert_user.response.body.id}"
+      }
+    ]
   }
 ]
