@@ -194,8 +194,11 @@
         "validation": {
           "status": 200,
           "body": {
-            "name": "Robson",
-            "age": 30
+            "user": {
+              "name": "Robson",
+              "age": 30,
+              "id": "${insert_user.response.body.user_id}"
+            }
           }
         }
       },

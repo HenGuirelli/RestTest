@@ -2,8 +2,6 @@
 using RestTest.Library.SequenceDependency.ReplaceDependency;
 using RestTest.RestRequest;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RestTest.Library.SequenceDependency
 {
@@ -28,6 +26,11 @@ namespace RestTest.Library.SequenceDependency
         public void Register(TestResult testResult)
         {
             _dict[testResult.TestName] = testResult;
+        }
+
+        public void ReplaceDependency(Validation validation)
+        {
+            _replacers.ForEach(replacer => replacer.Replace(validation));
         }
     }
 }

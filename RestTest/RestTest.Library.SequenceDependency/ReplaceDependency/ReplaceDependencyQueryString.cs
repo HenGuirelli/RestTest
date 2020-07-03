@@ -17,9 +17,20 @@ namespace RestTest.Library.SequenceDependency.ReplaceDependency
             _dict = dict;
         }
 
+        public void Replace(Validation validation)
+        {
+            var queryString = validation.QueryString;
+            ReplaceDependecy(queryString);
+        }
+
         public void Replace(RequestConfig requestConfig)
         {
             var queryString = requestConfig.QueryString;
+            ReplaceDependecy(queryString);
+        }
+
+        private void ReplaceDependecy(IDictionary<string, string> queryString)
+        {
             foreach (var item in queryString)
             {
                 if (_dependencyDetector.IsDependency(item.Value))

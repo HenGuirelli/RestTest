@@ -42,6 +42,7 @@ namespace RestTest.Library
                 {
                     var requestConfig = sequeceItem.ToRequestConfig();
                     sequenceDependency.ReplaceDependency(requestConfig);
+                    sequenceDependency.ReplaceDependency(sequeceItem.Validation);
                     var request = Requests.Create(requestConfig);
                     OnTestStart?.Invoke(sequeceItem.Name);
                     var response = request.Send();

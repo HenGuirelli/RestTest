@@ -18,6 +18,11 @@ namespace RestTest.Library.SequenceDependency.ReplaceDependency
             _dict = dict;
         }
 
+        public void Replace(Validation validation)
+        {
+            // Nothing to seee here
+        }
+
         public void Replace(RequestConfig requestConfig)
         {
             if (_dependencyDetector.IsDependency(requestConfig.Url))

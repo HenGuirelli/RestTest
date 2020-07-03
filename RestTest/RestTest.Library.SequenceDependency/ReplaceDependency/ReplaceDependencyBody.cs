@@ -18,19 +18,24 @@ namespace RestTest.Library.SequenceDependency.ReplaceDependency
             _dict = dict;
         }
 
+        public void Replace(Validation validation)
+        {
+            ReplaceDependecy(validation.Body);
+        }
+
         public void Replace(RequestConfig requestConfig)
         {
             var reader = new JsonReader.JsonReader();
             var body = reader.Read(requestConfig.Body);
-            ReplaceDependecyBody(body);
+            ReplaceDependecy(body);
         }
 
-        private void ReplaceDependecyBody(JsonObject body)
+        private void ReplaceDependecy(JsonObject body)
         {
             foreach (var item in body.Keys)
             {
                 var bodyItem = body[item];
-                if (bodyItem is JsonObject) ReplaceDependecyBody(bodyItem as JsonObject);
+                if (bodyItem is JsonObject) ReplaceDependecy(bodyItem as JsonObject);
                 if (bodyItem is JsonString)
                 {
                     var value = bodyItem.GetValue().ToString();
