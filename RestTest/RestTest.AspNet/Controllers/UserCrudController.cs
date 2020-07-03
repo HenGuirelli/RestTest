@@ -41,7 +41,7 @@ namespace RestTest.AspNet.Controllers
         public IActionResult Post([FromBody] User user)
         {
             _db[user.Id] = user;
-            return Ok(new { user_id = user });
+            return Ok(new { user_id = user.Id });
         }
 
         [HttpDelete("{id}")]
