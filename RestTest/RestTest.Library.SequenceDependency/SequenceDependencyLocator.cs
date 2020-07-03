@@ -13,12 +13,16 @@ namespace RestTest.Library.SequenceDependency
         private readonly DependencyDetector _dependencyDetector = new DependencyDetector();
         private readonly List<IReplaceDependency> _replacers = new List<IReplaceDependency>();
 
-        public void ReplaceDependency(RequestConfig requestConfig)
+        public SequenceDependencyLocator()
         {
             _replacers.Add(new ReplaceDependencyQueryString(_dependencyDetector, _dict));
             _replacers.Add(new ReplaceDependencyBody(_dependencyDetector, _dict));
+            _replacers.Add(new ReplaceDependencyUrl(_dependencyDetector, _dict));
+        }
 
-            _replacers.Select(replacer => Task.Run(() => replacer.Replace(requestConfig)));
+        public void ReplaceDependency(RequestConfig requestConfig)
+        {
+            _replacers.ForEach(replacer => replacer.Replace(requestConfig));
         }
 
         public void Register(TestResult testResult)

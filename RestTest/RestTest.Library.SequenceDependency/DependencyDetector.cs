@@ -26,7 +26,7 @@ namespace RestTest.Library.SequenceDependency
             {
                 var initMatch = "${";
                 var indexInit = value.IndexOf(initMatch);
-                return value.Substring(indexInit + initMatch.Length, value.IndexOf(".") - initMatch.Length);
+                return value.Substring(indexInit + initMatch.Length, value.IndexOf(".") - initMatch.Length - indexInit);
             }
             catch
             {

@@ -34,7 +34,14 @@ namespace RestTest.AspNet.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(new { user = _db[id] });
+            try
+            {
+                return Ok(new { user = _db[id] });
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost]

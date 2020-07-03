@@ -4,7 +4,7 @@ namespace RestTest.RestRequest
 {
     public class RequestConfig
     {
-        public string Url { get; private set; }
+        public string Url { get; set; }
         public string Method { get; private set; }
         public IDictionary<string, string> Header { get; private set; }
         public IDictionary<string, string> Cookies { get; private set; }

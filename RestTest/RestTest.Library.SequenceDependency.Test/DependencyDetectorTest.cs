@@ -38,6 +38,24 @@ namespace RestTest.Library.SequenceDependency.Test
         }
 
         [TestMethod]
+        public void OnDependencyDetectorUrl_IsDependency()
+        {
+            var dep = new DependencyDetector();
+
+            Assert.IsTrue(dep.IsDependency("http://localhost:59635/api/UserCrud/${call1.response}"));
+            Assert.IsTrue(dep.IsDependency("http://localhost:59635/api/UserCrud/${call2.request}/resource"));
+        }
+
+        [TestMethod]
+        public void OnDependencyDetector_GetDependencyNameFromUrl()
+        {
+            var dep = new DependencyDetector();
+
+            Assert.AreEqual("call1", dep.GetDependencyName("http://localhost:59635/api/UserCrud/${call1.response}"));
+            Assert.AreEqual("call2", dep.GetDependencyName("http://localhost:59635/api/UserCrud/${call2.request}/resource"));
+        }
+
+        [TestMethod]
         public void OnDependencyDetector_GetDependencyName()
         {
             var dep = new DependencyDetector();
