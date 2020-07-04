@@ -197,13 +197,13 @@
             "user": {
               "name": "Robson",
               "age": 30,
-              "id": "${insert_user.response.body.user_id}"
+              "id": "${NUMBER}"
             }
           }
         }
       },
       {
-        "name": "verify_user_exists",
+        "name": "delte user",
         "method": "DELETE",
         "header": {
           "Transfer-Encoding": "chunked",

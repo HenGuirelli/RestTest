@@ -24,7 +24,6 @@ namespace RestTest.Library.Entity
             Validate(string.IsNullOrWhiteSpace(response.Error),
                 FormatMessage($"General error => {response.Error}"));
 
-
             if (validation.Status.HasValue)
             {
                 Validate(response.Status == validation.Status,
