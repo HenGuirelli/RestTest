@@ -1,4 +1,4 @@
-# RestTest - Uma Aplicação para automatizar testes de API Rest
+# RestTest - Aplicação para automatizar testes de API Rest
 
 ## Como usar
 A aplicação lê os testes baseado em um arquivo de configuração JSON:
