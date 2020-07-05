@@ -50,6 +50,7 @@ namespace RestTest.Library
                     var testResult = new TestResult(sequeceItem.Name, sequeceItem.Validation, await response);
                     sequenceDependency.Register(testResult);
                     OnTestFinished?.Invoke(testResult);
+                    if (testResult.Status == Status.Fail) return;
                 }
             });
 

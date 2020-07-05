@@ -9,7 +9,7 @@ namespace RestTest.Library.Entity.Test
         public string TestName { get; private set; }
         public Status Status { get; private set; }
         public Response Response { get; private set; }
-        public string Error => string.Join("\n", _errorList);
+        public string Error => string.Join($"\n{TestName}: ", _errorList);
 
         public string Text => Status == Status.Ok ? $"{TestName}: {Status}" : $"{TestName}: {Status} {Error}";
 

@@ -91,11 +91,13 @@ namespace RestTest.RestRequest
                 var response = (HttpWebResponse)ex.Response;
                 using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
+                    var responseStr = reader.ReadToEndAsync();
                     return new Response(
                         (int)response.StatusCode,
-                        jsonReader.Read(await reader.ReadToEndAsync()),
+                        jsonReader.Read(await responseStr),
                         new Cookies(response.Cookies),
-                        new Header(response.Headers));
+                        new Header(response.Headers),
+                        error: await responseStr);
                 }
             }
             catch (Exception ex)
