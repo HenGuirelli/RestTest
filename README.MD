@@ -1,5 +1,7 @@
 # RestTest - Aplicação para automatizar testes de API Rest
 
+RestTest é uma ferramenta para facilitar a evolução de API Rest fornecendo uma maneira simples de criar testes automatizados dos Endpoints a partir de um unico arquivo de configuração.
+
 ## Como usar
 A aplicação lê os testes baseado em um arquivo de configuração JSON:
 ```json
