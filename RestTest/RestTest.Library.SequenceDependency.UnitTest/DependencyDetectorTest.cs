@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestTest.HttpServer.Test;
 using RestTest.Library.Entity;
+using RestTest.Library.Entity.Http;
 using System;
 
 namespace RestTest.Library.SequenceDependency.Test

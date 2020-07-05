@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RestTest.Library.Entity.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;

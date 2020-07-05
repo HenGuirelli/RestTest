@@ -1,6 +1,6 @@
 ﻿using RestTest.NewJsonHelper;
 
-namespace RestTest.Library.Entity
+namespace RestTest.Library.Entity.Http
 {
     public class Body : JsonObject
     {

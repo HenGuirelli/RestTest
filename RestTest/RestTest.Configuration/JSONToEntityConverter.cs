@@ -2,6 +2,7 @@
 using RestTest.Configuration.JsonNotation;
 using RestTest.JsonReader;
 using RestTest.Library.Entity;
+using RestTest.Library.Entity.Http;
 using System;
 using System.Collections.Generic;
 

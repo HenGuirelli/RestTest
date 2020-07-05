@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using RestTest.Library.Entity;
+using RestTest.Library.Entity.Http;
 using RestTest.NewJsonHelper;
 
 namespace RestTest.Configuration

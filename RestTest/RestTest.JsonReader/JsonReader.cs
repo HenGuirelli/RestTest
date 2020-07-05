@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestTest.Library.Entity;
+using RestTest.Library.Entity.Http;
 using RestTest.NewJsonHelper;
-using System;
 using System.Collections.Generic;
 using System.IO;
 

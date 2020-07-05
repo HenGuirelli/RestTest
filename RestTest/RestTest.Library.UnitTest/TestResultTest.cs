@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestTest.Library.Entity;
 using RestTestResult = RestTest.Library.Entity.TestResult;
-using RestTest.NewJsonHelper;
+using RestTest.Library.Entity.Http;
 
 namespace RestTest.Library.Test
 {

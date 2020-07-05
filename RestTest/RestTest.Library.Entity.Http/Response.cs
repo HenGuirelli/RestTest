@@ -1,5 +1,5 @@
 ﻿
-namespace RestTest.Library.Entity
+namespace RestTest.Library.Entity.Http
 {
     public class Response
     {

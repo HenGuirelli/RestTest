@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RestTest.Library.Entity.Http;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RestTest.Library.Entity

@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using RestTest.Library.Entity;
+using RestTest.Library.Entity.Http;
 
 namespace RestTest.RestRequest
 {

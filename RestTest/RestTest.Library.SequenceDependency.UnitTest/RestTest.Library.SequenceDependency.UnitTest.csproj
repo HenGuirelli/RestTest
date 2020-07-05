@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RestTest.Configuration\RestTest.Configuration.csproj" />
-    <ProjectReference Include="..\RestTest.HttpServer.Test\RestTest.HttpServer.Test.csproj" />
+    <ProjectReference Include="..\RestTest.HttpServer.UnitTest\RestTest.HttpServer.UnitTest.csproj" />
     <ProjectReference Include="..\RestTest.Library.SequenceDependency\RestTest.Library.SequenceDependency.csproj" />
     <ProjectReference Include="..\RestTest.Library\RestTest.Library.csproj" />
   </ItemGroup>

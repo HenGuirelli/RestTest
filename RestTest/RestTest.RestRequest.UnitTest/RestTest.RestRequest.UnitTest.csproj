@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RestTest.HttpServer.Test\RestTest.HttpServer.Test.csproj" />
-    <ProjectReference Include="..\RestTest.NewJsonHelper.Test\RestTest.NewJsonHelper.Test.csproj" />
+    <ProjectReference Include="..\RestTest.HttpServer.UnitTest\RestTest.HttpServer.UnitTest.csproj" />
+    <ProjectReference Include="..\RestTest.NewJsonHelper.UnitTest\RestTest.NewJsonHelper.UnitTest.csproj" />
     <ProjectReference Include="..\RestTest.RestRequest\RestTest.RestRequest.csproj" />
   </ItemGroup>
 

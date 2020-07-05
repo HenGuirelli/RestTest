@@ -1,4 +1,6 @@
-﻿namespace RestTest.Library.Entity
+﻿using RestTest.Library.Entity.Http;
+
+namespace RestTest.Library.Entity
 {
     public interface IJsonReader
     {
