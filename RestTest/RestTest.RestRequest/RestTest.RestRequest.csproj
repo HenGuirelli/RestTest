@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RestTest.Configuration\RestTest.Configuration.csproj" />
-    <ProjectReference Include="..\RestTest.Library.Entity\RestTest.Library.Entity.csproj" />
   </ItemGroup>
 
 </Project>

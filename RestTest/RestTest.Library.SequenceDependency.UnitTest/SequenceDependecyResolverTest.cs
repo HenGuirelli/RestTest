@@ -2,9 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestTest.HttpServer.Test;
 using RestTest.RestRequest;
 using System.Collections.Concurrent;
-using System.Linq;
-using System.Threading;
-using RestTestResult = RestTest.Library.Entity.TestResult;
+using RestTestResult = RestTest.Library.Entity.Test.TestResult;
 
 namespace RestTest.Library.SequenceDependency.Test
 {

@@ -1,7 +1,7 @@
 ﻿using RestTest.Library.Entity.Http;
 using System.Collections.Generic;
 
-namespace RestTest.Library.Entity
+namespace RestTest.Library.Entity.Test
 {
     public class Validation
     {

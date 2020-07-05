@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace RestTest.Library.Entity
+namespace RestTest.Library.Entity.Test
 {
     public class TextFormatter
     {

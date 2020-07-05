@@ -2,6 +2,7 @@
 using RestTest.HttpServer.Test;
 using RestTest.Library.Entity;
 using RestTest.Library.Entity.Http;
+using RestTest.Library.Entity.Test;
 using System;
 
 namespace RestTest.Library.SequenceDependency.Test
@@ -83,7 +84,7 @@ namespace RestTest.Library.SequenceDependency.Test
             var dep = new DependencyDetector();
             var jsonReader = new JsonReader.JsonReader();
 
-            var testResult = new Entity.TestResult("call1",
+            var testResult = new Entity.Test.TestResult("call1",
                 new Validation(),
                 new Response(200, jsonReader.Read("{ id: 1314, name: \"Robson\", childrens: { name: \"Cleyton\", age: 14 } }"), 
                 new Cookies(), 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RestTest.Library.Entity
+namespace RestTest.Library.Entity.Test
 {
     public class TestResult
     {

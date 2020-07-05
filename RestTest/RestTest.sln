@@ -9,19 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Configuration", "R
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{642F57CB-37D6-45A1-B4E8-EC7C2A492864}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Configuration.UnitTest", "RestTest.Configuration.UnitTest\\RestTest.Configuration.UnitTest.csproj", "{3083F43A-71CD-45E8-A22A-893D52254A75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Configuration.UnitTest", "RestTest.Configuration.UnitTest\RestTest.Configuration.UnitTest.csproj", "{3083F43A-71CD-45E8-A22A-893D52254A75}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Library.UnitTest", "RestTest.Library.UnitTest\\RestTest.Library.UnitTest.csproj", "{B94DC502-F72C-44EC-8BD8-46F7B5E3CA70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Library.UnitTest", "RestTest.Library.UnitTest\RestTest.Library.UnitTest.csproj", "{B94DC502-F72C-44EC-8BD8-46F7B5E3CA70}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.RestRequest", "RestTest.RestRequest\RestTest.RestRequest.csproj", "{FA224902-F242-407B-8CCF-606E98E44BDC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.RestRequest.UnitTest", "RestTest.RestRequest.UnitTest\\RestTest.RestRequest.UnitTest.csproj", "{058F2A7B-FF39-4E86-9F80-B4D0D3F0CC1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.RestRequest.UnitTest", "RestTest.RestRequest.UnitTest\RestTest.RestRequest.UnitTest.csproj", "{058F2A7B-FF39-4E86-9F80-B4D0D3F0CC1C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.HttpServer.UnitTest", "RestTest.HttpServer.UnitTest\\RestTest.HttpServer.UnitTest.csproj", "{402232CF-DA41-4331-BB3B-E13D00E04432}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.HttpServer.UnitTest", "RestTest.HttpServer.UnitTest\RestTest.HttpServer.UnitTest.csproj", "{402232CF-DA41-4331-BB3B-E13D00E04432}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Library.Entity", "RestTest.Library.Entity\RestTest.Library.Entity.csproj", "{0983A6C6-A2A4-454A-AE04-DD7E8126AA42}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Library.Entity.UnitTest", "RestTest.Library.Entity.UnitTest\\RestTest.Library.Entity.UnitTest.csproj", "{14B10DBD-A057-41D1-B510-53C4FC3303D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Library.Entity.UnitTest", "RestTest.Library.Entity.UnitTest\RestTest.Library.Entity.UnitTest.csproj", "{14B10DBD-A057-41D1-B510-53C4FC3303D1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleApp", "ConsoleApp", "{235CB93E-EC07-4A60-9BA1-3E8A44CC6820}"
 EndProject
@@ -35,17 +33,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.AspNet", "RestTest
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Library.SequenceDependency", "RestTest.Library.SequenceDependency\RestTest.Library.SequenceDependency.csproj", "{50B55B67-6E43-49B4-832E-CEB784AA657C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Library.SequenceDependency.UnitTest", "RestTest.Library.SequenceDependency.UnitTest\\RestTest.Library.SequenceDependency.UnitTest.csproj", "{E528D5FC-1D45-4CBC-86C4-3B88853DB2E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Library.SequenceDependency.UnitTest", "RestTest.Library.SequenceDependency.UnitTest\RestTest.Library.SequenceDependency.UnitTest.csproj", "{E528D5FC-1D45-4CBC-86C4-3B88853DB2E6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.NewJsonHelper", "RestTest.NewJsonHelper\RestTest.NewJsonHelper.csproj", "{B983EC7F-D4FE-492D-8D32-A357A995D3CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.NewJsonHelper.UnitTest", "RestTest.NewJsonHelper.UnitTest\\RestTest.NewJsonHelper.UnitTest.csproj", "{0FFDFCC9-56D6-46B6-AC4F-3EB0F6B7527A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.NewJsonHelper.UnitTest", "RestTest.NewJsonHelper.UnitTest\RestTest.NewJsonHelper.UnitTest.csproj", "{0FFDFCC9-56D6-46B6-AC4F-3EB0F6B7527A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.JsonReader", "RestTest.JsonReader\RestTest.JsonReader.csproj", "{CE8E27D9-A56F-45CA-AB71-C2D4C039F7DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.JsonReader.UnitTest", "RestTest.JsonReader.UnitTest\\RestTest.JsonReader.UnitTest.csproj", "{6860FC74-FA6D-49DF-9A27-F4D447AFCBB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.JsonReader.UnitTest", "RestTest.JsonReader.UnitTest\RestTest.JsonReader.UnitTest.csproj", "{6860FC74-FA6D-49DF-9A27-F4D447AFCBB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTest.Library.Entity.Http", "RestTest.Library.Entity.Http\RestTest.Library.Entity.Http.csproj", "{658DDA84-F97E-4299-A1CD-2D3EAA1DD9F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTest.Library.Entity.Http", "RestTest.Library.Entity.Http\RestTest.Library.Entity.Http.csproj", "{658DDA84-F97E-4299-A1CD-2D3EAA1DD9F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTest.Library.Entity.Test", "RestTest.Library.Entity.Test\RestTest.Library.Entity.Test.csproj", "{C109F4E8-39BB-49EE-A40F-BCCBFA6B48C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,10 +81,6 @@ Global
 		{402232CF-DA41-4331-BB3B-E13D00E04432}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{402232CF-DA41-4331-BB3B-E13D00E04432}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{402232CF-DA41-4331-BB3B-E13D00E04432}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0983A6C6-A2A4-454A-AE04-DD7E8126AA42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0983A6C6-A2A4-454A-AE04-DD7E8126AA42}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0983A6C6-A2A4-454A-AE04-DD7E8126AA42}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0983A6C6-A2A4-454A-AE04-DD7E8126AA42}.Release|Any CPU.Build.0 = Release|Any CPU
 		{14B10DBD-A057-41D1-B510-53C4FC3303D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{14B10DBD-A057-41D1-B510-53C4FC3303D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14B10DBD-A057-41D1-B510-53C4FC3303D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -125,6 +121,10 @@ Global
 		{658DDA84-F97E-4299-A1CD-2D3EAA1DD9F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{658DDA84-F97E-4299-A1CD-2D3EAA1DD9F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{658DDA84-F97E-4299-A1CD-2D3EAA1DD9F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C109F4E8-39BB-49EE-A40F-BCCBFA6B48C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C109F4E8-39BB-49EE-A40F-BCCBFA6B48C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C109F4E8-39BB-49EE-A40F-BCCBFA6B48C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C109F4E8-39BB-49EE-A40F-BCCBFA6B48C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

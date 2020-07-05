@@ -1,7 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestTest.Library.Entity;
-using RestTestResult = RestTest.Library.Entity.TestResult;
+using RestTestResult = RestTest.Library.Entity.Test.TestResult;
 using RestTest.Library.Entity.Http;
+using RestTest.Library.Entity.Test;
 
 namespace RestTest.Library.Test
 {

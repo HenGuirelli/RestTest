@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RestTest.JsonReader\RestTest.JsonReader.csproj" />
-    <ProjectReference Include="..\RestTest.Library.Entity\RestTest.Library.Entity.csproj" />
+    <ProjectReference Include="..\RestTest.Library.Entity.Test\RestTest.Library.Entity.Test.csproj" />
   </ItemGroup>
 
   <ItemGroup>

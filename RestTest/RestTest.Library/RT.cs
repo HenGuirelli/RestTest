@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using RestTest.Library.Entity;
+using RestTest.Library.Entity.Test;
 using RestTest.Library.SequenceDependency;
 using RestTest.RestRequest;
 

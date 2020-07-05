@@ -5,7 +5,8 @@ using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 using System.Threading;
 using RestTest.Library.Entity;
-using RestTestResult = RestTest.Library.Entity.TestResult;
+using RestTestResult = RestTest.Library.Entity.Test.TestResult;
+using RestTest.Library.Entity.Test;
 
 namespace RestTest.Library.Test
 {
