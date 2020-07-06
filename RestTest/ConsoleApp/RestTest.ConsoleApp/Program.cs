@@ -1,16 +1,11 @@
-﻿using RestTest.Library;
-using RestTest.Library.Entity.Test;
+﻿using RestTest.ConsoleApp.Output;
+using RestTest.Library;
 using System;
-using System.IO;
-using System.Threading;
 
 namespace RestTest.ConsoleApp
 {
     class Program
     {
-        static string _resultPath;
-        static readonly object _lockFile = new object();
-
         static void Main(string[] args)
         {
             ArgsResult argsResult = ParseArgs(args);
@@ -26,48 +21,30 @@ namespace RestTest.ConsoleApp
                 return;
             }
 
-            _resultPath = argsResult.ResultPath;
-            RT rt = default;
+            var factory = new OutputFactory();
+            IOutput output = factory.Create(argsResult);
+
             try
             {
-                CleanResultFile();
-
-                rt = new RT(argsResult.ConfigPath);
-                rt.OnTestFinished += OnTestFinished;
+                RT rt = new RT(argsResult.ConfigPath);
+                rt.OnTestFinished += output.OnTestFinished;
                 rt.Start();
-                AllTestsFinished();
+                output.AllTestsFinished();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
-
+            }
+            finally
+            {
                 Console.ReadKey();
             }
-        }
-
-        private static void AllTestsFinished()
-        {
-            Console.WriteLine($"All tests finished. See result in: {_resultPath}");
-            Console.ReadKey();
-        }
-
-        private static void CleanResultFile()
-        {
-            File.WriteAllText(_resultPath, "");
         }
 
         private static ArgsResult ParseArgs(string[] args)
         {
             return new ArgsResult(args);
-        }
-
-        private static void OnTestFinished(TestResult result)
-        {
-            lock (_lockFile)
-            {
-                File.AppendAllText(_resultPath, $"{result.Text}\n");
-            }
         }
     }
 }
