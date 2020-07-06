@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RestTest.Library.Entity;
@@ -22,21 +23,23 @@ namespace RestTest.Library
 
         public void Start()
         {
-            StartInternal();
+            var task = StartAsync();
+            task.Wait();
+            OnAllTestsFinished?.Invoke();
         }
 
-        private async void StartInternal()
+        public async Task StartAsync()
         {
-            var tasksUniques = _config.Uniques.Select(async item =>
-            {
-                var request = Requests.Create(item.ToRequestConfig());
-                OnTestStart?.Invoke(item.Name);
-                var response = request.Send();
-                var testResult = new TestResult(item.Name, item.Validation, await response);
-                OnTestFinished?.Invoke(testResult);
-            });
+            IEnumerable<Task> tasksUniques = StartUniqueTests();
+            IEnumerable<Task> tasksSequence = StartSequenceTests();
 
-            var tasksSequence = _config.Sequences.Select(async item =>
+            await Task.WhenAll(tasksUniques);
+            await Task.WhenAll(tasksSequence);
+        }
+
+        private IEnumerable<Task> StartSequenceTests()
+        {
+            return _config.Sequences.Select(async item =>
             {
                 var sequenceDependency = new SequenceDependencyLocator();
                 foreach (var sequeceItem in item.Sequence)
@@ -53,11 +56,18 @@ namespace RestTest.Library
                     if (testResult.Status == Status.Fail) return;
                 }
             });
+        }
 
-            await Task.WhenAll(tasksUniques);
-            await Task.WhenAll(tasksSequence);
-
-            OnAllTestsFinished?.Invoke();
+        private IEnumerable<Task> StartUniqueTests()
+        {
+            return _config.Uniques.Select(async item =>
+            {
+                var request = Requests.Create(item.ToRequestConfig());
+                OnTestStart?.Invoke(item.Name);
+                var response = request.Send();
+                var testResult = new TestResult(item.Name, item.Validation, await response);
+                OnTestFinished?.Invoke(testResult);
+            });
         }
     }
 }

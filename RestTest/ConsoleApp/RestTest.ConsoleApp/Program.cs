@@ -32,13 +32,11 @@ namespace RestTest.ConsoleApp
             try
             {
                 CleanResultFile();
+
                 rt = new RT(argsResult.ConfigPath);
                 rt.OnTestFinished += OnTestFinished;
-
-                rt.Start();
                 rt.OnAllTestsFinished += AllTestsFinished;
-
-                SpinWait.SpinUntil(() => _testFinished);
+                rt.Start();
             }
             catch (Exception ex)
             {
