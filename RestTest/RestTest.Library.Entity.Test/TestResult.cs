@@ -22,9 +22,6 @@ namespace RestTest.Library.Entity.Test
             TestName = string.IsNullOrWhiteSpace(testName) ? DefaultName : testName;
             Response = response;
 
-            Validate(string.IsNullOrWhiteSpace(response.Error),
-                FormatMessage($"General error => {response.Error}"));
-
             if (validation.Status.HasValue)
             {
                 Validate(response.Status == validation.Status,
@@ -50,6 +47,12 @@ namespace RestTest.Library.Entity.Test
             }
 
             Status = _errorList.Any() ? Status.Fail : Status.Ok;
+
+            if (Status == Status.Fail)
+            {
+                Validate(string.IsNullOrWhiteSpace(response.Error),
+                    FormatMessage($"General error => {response.Error}"));
+            }
         }
 
         private string FormatMessage(string str)
