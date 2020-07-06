@@ -35,8 +35,8 @@ namespace RestTest.ConsoleApp
 
                 rt = new RT(argsResult.ConfigPath);
                 rt.OnTestFinished += OnTestFinished;
-                rt.OnAllTestsFinished += AllTestsFinished;
                 rt.Start();
+                AllTestsFinished();
             }
             catch (Exception ex)
             {

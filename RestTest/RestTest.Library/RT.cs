@@ -14,7 +14,6 @@ namespace RestTest.Library
         private readonly RestTest.Configuration.Configuration _config;
         public TestFinishedHandle OnTestFinished;
         public TestStartHandle OnTestStart;
-        public TestAllTestFinishedHandle OnAllTestsFinished;
 
         public RT(string configPath)
         {
@@ -25,7 +24,6 @@ namespace RestTest.Library
         {
             var task = StartAsync();
             task.Wait();
-            OnAllTestsFinished?.Invoke();
         }
 
         public async Task StartAsync()
