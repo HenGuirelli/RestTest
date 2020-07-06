@@ -9,7 +9,6 @@ namespace RestTest.ConsoleApp
     class Program
     {
         static string _resultPath;
-        static volatile bool _testFinished = false;
         static readonly object _lockFile = new object();
 
         static void Main(string[] args)
@@ -51,7 +50,6 @@ namespace RestTest.ConsoleApp
         {
             Console.WriteLine($"All tests finished. See result in: {_resultPath}");
             Console.ReadKey();
-            _testFinished = true;
         }
 
         private static void CleanResultFile()
