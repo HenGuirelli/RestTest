@@ -5,8 +5,6 @@ namespace RestTest.ConsoleApp.Output
 {
     internal class OutputConsole : IOutput
     {
-        static readonly object _lockFile = new object();
-
         public void AllTestsFinished()
         {
             Console.WriteLine($"All tests finished");
@@ -14,10 +12,7 @@ namespace RestTest.ConsoleApp.Output
 
         public void OnTestFinished(TestResult result)
         {
-            lock (_lockFile)
-            {
-                Console.WriteLine($"{result.Text}");
-            }
+            Console.WriteLine($"{result.Text}");
         }
     }
 }
