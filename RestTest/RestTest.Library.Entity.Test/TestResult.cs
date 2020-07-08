@@ -1,6 +1,5 @@
 ﻿using RestTest.Library.Entity.Http;
 using RestTest.Library.Entity.Test.TestEvaluator;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +8,7 @@ namespace RestTest.Library.Entity.Test
     public class TestResult
     {
         public string TestName { get; private set; }
-        public Status Status { get; private set; }
+        public Status Status { get; private set; } = Status.Ok;
         public Response Response { get; private set; }
         public Validation Validation { get; }
 
@@ -23,16 +22,21 @@ namespace RestTest.Library.Entity.Test
 
         public TestResult(string testName, Validation validation, Response response)
         {
-            _testsEvaluators.Add(new BodyEvaluator());
-            _testsEvaluators.Add(new CookieEvaluator());
-            _testsEvaluators.Add(new HeaderEvaluator());
-            _testsEvaluators.Add(new StatusEvaluator());
-
             TestName = string.IsNullOrWhiteSpace(testName) ? DefaultName : testName;
             Response = response;
             Validation = validation;
 
+            FillEvaluators();
             Evaluate();
+        }
+
+        private void FillEvaluators()
+        {
+            _testsEvaluators.Add(new BodyEvaluator());
+            _testsEvaluators.Add(new CookieEvaluator());
+            _testsEvaluators.Add(new HeaderEvaluator());
+            _testsEvaluators.Add(new StatusEvaluator());
+            _testsEvaluators.Add(new TestResultStatusEvaluator(this));
         }
 
         private void Evaluate()
@@ -43,14 +47,9 @@ namespace RestTest.Library.Entity.Test
                 if (evaluator.Error)
                 {
                     _errorList.AddRange(evaluator.Errors);
+                    Status = Status.Fail;
                 }
             }
-
-            Status = _errorList.Any() ? Status.Fail : Status.Ok;
-
-            var _testResultStatusEvaluator = new TestResultStatusEvaluator(Status);
-            _testResultStatusEvaluator.Evaluate(Validation, Response);
-            if (_testResultStatusEvaluator.Error) _errorList.AddRange(_testResultStatusEvaluator.Errors);
         }
     }
 }
