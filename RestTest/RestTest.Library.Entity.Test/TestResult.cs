@@ -18,7 +18,7 @@ namespace RestTest.Library.Entity.Test
         public string Text => Status == Status.Ok ? $"{TestName}: {Status}" : $"{TestName}: {Status} {Error}";
 
         private readonly List<string> _errorList = new List<string>();
-        private readonly List<ITestEvaluator> _testsEvaluators = new List<ITestEvaluator>();
+        private readonly Queue<ITestEvaluator> _testsEvaluators = new Queue<ITestEvaluator>();
 
         public TestResult(string testName, Validation validation, Response response)
         {
@@ -32,17 +32,18 @@ namespace RestTest.Library.Entity.Test
 
         private void FillEvaluators()
         {
-            _testsEvaluators.Add(new BodyEvaluator());
-            _testsEvaluators.Add(new CookieEvaluator());
-            _testsEvaluators.Add(new HeaderEvaluator());
-            _testsEvaluators.Add(new StatusEvaluator());
-            _testsEvaluators.Add(new TestResultStatusEvaluator(this));
+            _testsEvaluators.Enqueue(new BodyEvaluator());
+            _testsEvaluators.Enqueue(new CookieEvaluator());
+            _testsEvaluators.Enqueue(new HeaderEvaluator());
+            _testsEvaluators.Enqueue(new StatusEvaluator());
+            _testsEvaluators.Enqueue(new TestResultStatusEvaluator(this));
         }
 
         private void Evaluate()
         {
-            foreach (var evaluator in _testsEvaluators)
+            while (_testsEvaluators.Any())
             {
+                var evaluator = _testsEvaluators.Dequeue();
                 evaluator.Evaluate(Validation, Response);
                 if (evaluator.Error)
                 {
