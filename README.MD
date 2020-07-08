@@ -3,7 +3,7 @@
 RestTest é uma ferramenta para facilitar a evolução de API Rest fornecendo uma maneira simples de criar testes automatizados dos Endpoints a partir de um unico arquivo de configuração.
 
 ## Como usar
-A aplicação lê os testes baseado em um arquivo de configuração JSON:
+A aplicação lê os testes de um arquivo de configuração JSON:
 ```json
 {
   "name": "sum",
@@ -31,7 +31,7 @@ Executar os testes:
 RestTest.ConsoleApp.exe .\config.json
 ```
 
-A aplicação suporta dois tipos de testes sendo eles:
+A aplicação suporta dois tipos de testes:
 * unique_test
 * sequence_test
 
@@ -99,11 +99,12 @@ O tipo de teste unico é uma chamada independente com validação simples, por e
   }
 }
 ```
-A sequencia em que as chamadas uncias acontecem não pode ser garantida.
+A sequencia em que as chamadas unicas acontecem não pode ser garantida.
 
 ## Sequence Test
-O teste em sequecia é um método do teste em que a sequencia das requisições é mantida, esse tipo de teste faz sentido quando se usa o recurso de **dependências** que é a forma de referenciar um teste já concluido, por exemplo:
-O retorno da primeira requisição "insert_user" é reaproveitada na Url da segunda requisição "verify_user_exists"
+O teste em sequecia é o tipo de teste em que a sequencia das requisições é mantida, esse tipo de teste faz sentido quando se usa o recurso de **dependências** que é a forma de referenciar um teste já concluido, por exemplo:
+
+O body do response da primeira requisição "insert_user" é reaproveitada na Url da segunda requisição "verify_user_exists"
 
 ```json
 {
@@ -148,7 +149,7 @@ O retorno da primeira requisição "insert_user" é reaproveitada na Url da segu
 ```
 
 ## Valores especiais
-Há valores especiais que pode ser usado para validações mais genericas
+Há valores especiais que podem ser usados para validações mais genéricas
 
 |Valor |Aceite|
 |------|------|
