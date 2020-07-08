@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestTest.HttpServer.Test;
-using RestTest.Library.Entity;
 using RestTest.Library.Entity.Http;
 using RestTest.Library.Entity.Test;
 using System;
@@ -11,13 +10,11 @@ namespace RestTest.Library.SequenceDependency.Test
     public class DependencyDetectorTest
     {
         private const int Port = 8091;
-        private volatile bool _testFinished;
         HttpServerHelp _server;
 
         [TestInitialize]
         public void CreateHttpServer()
         {
-            _testFinished = false;
             _server = new HttpServerHelp();
             _server.CreateHttpServer(Port);
         }

@@ -1,4 +1,6 @@
 ﻿using RestTest.Library.Entity.Http;
+using RestTest.Library.Entity.Test.TestEvaluator;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,61 +19,34 @@ namespace RestTest.Library.Entity.Test
 
         private readonly List<string> _errorList = new List<string>();
 
+        private static readonly ConcurrentBag<ITestEvaluator> _testsEvaluators = new ConcurrentBag<ITestEvaluator>();
+
+        static TestResult()
+        {
+            _testsEvaluators.Add(new BodyEvaluator());
+            _testsEvaluators.Add(new CookieEvaluator());
+            _testsEvaluators.Add(new HeaderEvaluator());
+            _testsEvaluators.Add(new StatusEvaluator());
+        }
+
         public TestResult(string testName, Validation validation, Response response)
         {
             TestName = string.IsNullOrWhiteSpace(testName) ? DefaultName : testName;
             Response = response;
 
-            if (validation.Status.HasValue)
+            foreach(var evaluator in _testsEvaluators)
             {
-                Validate(response.Status == validation.Status,
-                    FormatMessage($"Status => expected {validation.Status} received {response.Status}"));
-            }
-
-            if (validation.Body.HasValue)
-            {
-                Validate(response.Body.Equals(validation.Body),
-                    FormatMessage($"Body => expected {validation.Body} received {response.Body}"));
-            }
-
-            if (validation.Cookies.HasValue)
-            {
-                Validate(response.Cookies.Equals(validation.Cookies),
-                    FormatMessage($"Cookie => expected {validation.Cookies} received {response.Cookies}"));
-            }
-
-            if (validation.Header.HasValue)
-            {
-                Validate(response.Header.Equals(validation.Header),
-                    FormatMessage($"Header => expected {validation.Header} received {response.Header}"));
+                evaluator.Evaluate(validation, response);
+                if (evaluator.Error)
+                {
+                    _errorList.AddRange(evaluator.Errors);
+                }
             }
 
             Status = _errorList.Any() ? Status.Fail : Status.Ok;
 
-            if (Status == Status.Fail)
-            {
-                Validate(string.IsNullOrWhiteSpace(response.Error),
-                    FormatMessage($"General error => {response.Error}"));
-            }
-        }
-
-        private string FormatMessage(string str)
-        {
-            var textFormatter = new TextFormatter(str);
-            return textFormatter
-                .RemoveNewLine()
-                .RemoveEspecialCharacters()
-                .RemoveMultipleSpaces()
-                .Trim()
-                .ToString();
-        }
-
-        private void Validate(bool condition, string error)
-        {
-            if (!condition)
-            {
-                _errorList.Add(error);
-            }
+            var _testResultStatusEvaluator = new TestResultStatusEvaluator(Status);
+            if (_testResultStatusEvaluator.Error) _errorList.AddRange(_testResultStatusEvaluator.Errors);
         }
     }
 }
