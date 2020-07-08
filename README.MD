@@ -6,30 +6,174 @@ RestTest é uma ferramenta para facilitar a evolução de API Rest fornecendo um
 A aplicação lê os testes baseado em um arquivo de configuração JSON:
 ```json
 {
-    "name": "sum",
-    "url": "http://localhost:59635/sum",
-    "type": "unique_test",
-    "method": "POST",
-    "header": {
-      "Transfer-Encoding": "chunked",
-      "Content-Type": "application/json; charset=utf-8",
-      "Server": "Microsoft-IIS/10.0",
-      "X-Powered-By": "ASP.NET"
-    },
-    "body": {
-      "num1": 10,
-      "num2": 20
-    },
+  "name": "sum",
+  "type": "unique_test",
+  "url": "http://localhost:59635/sum",
+  "method": "POST",
+  "header": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "body": {
+    "num1": 10,
+    "num2": 20
+  },
 
-    "validation": {
-      "body": {
-        "result": 30
-      }
+  "validation": {
+    "body": {
+      "result": 30
     }
+  }
 }
   ```
 
 Para executar os testes:
 ```
-RestTest.ConsoleApp.exe .\config.json .\test_result
+RestTest.ConsoleApp.exe .\config.json
+```
+
+A aplicação suporta dois tipos de testes sendo eles:
+* unique_test
+* sequence_test
+
+## Unique Test
+O tipo de teste unico é uma chamada independente com validação simples, por exemplo um endpoint em que recebe dois valores no body da requisição e a validação é a soma desses números.
+```json
+{
+  "name": "sum",
+  "type": "unique_test",
+  "url": "http://localhost:59635/sum",
+  "method": "POST",
+  "header": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "body": {
+    "num1": 10,
+    "num2": 20
+  },
+
+  "validation": {
+    "body": {
+      "result": 30
+    }
+  }
+}
+```
+É possivel ter vários testes unicos em um arquivo para testar vários endpoints:
+```json
+{
+  "name": "sum",
+  "type": "unique_test",
+  "url": "http://localhost:59635/sum",
+  "method": "POST",
+  "header": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "body": {
+    "num1": 10,
+    "num2": 20
+  },
+
+  "validation": {
+    "body": {
+      "result": 30
+    }
+  }
+},
+{
+  "name": "sub",
+  "type": "unique_test",
+  "url": "http://localhost:59635/sub",
+  "method": "POST",
+  "header": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "body": {
+    "num1": 10,
+    "num2": 20
+  },
+
+  "validation": {
+    "body": {
+      "result": -10
+    }
+  }
+}
+```
+A sequencia em que as chamadas uncias acontecem não pode ser garantida.
+
+## Sequence Test
+O teste em sequecia é um método do teste em que a sequencia das requisições é mantida, esse tipo de teste faz sentido quando se usa o recurso de **dependências** que é a forma de referenciar um teste já concluido, por exemplo:
+O retorno da primeira requisição "insert_user" é reaproveitada na Url da segunda requisição "verify_user_exists"
+
+```json
+{
+  "name": "CrudTest",
+  "type": "sequence_test",
+  "sequence": [
+    {
+      "name": "insert_user",
+      "method": "POST",
+      "url": "http://localhost:59635/api/UserCrud/",
+      "header": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "body": {
+        "name": "Robson",
+        "age": 30
+      },
+      "validation": {
+        "status": 200
+      }
+    },
+    {
+      "name": "verify_user_exists",
+      "method": "GET",
+      "url": "http://localhost:59635/api/UserCrud/${insert_user.response.body.user_id}",
+      "header": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "validation": {
+        "status": 200,
+        "body": {
+          "user": {
+            "name": "Robson",
+            "age": 30,
+            "id": "${NUMBER}"
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+## Valores especiais
+Há valores especiais que pode ser usado para validações mais genericas
+
+|Valor |Aceite|
+|------|------|
+|${ANY}|Qualquer valor|
+|${NUMBER}|Qualquer número (náo valida tipo, tanto o valor 1 como "1" passarao no teste)|
+
+No exemplo é passado um header customizado e o teste consiste em validar que a API irá retornar no response o valor passado na requisição, a API retorna alguns header que não é interessante para o teste então foi utilizado o valor especial "${ANY}" para ignorar a validação nesses campos.
+```json
+{
+    "name": "header",
+    "type": "unique_test",
+    "url": "http://localhost:59635/name",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Custom-Header": "Value"
+    },
+
+    "validation": {
+      "header": {
+        "Transfer-Encoding": "${ANY}",
+        "Server": "${ANY}",
+        "X-Powered-By": "${ANY}",
+        "Date": "${ANY}",
+        "Custom-Header": "Value"
+      }
+    }
+  },
 ```
