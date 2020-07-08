@@ -26,7 +26,7 @@ A aplicação lê os testes baseado em um arquivo de configuração JSON:
 }
   ```
 
-Para executar os testes:
+Executar os testes:
 ```
 RestTest.ConsoleApp.exe .\config.json
 ```
