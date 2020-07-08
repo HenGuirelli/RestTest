@@ -11,6 +11,7 @@ namespace RestTest.Library.Entity.Test
         public string TestName { get; private set; }
         public Status Status { get; private set; }
         public Response Response { get; private set; }
+        public Validation Validation { get; }
 
         private const string DefaultName = "<No Name>";
 
@@ -29,10 +30,16 @@ namespace RestTest.Library.Entity.Test
 
             TestName = string.IsNullOrWhiteSpace(testName) ? DefaultName : testName;
             Response = response;
+            Validation = validation;
 
+            Evaluate();
+        }
+
+        private void Evaluate()
+        {
             foreach (var evaluator in _testsEvaluators)
             {
-                evaluator.Evaluate(validation, response);
+                evaluator.Evaluate(Validation, Response);
                 if (evaluator.Error)
                 {
                     _errorList.AddRange(evaluator.Errors);
@@ -42,7 +49,7 @@ namespace RestTest.Library.Entity.Test
             Status = _errorList.Any() ? Status.Fail : Status.Ok;
 
             var _testResultStatusEvaluator = new TestResultStatusEvaluator(Status);
-            _testResultStatusEvaluator.Evaluate(validation, response);
+            _testResultStatusEvaluator.Evaluate(Validation, Response);
             if (_testResultStatusEvaluator.Error) _errorList.AddRange(_testResultStatusEvaluator.Errors);
         }
     }
