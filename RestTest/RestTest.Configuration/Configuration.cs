@@ -27,7 +27,7 @@ namespace RestTest.Configuration
 
         private void VerifyConfigurationFile()
         {
-            if (!File.Exists(_filename)) throw new FileNotFoundException("configuration file not found");
+            if (!File.Exists(_filename)) throw new FileNotFoundException($"configuration file {_filename} not found");
             if (File.ReadAllText(_filename).Replace(" ", "").Replace("\n", "").Replace("\r", "") == "{}") throw new Exception("Json is empty");
         }
 

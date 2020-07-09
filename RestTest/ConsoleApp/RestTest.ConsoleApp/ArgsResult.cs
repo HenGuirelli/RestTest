@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RestTest.ConsoleApp
 {
@@ -9,9 +11,15 @@ namespace RestTest.ConsoleApp
         public string ConfigPath { get; private set; }
         public bool OutputInConsole { get; }
         public string ResultPath { get; private set; }
+        public bool ContinueAfterFinished { get; private set; }
+        private const string ContinueAfterFinishedArgument = "-c";
 
         public ArgsResult(string[] args)
         {
+            ContinueAfterFinished = args.Contains(ContinueAfterFinishedArgument);
+
+            args = RemoveOptions(args);
+
             if (args.Length == 0 ||
                 (args.Length == 1 && _helpOptions.Contains(args[0])))
             {
@@ -34,6 +42,11 @@ namespace RestTest.ConsoleApp
             }
 
             IsHelp = true;
+        }
+
+        private string[] RemoveOptions(string[] args)
+        {
+            return args.Where(x => !x.StartsWith("-")).ToArray();
         }
     }
 }

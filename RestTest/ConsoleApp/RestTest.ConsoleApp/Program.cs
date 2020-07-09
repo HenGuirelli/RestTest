@@ -38,7 +38,7 @@ namespace RestTest.ConsoleApp
             }
             finally
             {
-                Console.ReadKey();
+                if (!argsResult.ContinueAfterFinished) Console.ReadKey();
             }
         }
 
