@@ -73,7 +73,7 @@ namespace RestTest.RestRequest
 
         public async Task<Response> Send()
         {
-            var jsonReader = new JsonReader.JsonReader();
+            var jsonReader = new JsonReader.JsonReaderBody();
             try
             {
                 var response = (HttpWebResponse)(await _request.GetResponseAsync());

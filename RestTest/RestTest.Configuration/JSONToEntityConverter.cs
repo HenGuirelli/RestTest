@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using RestTest.Configuration.JsonNotation;
 using RestTest.JsonReader;
-using RestTest.Library.Entity;
 using RestTest.Library.Entity.Http;
 using RestTest.Library.Entity.Test;
 using System;
@@ -11,7 +10,7 @@ namespace RestTest.Configuration
 {
     internal class JSONToEntityConverter
     {
-        static IJsonReader _reader = new JsonReader.JsonReader();
+        static readonly IJsonReader<Body> _readerBody = new JsonReaderBody();
 
         public static SequenceConfiguration ConvertSequenceConfiguration(SequenceConfigurationJsonNotation sequenceConfigurationJSONNotation)
         {
@@ -43,7 +42,7 @@ namespace RestTest.Configuration
                 JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.header as JObject),
                 JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.cookies as JObject),
                 JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.query_string as JObject),
-                _reader.Read(uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty),
+                _readerBody.Read(uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty),
                 uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty,
                 JSONToValidation(uniqueConfigurationJSONNotation.validation)
             );
@@ -55,7 +54,7 @@ namespace RestTest.Configuration
 
             return new Validation
             (
-                _reader.Read(validation.body?.ToString() ?? string.Empty),
+                _readerBody.Read(validation.body?.ToString() ?? string.Empty),
                 new Header(JSONToDictionary<string, string>(validation.header as JObject)),
                 JSONToDictionary<string, string>(validation.query_string as JObject),
                 new Cookies(JSONToDictionary<string, string>(validation.cookies as JObject)),

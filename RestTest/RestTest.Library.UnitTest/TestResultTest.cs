@@ -23,7 +23,7 @@ namespace RestTest.Library.Test
         [TestMethod]
         public void OnCtor_SimpleBodyJson()
         {
-            var jsonReader = new JsonReader.JsonReader();
+            var jsonReader = new JsonReader.JsonReaderBody();
             var bodyString = "{ name: \"Ellie\" }";
             var body = jsonReader.Read(bodyString);
 
@@ -42,7 +42,7 @@ namespace RestTest.Library.Test
         [TestMethod]
         public void OnCtor_ComplexBodyJson()
         {
-            var jsonReader = new JsonReader.JsonReader();
+            var jsonReader = new JsonReader.JsonReaderBody();
             var bodyString = "{ person: { name: \"Ellie\", age: 14 } }";
             var body = jsonReader.Read(bodyString);
 

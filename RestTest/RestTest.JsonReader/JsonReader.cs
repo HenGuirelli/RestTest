@@ -1,29 +1,28 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestTest.Library.Entity;
-using RestTest.Library.Entity.Http;
 using RestTest.NewJsonHelper;
 using System.Collections.Generic;
 using System.IO;
 
 namespace RestTest.JsonReader
 {
-    public class JsonReader : IJsonReader
+    public abstract class JsonReader<T> : IJsonReader<T> 
+        where T : JsonObject, new()
     {
         private readonly JsonConverterManager _converter = new JsonConverterManager();
 
-        public Body ReadByFile(string path)
+        public T ReadByFile(string path)
         {
             return Read(File.ReadAllText(path));
         }
 
-        public Body Read(string json)
+        public T Read(string json)
         {
-            if (string.IsNullOrEmpty(json)) return Body.Empty;
+            if (string.IsNullOrEmpty(json)) return Empty();
 
             try
             {
-                var body = new Body();
+                var body = new T();
                 var jObj = JsonConvert.DeserializeObject(json) as JObject;
                 if (jObj != null)
                 {
@@ -37,8 +36,10 @@ namespace RestTest.JsonReader
             }
             catch
             {
-                return new Body();
+                return new T();
             }
         }
+
+        protected abstract T Empty();
     }
 }

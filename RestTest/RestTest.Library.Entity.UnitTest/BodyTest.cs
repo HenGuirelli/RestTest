@@ -10,7 +10,7 @@ namespace RestTest.Library.Entity.Test
         [TestMethod]
         public void SimpleBodyShouldBeEquals()
         {
-            var jsonReader = new JsonReader.JsonReader();
+            var jsonReader = new JsonReader.JsonReaderBody();
 
             var jsonBody1 = File.ReadAllText("./simple_body.json");
             var jsonBody2 = File.ReadAllText("./simple_body.json");
@@ -22,7 +22,7 @@ namespace RestTest.Library.Entity.Test
         [TestMethod]
         public void SimpleBodyShouldNotBeEquals()
         {
-            var jsonReader = new JsonReader.JsonReader();
+            var jsonReader = new JsonReader.JsonReaderBody();
 
             var jsonBody1 = File.ReadAllText("./simple_body.json");
             var jsonBody2 = File.ReadAllText("./simple_body2.json");
@@ -34,7 +34,7 @@ namespace RestTest.Library.Entity.Test
         [TestMethod]
         public void ReservedWord_Any_BodyShouldtBeEquals()
         {
-            var jsonReader = new JsonReader.JsonReader();
+            var jsonReader = new JsonReader.JsonReaderBody();
 
             var jsonBody1 = File.ReadAllText("./simple_body.json");
             var jsonBody2 = File.ReadAllText("./simple_body_any.json");
@@ -46,7 +46,7 @@ namespace RestTest.Library.Entity.Test
         [TestMethod]
         public void ReservedWord_NUMBER_BodyShouldtBeEquals()
         {
-            var jsonReader = new JsonReader.JsonReader();
+            var jsonReader = new JsonReader.JsonReaderBody();
 
             var jsonBody1 = File.ReadAllText("./simple_body.json");
             var jsonBody2 = File.ReadAllText("./simple_body_number.json");
@@ -64,7 +64,7 @@ namespace RestTest.Library.Entity.Test
         [TestMethod]
         public void ReservedWord_Regex_BodyShouldtBeEquals()
         {
-            var jsonReader = new JsonReader.JsonReader();
+            var jsonReader = new JsonReader.JsonReaderBody();
             var jsonBody1 = File.ReadAllText("./simple_body_item1_number.json");
             var jsonBody2 = File.ReadAllText("./simple_body_item1_regex.json");
             Assert.IsTrue(jsonReader.Read(jsonBody1).Equals(jsonReader.Read(jsonBody2)));

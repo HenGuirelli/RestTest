@@ -72,7 +72,7 @@ namespace RestTest.RestRequest.Test
             var response = request.Send().Result;
 
             Assert.AreEqual(200, response.Status);
-            var reader = new JsonReader.JsonReader();
+            var reader = new JsonReader.JsonReaderBody();
             reader.Read(body);
             Assert.IsTrue(reader.Read(body).Equals(response.Body));
         }

@@ -1,10 +1,8 @@
-﻿using RestTest.Library.Entity.Http;
-
-namespace RestTest.JsonReader
+﻿namespace RestTest.JsonReader
 {
-    public interface IJsonReader
+    public interface IJsonReader<out T>
     {
-        Body Read(string json);
-        Body ReadByFile(string path);
+        T Read(string json);
+        T ReadByFile(string path);
     }
 }

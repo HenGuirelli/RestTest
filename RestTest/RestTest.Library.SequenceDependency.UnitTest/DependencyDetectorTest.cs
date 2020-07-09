@@ -79,7 +79,7 @@ namespace RestTest.Library.SequenceDependency.Test
         public void OnEvaluateDependency()
         {
             var dep = new DependencyDetector();
-            var jsonReader = new JsonReader.JsonReader();
+            var jsonReader = new JsonReader.JsonReaderBody();
 
             var testResult = new Entity.Test.TestResult("call1",
                 new Validation(),

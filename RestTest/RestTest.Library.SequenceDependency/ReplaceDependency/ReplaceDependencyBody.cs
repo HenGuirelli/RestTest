@@ -26,7 +26,7 @@ namespace RestTest.Library.SequenceDependency.ReplaceDependency
 
         public void Replace(RequestConfig requestConfig)
         {
-            var reader = new JsonReader.JsonReader();
+            var reader = new JsonReader.JsonReaderBody();
             Entity.Http.Body body = reader.Read(requestConfig.Body);
             ReplaceDependecy(body);
         }
