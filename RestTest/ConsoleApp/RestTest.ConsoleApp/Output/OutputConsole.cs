@@ -5,9 +5,19 @@ namespace RestTest.ConsoleApp.Output
 {
     internal class OutputConsole : IOutput
     {
+        private readonly ArgsResult _argsResult;
+
+        public OutputConsole(ArgsResult argsResult)
+        {
+            _argsResult = argsResult;
+        }
+
         public void AllTestsFinished()
         {
-            Console.WriteLine($"All tests finished");
+            if (_argsResult.Verbose)
+            {
+                Console.WriteLine($"All tests finished");
+            }
         }
 
         public void OnTestFinished(TestResult result)

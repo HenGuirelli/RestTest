@@ -7,30 +7,33 @@ namespace RestTest.ConsoleApp.Output
     internal class OutputFile : IOutput
     {
         static readonly object _lockFile = new object();
-        private readonly string _resultPath;
+        private readonly ArgsResult _argsResult;
 
-        public OutputFile(string resultPath)
+        public OutputFile(ArgsResult argsResult)
         {
-            _resultPath = resultPath;
+            _argsResult = argsResult;
             CleanResultFile();
         }
 
         private void CleanResultFile()
         {
-            File.WriteAllText(_resultPath, "");
+            File.WriteAllText(_argsResult.ResultPath, "");
         }
 
         public void OnTestFinished(TestResult result)
         {
             lock (_lockFile)
             {
-                File.AppendAllText(_resultPath, $"{result.Text}\n");
+                File.AppendAllText(_argsResult.ResultPath, $"{result.Text}\n");
             }
         }
 
         public void AllTestsFinished()
         {
-            Console.WriteLine($"All tests finished. See result in: {_resultPath}");
+            if (_argsResult.Verbose)
+            {
+                Console.WriteLine($"All tests finished. See result in: {_argsResult.ResultPath}");
+            }
         }
     }
 }

@@ -11,12 +11,17 @@ namespace RestTest.ConsoleApp
         public string ConfigPath { get; private set; }
         public bool OutputInConsole { get; }
         public string ResultPath { get; private set; }
+
         public bool ContinueAfterFinished { get; private set; }
         private const string ContinueAfterFinishedArgument = "-c";
+
+        public bool Verbose { get; private set; }
+        private const string VerboseArgument = "-v";
 
         public ArgsResult(string[] args)
         {
             ContinueAfterFinished = args.Contains(ContinueAfterFinishedArgument);
+            Verbose = args.Contains(VerboseArgument);
 
             args = RemoveOptions(args);
 

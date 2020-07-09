@@ -6,9 +6,9 @@
         {
             if (argsResult.OutputInConsole)
             {
-                return new OutputConsole();
+                return new OutputConsole(argsResult);
             }
-            return new OutputFile(argsResult.ResultPath);
+            return new OutputFile(argsResult);
         }
     }
 }
