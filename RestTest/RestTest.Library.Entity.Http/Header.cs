@@ -19,7 +19,6 @@ namespace RestTest.Library.Entity.Http
         public Header(WebHeaderCollection header)
             : this()
         {
-            HasValue = true;
             foreach (var headerkey in header.AllKeys)
             {
                 Add(headerkey, header[headerkey]);
