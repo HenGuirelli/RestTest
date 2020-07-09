@@ -86,7 +86,10 @@ namespace RestTest.Library.Test
             Assert.AreEqual(string.Empty, classTest.Results["cookie test"].Error);
 
             Assert.AreEqual(Status.Fail, classTest.Results["cookie test error"].Status);
-            Assert.AreEqual("Cookie => expected { country: wrong cookie, cookie1: value1 } received { Country: EUA, cookie1: value1 }", classTest.Results["cookie test error"].Error);
+            var expected = "Cookie => expected { \"country\": \"wrong cookie\", \"cookie1\": \"value1\" } received { \"Country\": \"EUA\", \"cookie1\": \"value1\" }";
+            var expectedFormatted = new TextFormatter(expected).RemoveAllSpaces().ToString();
+            var actualFormatted = new TextFormatter(classTest.Results["cookie test error"].Error).RemoveAllSpaces().ToString();
+            Assert.AreEqual(expectedFormatted, actualFormatted);
 
             Assert.AreEqual(Status.Ok, classTest.Results["no cookie validation"].Status);
             Assert.AreEqual(string.Empty, classTest.Results["no cookie validation"].Error);

@@ -1,5 +1,4 @@
 ﻿using RestTest.Library.Entity.Http;
-using System.Net;
 
 namespace RestTest.JsonReader
 {

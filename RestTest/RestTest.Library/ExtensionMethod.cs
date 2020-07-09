@@ -19,7 +19,7 @@ namespace RestTest.Library
 
         public static RequestConfig ToRequestConfig(this UniqueConfiguration input)
         {
-            return new RequestConfig(input.Url, input.Method.ToString(), input.Header.ToDictionary(), input.Cookies, input.QueryString, input.BodyStr);
+            return new RequestConfig(input.Url, input.Method.ToString(), input.Header.ToDictionary(), input.Cookies.ToDictionary(), input.QueryString, input.BodyStr);
         }
     }
 }

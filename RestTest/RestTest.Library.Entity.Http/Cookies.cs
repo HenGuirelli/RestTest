@@ -1,22 +1,17 @@
-﻿using System;
+﻿using RestTest.NewJsonHelper;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 
 namespace RestTest.Library.Entity.Http
 {
-    public class Cookies : Dictionary<string, string>, IEquatable<Cookies>
+    public class Cookies : JsonObject
     {
-        public static Cookies Empty => new Cookies();
+        public static Cookies Empty => new Cookies() { HasValue = false };
         public bool HasValue { get; private set; }
 
         public Cookies()
         {
-        }
-
-        public Cookies(IDictionary<string, string> dictionary) : base(dictionary)
-        {
-            HasValue = dictionary.Any();
+            HasValue = true;
         }
 
         public Cookies(CookieCollection cookies)
@@ -27,32 +22,22 @@ namespace RestTest.Library.Entity.Http
             }
         }
 
-        public new void Add(string key, string value)
+        public Dictionary<string, string> ToDictionary()
+        {
+            var dict = new Dictionary<string, string>();
+            foreach (var keyValuePair in _jsons)
+            {
+                var key = keyValuePair.Key;
+                var value = keyValuePair.Value.GetValue().ToString();
+                dict.Add(key, value);
+            }
+            return dict;
+        }
+
+        public void Add(string key, string value)
         {
             HasValue = true;
-            base.Add(key, value);
-        }
-
-        public bool Equals(Cookies other)
-        {
-            if (other is null) return false;
-            if (other.Count != this.Count) return false;
-
-            foreach(var item in other)
-            {
-                if(!TryGetValue(item.Key, out var otherValue))
-                {
-                    return false;
-                }
-                if (item.Value != otherValue) return false;
-            }
-
-            return true;
-        }
-
-        public override string ToString()
-        {
-            return $"{{ {string.Join(", ", this.Select(x => $"{x.Key}: {x.Value}"))} }}";
+            Add(new JsonString(key, value));
         }
     }
 }

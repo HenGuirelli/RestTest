@@ -12,6 +12,7 @@ namespace RestTest.Configuration
     {
         static readonly IJsonReader<Body> _readerBody = new JsonReaderBody();
         static readonly IJsonReader<Header> _readerHeader = new JsonReaderHeader();
+        static readonly IJsonReader<Cookies> _readerCookies = new JsonReaderCookie();
 
         public static SequenceConfiguration ConvertSequenceConfiguration(SequenceConfigurationJsonNotation sequenceConfigurationJSONNotation)
         {
@@ -41,7 +42,7 @@ namespace RestTest.Configuration
                 uniqueConfigurationJSONNotation.url,
                 method,
                 _readerHeader.Read(uniqueConfigurationJSONNotation.header?.ToString() ?? string.Empty),
-                JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.cookies as JObject),
+                _readerCookies.Read(uniqueConfigurationJSONNotation.cookies?.ToString() ?? string.Empty),
                 JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.query_string as JObject),
                 _readerBody.Read(uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty),
                 uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty,
@@ -58,7 +59,7 @@ namespace RestTest.Configuration
                 _readerBody.Read(validation.body?.ToString() ?? string.Empty),
                 _readerHeader.Read(validation.header?.ToString() ?? string.Empty),
                 JSONToDictionary<string, string>(validation.query_string as JObject),
-                new Cookies(JSONToDictionary<string, string>(validation.cookies as JObject)),
+                _readerCookies.Read(validation.cookies?.ToString() ?? string.Empty),
                 validation.status,
                 validation.max_time,
                 validation.min_time

@@ -13,7 +13,7 @@ namespace RestTest.Configuration
         public string Url { get; private set; }
         public Method Method { get; private set; }
         public Header Header { get; private set; }
-        public IDictionary<string, string> Cookies { get; private set; }
+        public Cookies Cookies { get; private set; }
         public IDictionary<string, string> QueryString { get; private set; }
         public Body Body { get; private set; }
         public string BodyStr { get; private set; }
@@ -26,7 +26,7 @@ namespace RestTest.Configuration
             string url, 
             Method method,
             Header header,
-            IDictionary<string, string> cookies,
+            Cookies cookies,
             IDictionary<string, string> queryString,
             Body body,
             string bodyStr,

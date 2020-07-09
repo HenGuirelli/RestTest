@@ -154,7 +154,7 @@ Há valores especiais que podem ser usados para validações mais genéricas
 |Valor |Aceite|
 |------|------|
 |${ANY}|Qualquer valor|
-|${NUMBER}|Qualquer número (náo valida tipo, tanto o valor 1 como "1" passarao no teste)|
+|${NUMBER}|Qualquer número|
 
 No exemplo é passado um header customizado e o teste consiste em validar que a API irá retornar no response o valor passado na requisição, a API retorna alguns header que não é interessante para o teste então foi utilizado o valor especial "${ANY}" para ignorar a validação nesses campos.
 ```json
