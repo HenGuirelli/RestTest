@@ -5,10 +5,10 @@ namespace RestTest.Library.Entity.Test
 {
     public class Validation
     {
-        public Body Body { get; private set; } = new Body();
-        public Header Header { get; set; } = new Header();
+        public Body Body { get; private set; } = Body.Empty;
+        public Header Header { get; set; } = Header.Empty;
         public Dictionary<string, string> QueryString { get; private set; } = new Dictionary<string, string>();
-        public Cookies Cookies { get; private set; } = new Cookies();
+        public Cookies Cookies { get; private set; } = Cookies.Empty;
         public int? Status { get; private set; }
 
         public int MaxTime { get; private set; }
@@ -25,10 +25,10 @@ namespace RestTest.Library.Entity.Test
             int maxTime,
             int minTime)
         {
-            Body = body ?? new Body();
-            Header = header ?? new Header();
+            Body = body ?? Body.Empty;
+            Header = header ?? Header.Empty;
             QueryString = queryString ?? new Dictionary<string, string>();
-            Cookies = cookies ?? new Cookies();
+            Cookies = cookies ?? Cookies.Empty;
             Status = status == 0 ? (int?)null : status;
             MaxTime = maxTime;
             MinTime = minTime;

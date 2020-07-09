@@ -9,6 +9,9 @@ namespace RestTest.NewJsonHelper
         public bool _isRegex;
         public string _regexPattern;
 
+        private const string ANY = "${ANY}";
+        private const string NUMBER = "${NUMBER}";
+
         public JsonString(string value)
             : this(string.Empty, value)
         {
@@ -42,7 +45,8 @@ namespace RestTest.NewJsonHelper
         public bool Equals(JsonString other)
         {
             if (other is null) return false;
-            if (Value == "${ANY}" || other.Value == "${ANY}") return true;
+            if (Value == ANY || other.Value == ANY) return true;
+            if ((Value == NUMBER || other.Value == NUMBER) && (IsNumeric(Value) || IsNumeric(other.Value))) return true;
 
             if (_isRegex && Regex.Match(other.Value, _regexPattern).Length > 0 ||
                 other._isRegex && Regex.Match(Value, other._regexPattern).Length > 0) return true;
@@ -50,11 +54,16 @@ namespace RestTest.NewJsonHelper
             return Value == other.Value;
         }
 
+        private bool IsNumeric(string value)
+        {
+            return long.TryParse(value, out var _);
+        }
+
         public bool Equals(JsonLong other)
         {
             if (other is null) return false;
             if (_isRegex && Regex.Match(other.Value.ToString(), _regexPattern).Length > 0) return true;
-            return Value == "${NUMBER}" || Value == "${ANY}";
+            return Value == NUMBER || Value == ANY;
         }
     }
 }

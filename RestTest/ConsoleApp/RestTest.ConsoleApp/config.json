@@ -163,7 +163,7 @@
         }
       },
       {
-        "name": "delte user",
+        "name": "delete user",
         "method": "DELETE",
         "header": {
           "Content-Type": "application/json; charset=utf-8"

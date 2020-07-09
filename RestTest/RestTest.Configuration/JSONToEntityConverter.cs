@@ -11,6 +11,7 @@ namespace RestTest.Configuration
     internal class JSONToEntityConverter
     {
         static readonly IJsonReader<Body> _readerBody = new JsonReaderBody();
+        static readonly IJsonReader<Header> _readerHeader = new JsonReaderHeader();
 
         public static SequenceConfiguration ConvertSequenceConfiguration(SequenceConfigurationJsonNotation sequenceConfigurationJSONNotation)
         {
@@ -39,7 +40,7 @@ namespace RestTest.Configuration
                 uniqueConfigurationJSONNotation.name,
                 uniqueConfigurationJSONNotation.url,
                 method,
-                JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.header as JObject),
+                _readerHeader.Read(uniqueConfigurationJSONNotation.header?.ToString() ?? string.Empty),
                 JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.cookies as JObject),
                 JSONToDictionary<string, string>(uniqueConfigurationJSONNotation.query_string as JObject),
                 _readerBody.Read(uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty),
@@ -55,7 +56,7 @@ namespace RestTest.Configuration
             return new Validation
             (
                 _readerBody.Read(validation.body?.ToString() ?? string.Empty),
-                new Header(JSONToDictionary<string, string>(validation.header as JObject)),
+                _readerHeader.Read(validation.header?.ToString() ?? string.Empty),
                 JSONToDictionary<string, string>(validation.query_string as JObject),
                 new Cookies(JSONToDictionary<string, string>(validation.cookies as JObject)),
                 validation.status,

@@ -1,0 +1,18 @@
+﻿[
+  {
+    "type": "unique_test",
+    "name": "header wrong validation",
+    "url": "http://127.0.0.1:8091/api/resource1",
+    "method": "GET",
+    "header": { "Content-Type": "application/json" },
+
+    "validation": {
+      "header": {
+        "custom-header": "custom-value",
+        "Server": "Microsoft-HTTPAPI/2.0",
+        "Date": "${ANY}",
+        "Content-Length": "0"
+      }
+    }
+  }
+]

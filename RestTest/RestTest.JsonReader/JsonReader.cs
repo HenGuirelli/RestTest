@@ -22,17 +22,17 @@ namespace RestTest.JsonReader
 
             try
             {
-                var body = new T();
+                var resultJsonObj = new T();
                 var jObj = JsonConvert.DeserializeObject(json) as JObject;
                 if (jObj != null)
                 {
                     foreach (KeyValuePair<string, JToken> item in jObj)
                     {
                         JsonAttribute jsonAttribute = _converter[item.Value.Type].Convert(item);
-                        body.Add(jsonAttribute);
+                        resultJsonObj.Add(jsonAttribute);
                     }
                 }
-                return body;
+                return resultJsonObj;
             }
             catch
             {

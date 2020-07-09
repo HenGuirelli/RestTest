@@ -31,6 +31,13 @@ namespace RestTest.Library.Entity.Test
             return result;
         }
 
+        public TextFormatter RemoveAllSpaces()
+        {
+            TextFormatter result = new TextFormatter(_text.Replace(" ", ""));
+            for (; result._hasDoubleSpaces; result = result.RemoveMultipleSpaces()) ;
+            return result;
+        }
+
         public TextFormatter Trim()
         {
             return new TextFormatter(_text.ToString().Trim());

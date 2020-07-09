@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using RestTest.JsonReader;
 using RestTest.Library.Entity;
 using RestTest.Library.Entity.Http;
 
@@ -12,10 +13,45 @@ namespace RestTest.RestRequest
     public class Requests
     {
         private readonly HttpWebRequest _request;
+        private readonly IJsonReader<Body> _jsonReaderBody = new JsonReaderBody();
 
         public Requests(HttpWebRequest request)
         {
             _request = request;
+        }
+
+        public async Task<Response> Send()
+        {
+            try
+            {
+                var response = (HttpWebResponse)(await _request.GetResponseAsync());
+                using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                {
+                    return new Response(
+                        (int)response.StatusCode,
+                        _jsonReaderBody.Read(await reader.ReadToEndAsync()),
+                        new Cookies(response.Cookies),
+                        new Header(response.Headers));
+                }
+            }
+            catch (WebException ex) when (ex.Response != null)
+            {
+                var response = (HttpWebResponse)ex.Response;
+                using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                {
+                    var responseStr = reader.ReadToEndAsync();
+                    return new Response(
+                        (int)response.StatusCode,
+                        _jsonReaderBody.Read(await responseStr),
+                        new Cookies(response.Cookies),
+                        new Header(response.Headers),
+                        error: await responseStr);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Response(404, Body.Empty, Cookies.Empty, Header.Empty, ex.Message);
+            }
         }
 
         public static Requests Create(RequestConfig requestConfig)
@@ -71,39 +107,5 @@ namespace RestTest.RestRequest
             return new Uri(requestConfig.Url);
         }
 
-        public async Task<Response> Send()
-        {
-            var jsonReader = new JsonReader.JsonReaderBody();
-            try
-            {
-                var response = (HttpWebResponse)(await _request.GetResponseAsync());
-                using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
-                {
-                    return new Response(
-                        (int)response.StatusCode,
-                        jsonReader.Read(await reader.ReadToEndAsync()),
-                        new Cookies(response.Cookies),
-                        new Header(response.Headers));
-                }
-            }
-            catch (WebException ex) when (ex.Response != null)
-            {
-                var response = (HttpWebResponse)ex.Response;
-                using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
-                {
-                    var responseStr = reader.ReadToEndAsync();
-                    return new Response(
-                        (int)response.StatusCode,
-                        jsonReader.Read(await responseStr),
-                        new Cookies(response.Cookies),
-                        new Header(response.Headers),
-                        error: await responseStr);
-                }
-            }
-            catch (Exception ex)
-            {
-                return new Response(404, Body.Empty, Cookies.Empty, Header.Empty, ex.Message);
-            }
-        }
     }
 }
