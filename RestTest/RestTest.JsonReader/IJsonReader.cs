@@ -1,6 +1,6 @@
 ﻿using RestTest.Library.Entity.Http;
 
-namespace RestTest.Library.Entity
+namespace RestTest.JsonReader
 {
     public interface IJsonReader
     {
