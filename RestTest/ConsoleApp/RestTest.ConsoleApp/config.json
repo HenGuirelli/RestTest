@@ -108,7 +108,7 @@
     "validation": {
       "cookies": {
         "logged": "true",
-        "user-id": 1
+        "user-id": "1"
       }
     }
   },
