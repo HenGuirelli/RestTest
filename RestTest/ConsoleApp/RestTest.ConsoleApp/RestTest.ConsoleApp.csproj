@@ -10,6 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="run_windows_script_sample.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Tests\config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
