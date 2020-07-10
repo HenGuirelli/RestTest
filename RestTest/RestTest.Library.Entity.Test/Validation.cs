@@ -1,5 +1,4 @@
 ﻿using RestTest.Library.Entity.Http;
-using System.Collections.Generic;
 
 namespace RestTest.Library.Entity.Test
 {
@@ -7,7 +6,7 @@ namespace RestTest.Library.Entity.Test
     {
         public Body Body { get; private set; } = Body.Empty;
         public Header Header { get; set; } = Header.Empty;
-        public Dictionary<string, string> QueryString { get; private set; } = new Dictionary<string, string>();
+        public QueryString QueryString { get; private set; } = QueryString.Empty;
         public Cookies Cookies { get; private set; } = Cookies.Empty;
         public int? Status { get; private set; }
 
@@ -19,7 +18,7 @@ namespace RestTest.Library.Entity.Test
         public Validation(
             Body body,
             Header header,
-            Dictionary<string, string> queryString,
+            QueryString queryString,
             Cookies cookies,
             int status,
             int maxTime,
@@ -27,7 +26,7 @@ namespace RestTest.Library.Entity.Test
         {
             Body = body ?? Body.Empty;
             Header = header ?? Header.Empty;
-            QueryString = queryString ?? new Dictionary<string, string>();
+            QueryString = queryString ?? QueryString.Empty;
             Cookies = cookies ?? Cookies.Empty;
             Status = status == 0 ? (int?)null : status;
             MaxTime = maxTime;

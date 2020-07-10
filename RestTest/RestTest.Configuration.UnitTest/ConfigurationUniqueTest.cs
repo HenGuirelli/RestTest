@@ -44,7 +44,7 @@ namespace RestTest.Configuration.Test
             }
             catch(Exception ex)
             {
-                Assert.AreEqual("configuration file not found", ex.Message);
+                Assert.AreEqual("configuration file ./404file.json not found", ex.Message);
                 return;
             }
 

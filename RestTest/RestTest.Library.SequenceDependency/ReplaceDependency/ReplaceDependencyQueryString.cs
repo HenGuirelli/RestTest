@@ -1,5 +1,7 @@
 ﻿using RestTest.Library.Entity;
+using RestTest.Library.Entity.Http;
 using RestTest.Library.Entity.Test;
+using RestTest.NewJsonHelper;
 using RestTest.RestRequest;
 using System.Collections.Generic;
 
@@ -22,6 +24,28 @@ namespace RestTest.Library.SequenceDependency.ReplaceDependency
         {
             var queryString = validation.QueryString;
             ReplaceDependecy(queryString);
+        }
+
+        private void ReplaceDependecy(JsonObject body)
+        {
+            foreach (var item in body.Keys)
+            {
+                var bodyItem = body[item];
+                if (bodyItem is JsonObject) ReplaceDependecy(bodyItem as JsonObject);
+                if (bodyItem is JsonString)
+                {
+                    var value = bodyItem.GetValue().ToString();
+                    if (_dependencyDetector.IsDependency(value))
+                    {
+                        string name = _dependencyDetector.GetDependencyName(value);
+                        if (_dict.TryGetValue(name, out var result))
+                        {
+                            var valueToReplace = _dependencyDetector.Evaluate(value, result);
+                            (bodyItem as JsonString).Value = valueToReplace;
+                        }
+                    }
+                }
+            }
         }
 
         public void Replace(RequestConfig requestConfig)
