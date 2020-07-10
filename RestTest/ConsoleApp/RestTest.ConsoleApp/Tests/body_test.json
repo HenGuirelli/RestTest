@@ -1,0 +1,40 @@
+[
+    {
+    "name": "sum",
+    "url": "http://localhost:59635/sum",
+    "type": "unique_test",
+    "method": "POST",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "num1": 10,
+      "num2": 20
+    },
+
+    "validation": {
+      "body": {
+        "result": 30
+      }
+    }
+  },
+  {
+    "name": "sub",
+    "url": "http://localhost:59635/sub",
+    "type": "unique_test",
+    "method": "POST",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "num1": 10,
+      "num2": 20
+    },
+
+    "validation": {
+      "body": {
+        "result": -10
+      }
+    }
+  }
+]

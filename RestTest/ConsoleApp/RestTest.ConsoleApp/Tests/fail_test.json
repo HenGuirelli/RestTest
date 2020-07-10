@@ -1,0 +1,25 @@
+{
+    "name": "expected bad request",
+    "type": "unique_test",
+    "url": "http://localhost:59635/infos",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+
+    "validation": {
+      "status": 400
+    }
+  },
+  {
+    "name": "should_400",
+    "type": "unique_test",
+    "url": "http://localhost:59635/api/UserCrud/123",
+    "method": "GET",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+
+    "validation": {
+      "status": 400
+    }
+  }
