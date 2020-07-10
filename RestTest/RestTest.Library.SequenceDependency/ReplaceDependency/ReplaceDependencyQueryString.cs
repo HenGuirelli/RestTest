@@ -11,6 +11,7 @@ namespace RestTest.Library.SequenceDependency.ReplaceDependency
     {
         private readonly DependencyDetector _dependencyDetector;
         private readonly Dictionary<string, TestResult> _dict;
+        private readonly JsonObjectDependecyReplacer _jsonObjectDependecyReplacer;
 
         public ReplaceDependencyQueryString(
             DependencyDetector dependencyDetector,
@@ -18,6 +19,7 @@ namespace RestTest.Library.SequenceDependency.ReplaceDependency
         {
             _dependencyDetector = dependencyDetector;
             _dict = dict;
+            _jsonObjectDependecyReplacer = new JsonObjectDependecyReplacer(_dependencyDetector, _dict);
         }
 
         public void Replace(Validation validation)
@@ -26,26 +28,9 @@ namespace RestTest.Library.SequenceDependency.ReplaceDependency
             ReplaceDependecy(queryString);
         }
 
-        private void ReplaceDependecy(JsonObject body)
+        private void ReplaceDependecy(JsonObject queryString)
         {
-            foreach (var item in body.Keys)
-            {
-                var bodyItem = body[item];
-                if (bodyItem is JsonObject) ReplaceDependecy(bodyItem as JsonObject);
-                if (bodyItem is JsonString)
-                {
-                    var value = bodyItem.GetValue().ToString();
-                    if (_dependencyDetector.IsDependency(value))
-                    {
-                        string name = _dependencyDetector.GetDependencyName(value);
-                        if (_dict.TryGetValue(name, out var result))
-                        {
-                            var valueToReplace = _dependencyDetector.Evaluate(value, result);
-                            (bodyItem as JsonString).Value = valueToReplace;
-                        }
-                    }
-                }
-            }
+            _jsonObjectDependecyReplacer.ReplaceDependecy(queryString);
         }
 
         public void Replace(RequestConfig requestConfig)

@@ -17,7 +17,7 @@ namespace RestTest.Library.SequenceDependency.ReplaceDependency
             _dict = dict;
         }
 
-        private void ReplaceDependecy(JsonObject jsonObject)
+        public void ReplaceDependecy(JsonObject jsonObject)
         {
             foreach (var item in jsonObject.Keys)
             {
