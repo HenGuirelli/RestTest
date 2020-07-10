@@ -16,6 +16,15 @@ namespace RestTest.Library.Entity.Http
             HasValue = true;
         }
 
+        public Header(IDictionary<string, string> headerDict)
+            : this()
+        {
+            foreach (var item in headerDict)
+            {
+                Add(item.Key, item.Value);
+            }
+        }
+
         public Header(WebHeaderCollection header)
             : this()
         {
