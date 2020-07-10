@@ -35,24 +35,9 @@ namespace RestTest.Library.SequenceDependency.ReplaceDependency
 
         public void Replace(RequestConfig requestConfig)
         {
-            var queryString = requestConfig.QueryString;
+            var queryStringDict = requestConfig.QueryString;
+            var queryString = new QueryString(queryStringDict);
             ReplaceDependecy(queryString);
-        }
-
-        private void ReplaceDependecy(IDictionary<string, string> queryString)
-        {
-            foreach (var item in queryString)
-            {
-                if (_dependencyDetector.IsDependency(item.Value))
-                {
-                    string name = _dependencyDetector.GetDependencyName(item.Value);
-                    if (_dict.TryGetValue(name, out var result))
-                    {
-                        var valueToReplace = _dependencyDetector.Evaluate(item.Value, result);
-                        queryString[item.Key] = valueToReplace;
-                    }
-                }
-            }
         }
     }
 }

@@ -14,6 +14,15 @@ namespace RestTest.Library.Entity.Http
             HasValue = true;
         }
 
+        public QueryString(IDictionary<string, string> queryStringDict)
+            : this()
+        {
+            foreach(var item in queryStringDict)
+            {
+                Add(new JsonString(item.Key, item.Value));
+            }
+        }
+
         public Dictionary<string, string> ToDictionary()
         {
             var dict = new Dictionary<string, string>();

@@ -1,5 +1,4 @@
-﻿using RestTest.Library.Entity;
-using RestTest.Library.Entity.Test;
+﻿using RestTest.Library.Entity.Test;
 using RestTest.RestRequest;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
