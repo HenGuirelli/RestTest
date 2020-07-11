@@ -1,5 +1,4 @@
-﻿using RestTest.Library.Entity;
-using RestTest.Library.Entity.Test;
+﻿using RestTest.Library.Entity.Test;
 using RestTest.Library.SequenceDependency.Evaluators;
 using System;
 using System.Collections.Generic;
@@ -15,6 +14,7 @@ namespace RestTest.Library.SequenceDependency
         public DependencyDetector()
         {
             _map.Add(DepedencyType.Body, new BodyEvaluator());
+            _map.Add(DepedencyType.Header, new HeaderEvaluator());
         }
 
         public bool IsDependency(string value)
