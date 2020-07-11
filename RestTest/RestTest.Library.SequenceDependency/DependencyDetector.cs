@@ -67,16 +67,5 @@ namespace RestTest.Library.SequenceDependency
 
             return default;
         }
-
-        private IEnumerable<string> GetBodyAttributes(string value)
-        {
-            var match = Regex.Match(value, @"\.body\.([^\}]*)");
-            return match.Groups[1].Value.Split('.');
-        }
-
-        private bool IsBodyDependency(string value)
-        {
-            return value.Contains(".body.");
-        }
     }
 }
