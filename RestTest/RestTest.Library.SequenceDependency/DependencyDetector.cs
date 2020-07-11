@@ -15,6 +15,7 @@ namespace RestTest.Library.SequenceDependency
         {
             _map.Add(DepedencyType.Body, new BodyEvaluator());
             _map.Add(DepedencyType.Header, new HeaderEvaluator());
+            _map.Add(DepedencyType.Cookie, new CookieEvaluator());
         }
 
         public bool IsDependency(string value)
