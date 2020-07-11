@@ -3,9 +3,9 @@ using RestTest.Library.Entity.Test;
 using RestTest.NewJsonHelper;
 using System.Text.RegularExpressions;
 
-namespace RestTest.Library.SequenceDependency
+namespace RestTest.Library.SequenceDependency.Evaluators
 {
-    internal class EvaluateBody : IEvaluate
+    internal class BodyEvaluator : IEvaluate
     {
         public string Evaluate(string value, TestResult result)
         {

@@ -13,7 +13,7 @@ namespace RestTest.Library.SequenceDependency
 
         public DependencyDetector()
         {
-            _map.Add(DepedencyType.Body, new EvaluateBody());
+            _map.Add(DepedencyType.Body, new BodyEvaluator());
         }
 
         public bool IsDependency(string value)
