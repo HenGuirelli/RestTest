@@ -2,6 +2,7 @@
 using RestTest.Library.Entity.Http;
 using RestTest.Library.SequenceDependency.Evaluators;
 using RestTest.NewJsonHelper;
+using System;
 
 namespace RestTest.Library.SequenceDependency.UnitTest
 {
@@ -29,6 +30,24 @@ namespace RestTest.Library.SequenceDependency.UnitTest
 
             actual = evaluator.Evaluate("${call1.response.body.key_obj.key_str}", CreateTestResult("call1", body));
             Assert.AreEqual("value2", actual);
+        }
+
+        [TestMethod]
+        public void OnEvaluate_Error()
+        {
+            var evaluator = new HeaderEvaluator();
+            var body = new Body();
+
+            try
+            {
+                var actual = evaluator.Evaluate("${call1.response.body.key_str}", CreateTestResult("call1", body));
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Depedency ${call1.response.body.key_str} not found", ex.Message);
+                return;
+            }
+            Assert.Fail();
         }
 
         private Entity.Test.TestResult CreateTestResult(string name, Entity.Http.Body body)

@@ -1,27 +1,18 @@
 ﻿using RestTest.Library.Entity.Test;
 using RestTest.NewJsonHelper;
-using System.Text.RegularExpressions;
 
 namespace RestTest.Library.SequenceDependency.Evaluators
 {
-    public class BodyEvaluator : IEvaluate
+    public class BodyEvaluator : AbstractEvaluator
     {
-        public string Evaluate(string value, TestResult result)
+        protected override string GetBodyIndexRegex()
         {
-            string[] indexes = GetBodyIndexes(value);
-
-            JsonAttribute json = result.Response.Body;
-            foreach(var index in indexes)
-            {
-                json = json[index];
-            }
-            return json.GetValue().ToString();
+            return @"\.body\.(.*)\}";
         }
 
-        private string[] GetBodyIndexes(string value)
+        protected override JsonAttribute GetJsonAttributeToEvaluate(TestResult result)
         {
-            var match = Regex.Match(value, @"\.body\.(.*)\}");
-            return match.Groups[1].Value.Split('.');
+            return result.Response.Body;
         }
     }
 }
