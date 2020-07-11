@@ -4,6 +4,7 @@
     {
         Body,
         QueryString,
-        Cookie
+        Cookie,
+        Header
     }
 }

@@ -47,6 +47,22 @@ namespace RestTest.Library.SequenceDependency
             {
                 return DepedencyType.Body;
             }
+
+            if (Regex.IsMatch(value, @"\.response\.header\."))
+            {
+                return DepedencyType.Header;
+            }
+
+            if (Regex.IsMatch(value, @"\.response\.cookies\."))
+            {
+                return DepedencyType.Cookie;
+            }
+
+            if (Regex.IsMatch(value, @"\.response\.query_string\."))
+            {
+                return DepedencyType.QueryString;
+            }
+
             return default;
         }
 
