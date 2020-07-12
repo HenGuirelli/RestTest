@@ -155,26 +155,27 @@ Há valores especiais que podem ser usados para validações mais genéricas
 |------|------|
 |${ANY}|Qualquer valor|
 |${NUMBER}|Qualquer número|
+|${Regex: \<regex\>}|Expressões regulares. Ex: ${Regex: AGE:.?1[7-9]}
 
-No exemplo é passado um header customizado e o teste consiste em validar que a API irá retornar no response o valor passado na requisição, a API retorna alguns header que não é interessante para o teste então foi utilizado o valor especial "${ANY}" para ignorar a validação nesses campos.
+No exemplo é passado um header customizado e o teste consiste em validar que a API irá retornar o mesmo valor passado na requisição, a API retorna alguns headers que não são interessantes para o teste então foi utilizado o valor especial "${ANY}" para ignorar a validação nesses campos.
 ```json
 {
-    "name": "header",
-    "type": "unique_test",
-    "url": "http://localhost:59635/name",
-    "header": {
-      "Content-Type": "application/json; charset=utf-8",
-      "Custom-Header": "Value"
-    },
-
-    "validation": {
-      "header": {
-        "Transfer-Encoding": "${ANY}",
-        "Server": "${ANY}",
-        "X-Powered-By": "${ANY}",
-        "Date": "${ANY}",
-        "Custom-Header": "Value"
-      }
-    }
+  "name": "header",
+  "type": "unique_test",
+  "url": "http://localhost:59635/name",
+  "header": {
+    "Content-Type": "application/json; charset=utf-8",
+    "Custom-Header": "Value"
   },
+
+  "validation": {
+    "header": {
+      "Transfer-Encoding": "${ANY}",
+      "Server": "${ANY}",
+      "X-Powered-By": "${ANY}",
+      "Date": "${ANY}",
+      "Custom-Header": "Value"
+    }
+  }
+}
 ```
