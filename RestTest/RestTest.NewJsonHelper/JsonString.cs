@@ -22,9 +22,9 @@ namespace RestTest.NewJsonHelper
             Key = key;
             Value = value;
 
-            Match regexResultAttrBody = Regex.Match(value, @"\${Regex: (.*)}");
+            Match regexResultAttrBody = Regex.Match(value, @"\${Regex:(.*)}");
             _isRegex = regexResultAttrBody.Success;
-            _regexPattern = _isRegex ? regexResultAttrBody.Groups[1].Value : string.Empty;
+            _regexPattern = _isRegex ? regexResultAttrBody.Groups[1].Value.Trim() : string.Empty;
         }
 
         public override object GetValue()
