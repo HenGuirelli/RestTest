@@ -5,7 +5,7 @@ using System.Linq;
 namespace RestTest.NewJsonHelper.Test
 {
     [TestClass]
-    public class JsonObject
+    public class JsonObjectTest
     {
         [TestMethod]
         public void OnAdd()

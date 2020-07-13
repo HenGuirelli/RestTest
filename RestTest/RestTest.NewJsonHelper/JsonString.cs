@@ -34,7 +34,7 @@ namespace RestTest.NewJsonHelper
 
         public override string ToString()
         {
-            return string.IsNullOrWhiteSpace(Key) ? Value.ToString() : $"\"{Key}\": \"{Value}\"";
+            return string.IsNullOrWhiteSpace(Key) ? $"\"{Value}\"" : $"\"{Key}\": \"{Value}\"";
         }
 
         public override bool Equals(object obj)
