@@ -73,5 +73,25 @@ namespace RestTest.Library.Entity.Test
             var jsonBody3 = File.ReadAllText("./simple_body_item1_str.json");
             Assert.IsFalse(jsonReader.Read(jsonBody2).Equals(jsonReader.Read(jsonBody3)));
         }
+
+        [TestMethod]
+        public void ReservedWord_ComplexRegex_BodyShouldtBeEquals()
+        {
+            var jsonReader = new JsonReaderBody();
+            var jsonBody1 = File.ReadAllText("./body_age.json");
+            var jsonBody2 = File.ReadAllText("./body_age_regex.json");
+
+            var body1 = jsonReader.Read(jsonBody1);
+            var body2 = jsonReader.Read(jsonBody2);
+
+            Assert.IsTrue(body1["item1"].Equals(body2["item1"]));
+            Assert.IsTrue(body2["item1"].Equals(body1["item1"]));
+
+            Assert.IsTrue(body1["item2"].Equals(body2["item1"]));
+            Assert.IsTrue(body2["item1"].Equals(body1["item2"]));
+
+            Assert.IsFalse(body1["item3"].Equals(body2["item1"]));
+            Assert.IsFalse(body2["item1"].Equals(body1["item3"]));
+        }
     }
 }
