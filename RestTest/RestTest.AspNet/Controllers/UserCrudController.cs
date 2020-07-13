@@ -55,5 +55,12 @@ namespace RestTest.AspNet.Controllers
         {
             _db.TryRemove(id, out var _);
         }
+
+        [HttpGet("age")]
+        public IActionResult ReturnAge()
+        {
+            Request.Headers.TryGetValue("age", out var age);
+            return Ok(new { age = "AGE: " + age.ToString() ?? "20" });
+        }
     }
 }

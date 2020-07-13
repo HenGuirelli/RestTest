@@ -171,5 +171,22 @@
         "url": "http://localhost:59635/api/UserCrud/${insert_user.response.body.user_id}"
       }
     ]
+  },
+  {
+    "name": "age_between_17_19",
+    "url": "http://localhost:59635/api/UserCrud/age",
+    "type": "unique_test",
+    "method": "GET",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8",
+      "age": 17
+    },
+
+    "validation": {
+      "body": {
+        "age": "${Regex: AGE:.?1[7-9]}"
+      }
+    }
   }
 ]
+
