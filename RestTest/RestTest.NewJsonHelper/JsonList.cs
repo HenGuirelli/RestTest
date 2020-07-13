@@ -30,6 +30,11 @@ namespace RestTest.NewJsonHelper
             return _list;
         }
 
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as JsonList);
+        }
+
         public bool Equals(JsonList other)
         {
             if (other is null) return false;
