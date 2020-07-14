@@ -28,7 +28,6 @@ namespace RestTest.Configuration
         {
             Enum.TryParse<Method>(uniqueConfigurationJSONNotation.method, ignoreCase: true, out var method);
             return new UniqueConfiguration(
-                TestType.unique_test,
                 uniqueConfigurationJSONNotation.name,
                 uniqueConfigurationJSONNotation.url,
                 method,

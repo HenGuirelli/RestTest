@@ -7,7 +7,6 @@ A aplicação lê os testes de um arquivo de configuração JSON:
 ```json
 {
   "name": "sum",
-  "type": "unique_test",
   "url": "http://localhost:59635/sum",
   "method": "POST",
   "header": {
@@ -76,7 +75,6 @@ Endpoint em que recebe dois valores no body e a validação é a soma desses nú
   },
   {
     "name": "sub",
-    "type": "unique_test",
     "url": "http://localhost:59635/sub",
     "method": "POST",
     "header": {
@@ -102,7 +100,7 @@ Também é possivel usar o recurso da dependência, em que você pode referencia
 
 Quando é detectado uma dependência do teste A que precisa de uma informação do teste B, o teste A automaticamente aguarda a conclusão do teste B para prosseguir o com o teste.
 
-O body do response da primeira requisição "insert_user" é reaproveitada na URL da segunda requisição "verify_user_exists" e por fim, utilizado novamente na URL requisição "delete_user"
+O body do response da primeira requisição "insert_user" é reaproveitada na URL da segunda requisição "verify_user_exists" e por fim, foi utilizado a clausula "wait" para esperar a conclusao do teste "verify_user_exists" para realizar a operação delete.
 ```json
 [
   {
@@ -144,7 +142,9 @@ O body do response da primeira requisição "insert_user" é reaproveitada na UR
     "header": {
       "Content-Type": "application/json; charset=utf-8"
     },
-    "url": "http://localhost:59635/api/UserCrud/${insert_user.response.body.user_id}"
+    "url": "http://localhost:59635/api/UserCrud/${insert_user.response.body.user_id}",
+    
+    "wait": "verify_user_exists"
   }
 ]
 ```
