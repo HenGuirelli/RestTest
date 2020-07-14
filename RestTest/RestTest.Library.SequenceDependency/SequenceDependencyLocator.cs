@@ -1,13 +1,15 @@
 ﻿using RestTest.Library.Entity.Test;
 using RestTest.Library.SequenceDependency.ReplaceDependency;
 using RestTest.RestRequest;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RestTest.Library.SequenceDependency
 {
     public class SequenceDependencyLocator
     {
-        private readonly Dictionary<string, TestResult> _dict = new Dictionary<string, TestResult>();
+        private readonly Dictionary<string, Task<TestResult>> _dict = new Dictionary<string, Task<TestResult>>();
         private readonly DependencyDetector _dependencyDetector = new DependencyDetector();
         private readonly List<IReplaceDependency> _replacers = new List<IReplaceDependency>();
 
@@ -29,9 +31,9 @@ namespace RestTest.Library.SequenceDependency
             _replacers.ForEach(replacer => replacer.Replace(validation));
         }
 
-        public void Register(TestResult testResult)
+        public void Register(string name, Task<TestResult> operation)
         {
-            _dict[testResult.TestName] = testResult;
+            _dict[name] = operation;
         }
     }
 }

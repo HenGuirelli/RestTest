@@ -1,12 +1,13 @@
 ﻿using RestTest.Library.Entity;
 using RestTest.Library.Entity.Test;
 using RestTest.RestRequest;
+using System.Threading.Tasks;
 
 namespace RestTest.Library.SequenceDependency.ReplaceDependency
 {
     public interface IReplaceDependency
     {
-        void Replace(RequestConfig requestConfig);
-        void Replace(Validation validation);
+        Task Replace(RequestConfig requestConfig);
+        Task Replace(Validation validation);
     }
 }
