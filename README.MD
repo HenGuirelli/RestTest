@@ -99,8 +99,10 @@ A sequencia em que as chamadas acontecem não podem ser garantida.
 
 ## Dependências
 Também é possivel usar o recurso da dependência, em que você pode referenciar outro teste.
-O body do response da primeira requisição "insert_user" é reaproveitada na URL da segunda requisição "verify_user_exists" e por fim, utilizado novamente na URL requisição "delete_user".
 
+Quando é detectado uma dependência do teste A que precisa de uma informação do teste B, o teste A automaticamente aguarda a conclusão do teste B para prosseguir o com o teste.
+
+O body do response da primeira requisição "insert_user" é reaproveitada na URL da segunda requisição "verify_user_exists" e por fim, utilizado novamente na URL requisição "delete_user"
 ```json
 [
   {
