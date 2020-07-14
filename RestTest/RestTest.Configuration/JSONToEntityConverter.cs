@@ -15,15 +15,6 @@ namespace RestTest.Configuration
         static readonly IJsonReader<Cookies> _readerCookies = new JsonReaderCookie();
         static readonly IJsonReader<QueryString> _readerQueryString = new JsonReaderQueryString();
 
-        public static SequenceConfiguration ConvertSequenceConfiguration(SequenceConfigurationJsonNotation sequenceConfigurationJSONNotation)
-        {
-            return new SequenceConfiguration(
-                sequenceConfigurationJSONNotation.name,
-                sequenceConfigurationJSONNotation.type,
-                ConvertToUniqueTestSequence(sequenceConfigurationJSONNotation.sequence)
-            );
-        }
-
         private static List<UniqueConfiguration> ConvertToUniqueTestSequence(List<UniqueConfigurationJsonNotation> sequence)
         {
             var result = new List<UniqueConfiguration>();
@@ -65,13 +56,6 @@ namespace RestTest.Configuration
                 validation.max_time,
                 validation.min_time
             );
-        }
-
-        private static Dictionary<TKey, TValue> JSONToDictionary<TKey, TValue>(JObject obj)
-        {
-            if (obj is null) return new Dictionary<TKey, TValue>();
-
-            return obj.ToObject<Dictionary<TKey, TValue>>();
         }
     }
 }

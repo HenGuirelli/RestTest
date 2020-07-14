@@ -11,11 +11,6 @@ namespace RestTest.Library
         {
             return input.Any(item => item.Name == name);
         }
-        
-        public static bool Contains(this IEnumerable<SequenceConfiguration> input, string name)
-        {
-            return input.Any(item => item.Name == name);
-        }
 
         public static RequestConfig ToRequestConfig(this UniqueConfiguration input)
         {
