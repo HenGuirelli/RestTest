@@ -35,6 +35,7 @@
   {
     "name": "delete user",
     "method": "DELETE",
+    "wait": "verify_user_exists",
     "header": {
       "Content-Type": "application/json; charset=utf-8"
     },

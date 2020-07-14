@@ -9,6 +9,7 @@
         public object cookies { get; set; }
         public object body { get; set; }
         public object query_string { get; set; }
+        public string Wait { get; set; }
 
         public ValidationJsonNotation validation { get; set; }
     }

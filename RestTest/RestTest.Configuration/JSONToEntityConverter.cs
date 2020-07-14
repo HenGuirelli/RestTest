@@ -37,7 +37,8 @@ namespace RestTest.Configuration
                 _readerQueryString.Read(uniqueConfigurationJSONNotation.query_string?.ToString() ?? string.Empty),
                 _readerBody.Read(uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty),
                 uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty,
-                JSONToValidation(uniqueConfigurationJSONNotation.validation)
+                JSONToValidation(uniqueConfigurationJSONNotation.validation),
+                uniqueConfigurationJSONNotation.Wait
             );
         }
 

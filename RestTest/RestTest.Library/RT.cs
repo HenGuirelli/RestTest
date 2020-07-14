@@ -48,9 +48,10 @@ namespace RestTest.Library
 
         private async Task<TestResult> StartTest(SequenceDependencyLocator sequenceDependency, UniqueConfiguration item)
         {
-            var requestConfig = item.ToRequestConfig();
+            RequestConfig requestConfig = item.ToRequestConfig();
             await sequenceDependency.ReplaceDependency(requestConfig);
             await sequenceDependency.ReplaceDependency(item.Validation);
+            await sequenceDependency.Wait(item);
             var request = Requests.Create(requestConfig);
             OnTestStart?.Invoke(item.Name);
             var response = request.Send();

@@ -1,6 +1,8 @@
-﻿using RestTest.Library.Entity.Test;
+﻿using RestTest.Configuration;
+using RestTest.Library.Entity.Test;
 using RestTest.Library.SequenceDependency.ReplaceDependency;
 using RestTest.RestRequest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,6 +38,18 @@ namespace RestTest.Library.SequenceDependency
         public void Register(string name, Task<TestResult> operation)
         {
             _dict[name] = operation;
+        }
+
+        public async Task Wait(UniqueConfiguration item)
+        {
+            if (string.IsNullOrEmpty(item.Wait)) return;
+
+            if (_dict.TryGetValue(item.Wait, out var testResult))
+            {
+                await testResult.ConfigureAwait(false);
+                return;
+            }
+            throw new ArgumentException($"\"Wait\": \"{item.Wait}\" not found");
         }
     }
 }

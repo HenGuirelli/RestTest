@@ -14,6 +14,7 @@ namespace RestTest.Configuration
         public QueryString QueryString { get; private set; }
         public Body Body { get; private set; }
         public string BodyStr { get; private set; }
+        public string Wait { get; set; }
 
         public Validation Validation { get; private set; } = new Validation();
 
@@ -27,7 +28,8 @@ namespace RestTest.Configuration
             QueryString queryString,
             Body body,
             string bodyStr,
-            Validation validation)
+            Validation validation,
+            string wait)
         {
             Type = type;
             Name = name;
@@ -39,6 +41,7 @@ namespace RestTest.Configuration
             Body = body;
             BodyStr = bodyStr;
             Validation = validation;
+            Wait = wait;
         }
     }
 }
