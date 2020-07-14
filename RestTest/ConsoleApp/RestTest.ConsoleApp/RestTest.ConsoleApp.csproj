@@ -31,6 +31,9 @@
     <None Update="Tests\header_test.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Tests\list_test.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Tests\query_string_test.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
