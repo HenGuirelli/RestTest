@@ -1,63 +1,60 @@
-{
-  "type": "sequence_test",
-  "sequence": [
-    {
-      "name": "insert_user_1",
-      "method": "POST",
-      "url": "http://localhost:59635/api/UserCrud/",
-      "header": { "Content-Type": "application/json; charset=utf-8" },
-      "body": {
-        "name": "name1",
-        "age": 18
-      }
-    },
-    {
-      "name": "insert_user_2",
-      "method": "POST",
-      "url": "http://localhost:59635/api/UserCrud/",
-      "header": { "Content-Type": "application/json; charset=utf-8" },
-      "body": {
-        "name": "name2",
-        "age": 18
-      }
-    },
-    {
-      "name": "insert_user_3",
-      "method": "POST",
-      "url": "http://localhost:59635/api/UserCrud/",
-      "header": { "Content-Type": "application/json; charset=utf-8" },
-      "body": {
-        "name": "name3",
-        "age": 18
-      }
-    },
-    {
-      "name": "get_list_result",
-      "method": "GET",
-      "url": "http://localhost:59635/api/UserCrud/",
-      "header": { "Content-Type": "application/json; charset=utf-8" },
+[
+  {
+    "name": "insert_user_1",
+    "method": "POST",
+    "url": "http://localhost:59635/api/UserCrud/",
+    "header": { "Content-Type": "application/json; charset=utf-8" },
+    "body": {
+      "name": "name1",
+      "age": 18
+    }
+  },
+  {
+    "name": "insert_user_2",
+    "method": "POST",
+    "url": "http://localhost:59635/api/UserCrud/",
+    "header": { "Content-Type": "application/json; charset=utf-8" },
+    "body": {
+      "name": "name2",
+      "age": 18
+    }
+  },
+  {
+    "name": "insert_user_3",
+    "method": "POST",
+    "url": "http://localhost:59635/api/UserCrud/",
+    "header": { "Content-Type": "application/json; charset=utf-8" },
+    "body": {
+      "name": "name3",
+      "age": 18
+    }
+  },
+  {
+    "name": "get_list_result",
+    "method": "GET",
+    "url": "http://localhost:59635/api/UserCrud/",
+    "header": { "Content-Type": "application/json; charset=utf-8" },
 
-      "validation": {
-        "body": {
-          "result": [
-            {
-              "name": "name1",
-              "age": 18,
-              "id": "${NUMBER}"
-            },
-            {
-              "name": "name2",
-              "age": 18,
-              "id": "${NUMBER}"
-            },
-            {
-              "name": "name3",
-              "age": 18,
-              "id": "${NUMBER}"
-            }
-          ]
-        }
+    "validation": {
+      "body": {
+        "result": [
+          {
+            "name": "name1",
+            "age": 18,
+            "id": "${NUMBER}"
+          },
+          {
+            "name": "name2",
+            "age": 18,
+            "id": "${NUMBER}"
+          },
+          {
+            "name": "name3",
+            "age": 18,
+            "id": "${NUMBER}"
+          }
+        ]
       }
     }
-  ]
-}
+  }
+]

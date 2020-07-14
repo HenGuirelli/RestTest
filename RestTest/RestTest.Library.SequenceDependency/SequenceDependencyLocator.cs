@@ -1,8 +1,8 @@
 ﻿using RestTest.Library.Entity.Test;
 using RestTest.Library.SequenceDependency.ReplaceDependency;
 using RestTest.RestRequest;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RestTest.Library.SequenceDependency
@@ -21,14 +21,16 @@ namespace RestTest.Library.SequenceDependency
             _replacers.Add(new ReplaceDependencyHeader(_dependencyDetector, _dict));
         }
 
-        public void ReplaceDependency(RequestConfig requestConfig)
+        public async Task ReplaceDependency(RequestConfig requestConfig)
         {
-            _replacers.ForEach(replacer => replacer.Replace(requestConfig));
+            IEnumerable<Task> tasks = _replacers.Select(replacer => replacer.Replace(requestConfig));
+            await Task.WhenAll(tasks);
         }
 
-        public void ReplaceDependency(Validation validation)
+        public async Task ReplaceDependency(Validation validation)
         {
-            _replacers.ForEach(replacer => replacer.Replace(validation));
+            IEnumerable<Task> tasks = _replacers.Select(replacer => replacer.Replace(validation));
+            await Task.WhenAll(tasks);
         }
 
         public void Register(string name, Task<TestResult> operation)

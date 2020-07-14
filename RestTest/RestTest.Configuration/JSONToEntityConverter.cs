@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using RestTest.Configuration.JsonNotation;
+﻿using RestTest.Configuration.JsonNotation;
 using RestTest.JsonReader;
 using RestTest.Library.Entity.Http;
 using RestTest.Library.Entity.Test;

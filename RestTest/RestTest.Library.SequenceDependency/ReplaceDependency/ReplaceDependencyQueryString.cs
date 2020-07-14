@@ -1,5 +1,4 @@
-﻿using RestTest.Library.Entity;
-using RestTest.Library.Entity.Http;
+﻿using RestTest.Library.Entity.Http;
 using RestTest.Library.Entity.Test;
 using RestTest.NewJsonHelper;
 using RestTest.RestRequest;
