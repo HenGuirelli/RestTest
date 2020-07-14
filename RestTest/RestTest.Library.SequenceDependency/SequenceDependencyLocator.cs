@@ -1,13 +1,17 @@
-﻿using RestTest.Library.Entity.Test;
+﻿using RestTest.Configuration;
+using RestTest.Library.Entity.Test;
 using RestTest.Library.SequenceDependency.ReplaceDependency;
 using RestTest.RestRequest;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RestTest.Library.SequenceDependency
 {
     public class SequenceDependencyLocator
     {
-        private readonly Dictionary<string, TestResult> _dict = new Dictionary<string, TestResult>();
+        private readonly Dictionary<string, Task<TestResult>> _dict = new Dictionary<string, Task<TestResult>>();
         private readonly DependencyDetector _dependencyDetector = new DependencyDetector();
         private readonly List<IReplaceDependency> _replacers = new List<IReplaceDependency>();
 
@@ -19,19 +23,33 @@ namespace RestTest.Library.SequenceDependency
             _replacers.Add(new ReplaceDependencyHeader(_dependencyDetector, _dict));
         }
 
-        public void ReplaceDependency(RequestConfig requestConfig)
+        public async Task ReplaceDependency(RequestConfig requestConfig)
         {
-            _replacers.ForEach(replacer => replacer.Replace(requestConfig));
+            IEnumerable<Task> tasks = _replacers.Select(replacer => replacer.Replace(requestConfig));
+            await Task.WhenAll(tasks);
         }
 
-        public void ReplaceDependency(Validation validation)
+        public async Task ReplaceDependency(Validation validation)
         {
-            _replacers.ForEach(replacer => replacer.Replace(validation));
+            IEnumerable<Task> tasks = _replacers.Select(replacer => replacer.Replace(validation));
+            await Task.WhenAll(tasks);
         }
 
-        public void Register(TestResult testResult)
+        public void Register(string name, Task<TestResult> operation)
         {
-            _dict[testResult.TestName] = testResult;
+            _dict[name] = operation;
+        }
+
+        public async Task Wait(UniqueConfiguration item)
+        {
+            if (string.IsNullOrEmpty(item.Wait)) return;
+
+            if (_dict.TryGetValue(item.Wait, out var testResult))
+            {
+                await testResult.ConfigureAwait(false);
+                return;
+            }
+            throw new ArgumentException($"\"Wait\": \"{item.Wait}\" not found");
         }
     }
 }

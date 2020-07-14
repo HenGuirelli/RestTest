@@ -2,39 +2,40 @@
 using RestTest.NewJsonHelper;
 using RestTest.RestRequest;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RestTest.Library.SequenceDependency.ReplaceDependency
 {
     internal class ReplaceDependencyBody : IReplaceDependency
     {
         private readonly DependencyDetector _dependencyDetector;
-        private readonly Dictionary<string, TestResult> _dict;
+        private readonly Dictionary<string, Task<TestResult>> _dict;
         private readonly JsonObjectDependecyReplacer _jsonObjectDependecyReplacer;
 
         public ReplaceDependencyBody(
             DependencyDetector dependencyDetector,
-            Dictionary<string, TestResult> dict)
+            Dictionary<string, Task<TestResult>> dict)
         {
             _dependencyDetector = dependencyDetector;
             _dict = dict;
             _jsonObjectDependecyReplacer = new JsonObjectDependecyReplacer(_dependencyDetector, _dict);
         }
 
-        public void Replace(Validation validation)
+        public Task Replace(Validation validation)
         {
-            ReplaceDependecy(validation.Body);
+            return ReplaceDependecy(validation.Body);
         }
 
-        public void Replace(RequestConfig requestConfig)
+        public Task Replace(RequestConfig requestConfig)
         {
             var reader = new JsonReader.JsonReaderBody();
             Entity.Http.Body body = reader.Read(requestConfig.Body);
-            ReplaceDependecy(body);
+            return ReplaceDependecy(body);
         }
 
-        private void ReplaceDependecy(JsonObject body)
+        private Task ReplaceDependecy(JsonObject body)
         {
-            _jsonObjectDependecyReplacer.ReplaceDependecy(body);
+            return _jsonObjectDependecyReplacer.ReplaceDependecy(body);
         }
     }
 }

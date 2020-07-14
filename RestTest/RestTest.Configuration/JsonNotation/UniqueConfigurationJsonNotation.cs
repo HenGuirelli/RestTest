@@ -2,7 +2,6 @@
 {
     internal class UniqueConfigurationJsonNotation
     {
-        public string type { get; set; }
         public string name { get; set; }
         public string url { get; set; }
         public string method { get; set; }
@@ -10,6 +9,7 @@
         public object cookies { get; set; }
         public object body { get; set; }
         public object query_string { get; set; }
+        public string Wait { get; set; }
 
         public ValidationJsonNotation validation { get; set; }
     }

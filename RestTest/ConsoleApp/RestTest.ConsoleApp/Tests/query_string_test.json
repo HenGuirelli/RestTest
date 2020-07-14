@@ -1,7 +1,6 @@
 [
   {
     "name": "test send query string",
-    "type": "unique_test",
     "url": "http://localhost:59635/infos",
     "query_string": {
       "name": "Robson",
@@ -17,7 +16,6 @@
   },
   {
     "name": "test send query string in url",
-    "type": "unique_test",
     "url": "http://localhost:59635/infos?name=Robson&age=40",
     "header": {
       "Content-Type": "application/json; charset=utf-8"

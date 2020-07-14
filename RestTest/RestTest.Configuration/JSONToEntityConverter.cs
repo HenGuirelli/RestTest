@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using RestTest.Configuration.JsonNotation;
+﻿using RestTest.Configuration.JsonNotation;
 using RestTest.JsonReader;
 using RestTest.Library.Entity.Http;
 using RestTest.Library.Entity.Test;
@@ -15,15 +14,6 @@ namespace RestTest.Configuration
         static readonly IJsonReader<Cookies> _readerCookies = new JsonReaderCookie();
         static readonly IJsonReader<QueryString> _readerQueryString = new JsonReaderQueryString();
 
-        public static SequenceConfiguration ConvertSequenceConfiguration(SequenceConfigurationJsonNotation sequenceConfigurationJSONNotation)
-        {
-            return new SequenceConfiguration(
-                sequenceConfigurationJSONNotation.name,
-                sequenceConfigurationJSONNotation.type,
-                ConvertToUniqueTestSequence(sequenceConfigurationJSONNotation.sequence)
-            );
-        }
-
         private static List<UniqueConfiguration> ConvertToUniqueTestSequence(List<UniqueConfigurationJsonNotation> sequence)
         {
             var result = new List<UniqueConfiguration>();
@@ -38,7 +28,6 @@ namespace RestTest.Configuration
         {
             Enum.TryParse<Method>(uniqueConfigurationJSONNotation.method, ignoreCase: true, out var method);
             return new UniqueConfiguration(
-                TestType.unique_test,
                 uniqueConfigurationJSONNotation.name,
                 uniqueConfigurationJSONNotation.url,
                 method,
@@ -47,7 +36,8 @@ namespace RestTest.Configuration
                 _readerQueryString.Read(uniqueConfigurationJSONNotation.query_string?.ToString() ?? string.Empty),
                 _readerBody.Read(uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty),
                 uniqueConfigurationJSONNotation.body?.ToString()?.Trim() ?? string.Empty,
-                JSONToValidation(uniqueConfigurationJSONNotation.validation)
+                JSONToValidation(uniqueConfigurationJSONNotation.validation),
+                uniqueConfigurationJSONNotation.Wait
             );
         }
 
@@ -65,13 +55,6 @@ namespace RestTest.Configuration
                 validation.max_time,
                 validation.min_time
             );
-        }
-
-        private static Dictionary<TKey, TValue> JSONToDictionary<TKey, TValue>(JObject obj)
-        {
-            if (obj is null) return new Dictionary<TKey, TValue>();
-
-            return obj.ToObject<Dictionary<TKey, TValue>>();
         }
     }
 }

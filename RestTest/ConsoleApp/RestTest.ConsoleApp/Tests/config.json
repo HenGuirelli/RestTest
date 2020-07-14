@@ -2,7 +2,6 @@
   {
     "name": "sum",
     "url": "http://localhost:59635/sum",
-    "type": "unique_test",
     "method": "POST",
     "header": {
       "Content-Type": "application/json; charset=utf-8"
@@ -21,7 +20,6 @@
   {
     "name": "sub",
     "url": "http://localhost:59635/sub",
-    "type": "unique_test",
     "method": "POST",
     "header": {
       "Content-Type": "application/json; charset=utf-8"
@@ -39,7 +37,6 @@
   },
   {
     "name": "header",
-    "type": "unique_test",
     "url": "http://localhost:59635/name",
     "header": {
       "Content-Type": "application/json; charset=utf-8",
@@ -58,7 +55,6 @@
   },
   {
     "name": "test send query string",
-    "type": "unique_test",
     "url": "http://localhost:59635/infos",
     "query_string": {
       "name": "Robson",
@@ -74,7 +70,6 @@
   },
   {
     "name": "test send query string in url",
-    "type": "unique_test",
     "url": "http://localhost:59635/infos?name=Robson&age=40",
     "header": {
       "Content-Type": "application/json; charset=utf-8"
@@ -86,7 +81,6 @@
   },
   {
     "name": "expected bad request",
-    "type": "unique_test",
     "url": "http://localhost:59635/infos",
     "header": {
       "Content-Type": "application/json; charset=utf-8"
@@ -98,7 +92,6 @@
   },
   {
     "name": "cookies",
-    "type": "unique_test",
     "url": "http://localhost:59635/cookies",
     "header": {
       "Content-Type": "application/json; charset=utf-8"
@@ -114,7 +107,6 @@
   },
   {
     "name": "should_400",
-    "type": "unique_test",
     "url": "http://localhost:59635/api/UserCrud/123",
     "method": "GET",
     "header": {
@@ -125,57 +117,52 @@
       "status": 400
     }
   },
+
   {
-    "name": "CrudTestComplete",
-    "type": "sequence_test",
-    "sequence": [
-      {
-        "name": "insert_user",
-        "method": "POST",
-        "url": "http://localhost:59635/api/UserCrud/",
-        "header": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
+    "name": "insert_user",
+    "method": "POST",
+    "url": "http://localhost:59635/api/UserCrud/",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "name": "Robson",
+      "age": 30
+    },
+    "validation": {
+      "status": 200
+    }
+  },
+  {
+    "name": "verify_user_exists",
+    "method": "GET",
+    "url": "http://localhost:59635/api/UserCrud/${insert_user.response.body.user_id}",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "validation": {
+      "status": 200,
+      "body": {
+        "user": {
           "name": "Robson",
-          "age": 30
-        },
-        "validation": {
-          "status": 200
+          "age": 30,
+          "id": "${NUMBER}"
         }
-      },
-      {
-        "name": "verify_user_exists",
-        "method": "GET",
-        "url": "http://localhost:59635/api/UserCrud/${insert_user.response.body.user_id}",
-        "header": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "validation": {
-          "status": 200,
-          "body": {
-            "user": {
-              "name": "Robson",
-              "age": 30,
-              "id": "${NUMBER}"
-            }
-          }
-        }
-      },
-      {
-        "name": "delete user",
-        "method": "DELETE",
-        "header": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "url": "http://localhost:59635/api/UserCrud/${insert_user.response.body.user_id}"
       }
-    ]
+    }
+  },
+  {
+    "name": "delete_user",
+    "method": "DELETE",
+    "wait": "verify_user_exists",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "url": "http://localhost:59635/api/UserCrud/${insert_user.response.body.user_id}"
   },
   {
     "name": "age_between_17_19",
     "url": "http://localhost:59635/api/UserCrud/age",
-    "type": "unique_test",
     "method": "GET",
     "header": {
       "Content-Type": "application/json; charset=utf-8",
@@ -189,4 +176,3 @@
     }
   }
 ]
-
