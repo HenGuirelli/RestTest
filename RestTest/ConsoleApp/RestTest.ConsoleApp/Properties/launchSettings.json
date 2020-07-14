@@ -2,7 +2,7 @@
   "profiles": {
     "RestTest.ConsoleApp": {
       "commandName": "Project",
-      "commandLineArgs": ".\\Tests\\crud_test.json"
+      "commandLineArgs": ".\\Tests\\config.json"
     }
   }
 }

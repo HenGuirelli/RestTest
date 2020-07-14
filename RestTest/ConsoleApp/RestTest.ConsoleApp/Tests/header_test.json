@@ -1,19 +1,18 @@
 {
-    "name": "header",
-    "type": "unique_test",
-    "url": "http://localhost:59635/name",
-    "header": {
-        "Content-Type": "application/json; charset=utf-8",
-        "FullName": "Joel Miller"
-    },
+  "name": "header",
+  "url": "http://localhost:59635/name",
+  "header": {
+    "Content-Type": "application/json; charset=utf-8",
+    "FullName": "Joel Miller"
+  },
 
-    "validation": {
-        "header": {
-        "Transfer-Encoding": "${ANY}",
-        "Server": "${ANY}",
-        "X-Powered-By": "${ANY}",
-        "Date": "${ANY}",
-        "fullname": "Joel Miller"
-        }
+  "validation": {
+    "header": {
+      "Transfer-Encoding": "${ANY}",
+      "Server": "${ANY}",
+      "X-Powered-By": "${ANY}",
+      "Date": "${ANY}",
+      "fullname": "Joel Miller"
     }
+  }
 }

@@ -1,6 +1,5 @@
 {
     "name": "cookies",
-    "type": "unique_test",
     "url": "http://localhost:59635/cookies",
     "header": {
       "Content-Type": "application/json; charset=utf-8"
