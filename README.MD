@@ -31,16 +31,11 @@ Executar os testes:
 RestTest.ConsoleApp.exe .\config.json
 ```
 
-A aplicação suporta dois tipos de testes:
-* unique_test
-* sequence_test
-
-## Unique Test
-O tipo de teste unico é uma chamada independente com validação simples, por exemplo um endpoint em que recebe dois valores no body da requisição e a validação é a soma desses números.
+## Exemplo Simples
+Endpoint em que recebe dois valores no body e a validação é a soma desses números.
 ```json
 {
   "name": "sum",
-  "type": "unique_test",
   "url": "http://localhost:59635/sum",
   "method": "POST",
   "header": {
@@ -58,94 +53,98 @@ O tipo de teste unico é uma chamada independente com validação simples, por e
   }
 }
 ```
-É possivel ter vários testes unicos em um arquivo para testar vários endpoints:
+É possivel ter vários testes em um arquivo para testar vários endpoints:
 ```json
-{
-  "name": "sum",
-  "type": "unique_test",
-  "url": "http://localhost:59635/sum",
-  "method": "POST",
-  "header": {
-    "Content-Type": "application/json; charset=utf-8"
-  },
-  "body": {
-    "num1": 10,
-    "num2": 20
-  },
-
-  "validation": {
-    "body": {
-      "result": 30
-    }
-  }
-},
-{
-  "name": "sub",
-  "type": "unique_test",
-  "url": "http://localhost:59635/sub",
-  "method": "POST",
-  "header": {
-    "Content-Type": "application/json; charset=utf-8"
-  },
-  "body": {
-    "num1": 10,
-    "num2": 20
-  },
-
-  "validation": {
-    "body": {
-      "result": -10
-    }
-  }
-}
-```
-A sequencia em que as chamadas unicas acontecem não pode ser garantida.
-
-## Sequence Test
-O teste em sequecia é o tipo de teste em que a sequencia das requisições é mantida, esse tipo de teste faz sentido quando se usa o recurso de **dependências** que é a forma de referenciar um teste já concluido, por exemplo:
-
-O body do response da primeira requisição "insert_user" é reaproveitada na Url da segunda requisição "verify_user_exists"
-
-```json
-{
-  "name": "CrudTest",
-  "type": "sequence_test",
-  "sequence": [
-    {
-      "name": "insert_user",
-      "method": "POST",
-      "url": "http://localhost:59635/api/UserCrud/",
-      "header": {
-        "Content-Type": "application/json; charset=utf-8"
-      },
-      "body": {
-        "name": "Robson",
-        "age": 30
-      },
-      "validation": {
-        "status": 200
-      }
+[
+  {
+    "name": "sum",
+    "url": "http://localhost:59635/sum",
+    "method": "POST",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8"
     },
-    {
-      "name": "verify_user_exists",
-      "method": "GET",
-      "url": "http://localhost:59635/api/UserCrud/${insert_user.response.body.user_id}",
-      "header": {
-        "Content-Type": "application/json; charset=utf-8"
-      },
-      "validation": {
-        "status": 200,
-        "body": {
-          "user": {
-            "name": "Robson",
-            "age": 30,
-            "id": "${NUMBER}"
-          }
+    "body": {
+      "num1": 10,
+      "num2": 20
+    },
+
+    "validation": {
+      "body": {
+        "result": 30
+      }
+    }
+  },
+  {
+    "name": "sub",
+    "type": "unique_test",
+    "url": "http://localhost:59635/sub",
+    "method": "POST",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "num1": 10,
+      "num2": 20
+    },
+
+    "validation": {
+      "body": {
+        "result": -10
+      }
+    }
+  }
+]
+```
+A sequencia em que as chamadas acontecem não podem ser garantida.
+
+## Dependências
+Também é possivel usar o recurso da dependência, em que você pode referenciar outro teste.
+O body do response da primeira requisição "insert_user" é reaproveitada na URL da segunda requisição "verify_user_exists" e por fim, utilizado novamente na URL requisição "delete_user".
+
+```json
+[
+  {
+    "name": "insert_user",
+    "method": "POST",
+    "url": "http://localhost:59635/api/UserCrud/",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "name": "Robson",
+      "age": 30
+    },
+    "validation": {
+      "status": 200
+    }
+  },
+  {
+    "name": "verify_user_exists",
+    "method": "GET",
+    "url": "http://localhost:59635/api/UserCrud/${insert_user.response.body.user_id}",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "validation": {
+      "status": 200,
+      "body": {
+        "user": {
+          "name": "Robson",
+          "age": 30,
+          "id": "${NUMBER}"
         }
       }
     }
-  ]
-}
+  },
+  {
+    "name": "delete_user",
+    "method": "DELETE",
+    "header": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "url": "http://localhost:59635/api/UserCrud/${insert_user.response.body.user_id}"
+  }
+]
 ```
 
 ## Valores especiais
@@ -161,7 +160,6 @@ No exemplo é passado um header customizado e o teste consiste em validar que a 
 ```json
 {
   "name": "header",
-  "type": "unique_test",
   "url": "http://localhost:59635/name",
   "header": {
     "Content-Type": "application/json; charset=utf-8",
