@@ -30,7 +30,7 @@ Executar os testes:
 RestTest.ConsoleApp.exe .\config.json
 ```
 
-## Exemplo Simples
+## Teste simples
 Endpoint em que recebe dois valores no body e a validação é a soma desses números.
 ```json
 {
