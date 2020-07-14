@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Linq;
 using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,6 +55,13 @@ namespace RestTest.AspNet.Controllers
         public void Delete(int id)
         {
             _db.TryRemove(id, out var _);
+        }
+
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(new { result = _db.Select(x => x.Value) });
         }
 
         [HttpGet("age")]
