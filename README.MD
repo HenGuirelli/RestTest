@@ -96,9 +96,9 @@ Endpoint em que recebe dois valores no body e a validação é a soma desses nú
 A sequencia em que as chamadas acontecem não podem ser garantida.
 
 ## Dependências
-Também é possivel usar o recurso da dependência, em que você pode referenciar outro teste.
+Também é possivel usar o recurso da dependência, em que pode-se referenciar outro teste.
 
-Quando é detectado uma dependência do teste A que precisa de uma informação do teste B, o teste A automaticamente aguarda a conclusão do teste B para prosseguir o com o teste.
+Quando é detectado uma dependência do teste A que precisa de uma informação do teste B, o teste A automaticamente aguarda a conclusão do teste B para prosseguir.
 
 O body do response da primeira requisição "insert_user" é reaproveitada na URL da segunda requisição "verify_user_exists" e por fim, foi utilizado a clausula "wait" para esperar a conclusao do teste "verify_user_exists" para realizar a operação delete.
 ```json
